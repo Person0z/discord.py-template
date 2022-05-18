@@ -1,23 +1,30 @@
 import disnake
 from disnake.ext import commands
 import os
+from dotenv import load_dotenv
 import platform
 import aiohttp
 
+# Loading things from .env
+load_dotenv()
+token = os.getenv('token')
+
 # Your Discord Servers ID
 GUILD = 945077306374901773
-
-bot = commands.Bot()
+bot = commands.Bot(command_prefix=".", intents=disnake.Intents.all(), case_insensitive=True)
 
 # On Ready
 @bot.event
 async def on_ready():
-    print(f'==============================')
+    print('')
+    print(f'======================================')
     print(f"The bot is ready!")
     print(f"Logged in as {bot.user.name}")
     print(f"Python version: {platform.python_version()}")
-    print(f'==============================')
-
+    print('Discord Bot Template Made By Person0z')
+    print(f'======================================')    
+    print('')
+    
 # Load Cogs
 @bot.command()
 async def load(inter, extension):
@@ -31,8 +38,7 @@ async def unload(inter, extension):
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-    
+        bot.load_extension(f'cogs.{filename[:-3]}')   
 
 # Login to Discord with the bot's token.
-bot.run("BOT TOKEN")
+bot.run(token)
