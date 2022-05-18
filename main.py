@@ -35,4 +35,4 @@ for filename in os.listdir('./cogs'):
     
 
 # Login to Discord with the bot's token.
-bot.run("OTUwMjQ0NjY1Njk1ODIxODQ0.YiWGTg.5j1ybelb67wSaL3YiUjbl1kUvzY")
+bot.run("BOT TOKEN")
