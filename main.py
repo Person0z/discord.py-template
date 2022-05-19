@@ -1,16 +1,19 @@
+# Imports Don't Remove any!!
 import disnake
 from disnake.ext import commands
 import os
 from dotenv import load_dotenv
 import platform
-import aiohttp
 
 # Loading things from .env
 load_dotenv()
 token = os.getenv('token')
+guild = os.getenv('guild')
 
 # Your Discord Servers ID
-GUILD = 945077306374901773
+GUILD = guild
+
+# Prefix & Intents
 bot = commands.Bot(command_prefix=".", intents=disnake.Intents.all(), case_insensitive=True)
 
 # On Ready
