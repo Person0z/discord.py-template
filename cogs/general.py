@@ -17,13 +17,13 @@ class general(commands.Cog):
         print(f'Loaded Cog General')
         
     # Ping Command
-    @commands.slash_command(name=ping,
-                           description=Find the web latency of the bot,
-                           guild_ids=[guild])
+    @commands.slash_command(name='ping',
+                           description='Find the web latency of the bot',
+                           guild_ids=guild)
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.send_message(f"Pong! {round(self.bot.latency * 1000)}ms")
         
         
-        
+      
 def setup(bot):
     bot.add_cog(general(bot))

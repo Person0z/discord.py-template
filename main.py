@@ -2,16 +2,13 @@
 import disnake
 from disnake.ext import commands
 import os
-from dotenv import load_dotenv
 import platform
 
-# Loading things from .env
-load_dotenv()
-token = os.getenv('token')
-guild = os.getenv('guild')
+# Loading things from config
+import config
 
 # Prefix & Intents
-bot = commands.Bot(command_prefix=".", intents=disnake.Intents.all(), case_insensitive=True)
+bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), case_insensitive=True)
 
 # On Ready
 @bot.event
@@ -25,14 +22,15 @@ async def on_ready():
     print(f'======================================')    
     print('')
     
+    
 # Load Cogs
-@bot.command()
-async def load(inter, extension):
+@bot.slash_command()
+async def load(ctx, extension):
     bot.load_extension(f'cogs.{extension}')
     
 # Unload
-@bot.command()
-async def unload(inter, extension):
+@bot.slash_command()
+async def unload(ctx, extension):
     bot.unload_extension(f'cogs.{extension}')
 
 # Load Cogs On Start
@@ -41,4 +39,4 @@ for filename in os.listdir('./cogs'):
         bot.load_extension(f'cogs.{filename[:-3]}')   
 
 # Login to Discord with the bot's token.
-bot.run(token)
+bot.run(config.token)
