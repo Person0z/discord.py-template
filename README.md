@@ -19,6 +19,8 @@ pip install -r requirements.txt
 
 ### Setting up the bot properties
 
+> When setting up the bot remove "example" from example.config.py!!
+
 ```python
 # Your Discord Bot Token Goes Here
 token = 'DISCORD_BOT_TOKEN_HERE'
