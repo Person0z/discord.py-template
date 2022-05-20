@@ -10,9 +10,6 @@ load_dotenv()
 token = os.getenv('token')
 guild = os.getenv('guild')
 
-# Your Discord Servers ID
-GUILD = guild
-
 # Prefix & Intents
 bot = commands.Bot(command_prefix=".", intents=disnake.Intents.all(), case_insensitive=True)
 
