@@ -1,0 +1,2 @@
+token = 'YOUR_DISCORD_BOT_TOKEN'
+guild = "YOUR_DISCORD_SERVER_ID'
