@@ -14,12 +14,12 @@ bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), 
 @bot.event
 async def on_ready():
     print('')
-    print(f'======================================')
-    print(f"The bot is ready!")
+    print('======================================')
+    print("The bot is ready!")
     print(f"Logged in as {bot.user.name}")
     print(f"Python version: {platform.python_version()}")
     print('Discord Bot Template Made By Person0z')
-    print(f'======================================')    
+    print('======================================')    
     print('')
     
     
