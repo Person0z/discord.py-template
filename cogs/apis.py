@@ -2,6 +2,11 @@ import disnake
 from disnake.ext import commands
 import os
 import aiohttp
+import base64
+import time
+from PIL import Image
+from io import BytesIO
+import random
 
 class Apis(commands.Cog):
     
@@ -11,29 +16,29 @@ class Apis(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog API')
-    
-    
-    # Dogs Pics
-    @commands.slash_command(name="Dog",
-                       description="Image of a Dog!")
-    async def dog(inter):
-       async with aiohttp.ClientSession() as session:
-         request = await session.get('https://some-random-api.ml/img/dog')
-         dogjson = await request.json()
-       embed = disnake.Embed(title="Doggo!", color=disnake.Color.purple())
-       embed.set_image(url=dogjson['link'])
-       await inter.response.send_message(embed=embed)
 
-    # Cat Pics
-    @commands.slash_command(name="Cat",
-                       description="Image of a Cat!")
-    async def cat(inter):
-       async with aiohttp.ClientSession() as session:
-         request = await session.get('https://some-random-api.ml/img/cat')
-         catjson = await request.json()
-       embed = disnake.Embed(title="Kitty!", color=disnake.Color.blue())
-       embed.set_image(url=catjson['link'])
-       await inter.response.send_message(embed=embed)
-
+    # Image Genertor
+    @commands.slash_command(name="generate", description="Generate an image from a prompt!")
+    async def generate(inter, *, prompt: str):
+        ETA = int(time.time() + 60)
+        loading_images = ["loading/loading.gif",
+                          "loading/loading2.gif",
+                          "loading/loading3.gif", 
+                          "loading/loading4.gif",
+                          "loading/loading5.gif", 
+                          "loading/loading6.gif"]
+        embed = disnake.Embed(title=f"Loading...! Generating image... ETA: <t:{ETA}:R>", color=disnake.Color.random())
+        embed.set_image(file=disnake.File(random.choice(loading_images)))
+        msg = await inter.send(embed=embed)
+        async with aiohttp.request("POST", "https://backend.craiyon.com/generate", json={"prompt": prompt}) as resp:
+            if resp.status != 200:
+                return await inter.send("An error occurred while generating the image.")
+            data = await resp.json()
+            img = Image.open(BytesIO(base64.b64decode(data["images"][0].encode('utf-8'))))
+            img.save("image.png")
+            embed = disnake.Embed(title=f"The Image You Wanted Generated: {prompt}", color=disnake.Color.random())
+            embed.set_image(file=disnake.File('image.png'))
+            await inter.edit_original_response(content=None, embed=embed)
+      
 def setup(bot):
     bot.add_cog(Apis(bot))
