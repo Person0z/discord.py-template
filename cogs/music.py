@@ -13,7 +13,7 @@ class Music(commands.Cog):
     async def on_ready(self):
         print(f'Loaded Cog Music') 
 
-    # Coming Soon
+    # Coming Soon, Just testing the auto update
 
 
 def setup(bot):
