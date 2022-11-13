@@ -7,7 +7,6 @@ import time
 from PIL import Image
 from io import BytesIO
 import random
-import requests
 import json
 
 class Apis(commands.Cog):
@@ -36,7 +35,7 @@ class Apis(commands.Cog):
             if resp.status != 200:
                 return await inter.send("An error occurred while generating the image.")
             data = await resp.json()
-            img = Image.open(BytesIO(base64.b64decode(data["images"][0].encode('utf-8'))))
+            img = Image.open(BytesIO(base64.b64decode(data["images"][0])))
             img.save("image.png")
             embed = disnake.Embed(title=f"The Image You Wanted Generated: {prompt}", color=disnake.Color.random())
             embed.set_image(file=disnake.File('image.png'))
