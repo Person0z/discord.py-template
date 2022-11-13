@@ -94,7 +94,6 @@ class tickets(commands.Cog):
             for c in channel.guild.channels:
                 if c.name.startswith('ticket-') and c != channel:
                     await c.delete()
-                    
 
 def setup(bot):
     bot.add_cog(tickets(bot))
