@@ -31,6 +31,12 @@ class general(commands.Cog):
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
+    # Check Slash Command (Checks if the bot is online)
+    @commands.slash_command(name="check", description="Check if the bot is online!")
+    async def check(inter):
+        embed = disnake.Embed(title=f"Bot Status", description=f"Bot is online!", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.send(embed=embed)
 
     # Invite Command
     @commands.slash_command(name='invite',

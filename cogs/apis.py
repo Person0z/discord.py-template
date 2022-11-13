@@ -40,6 +40,19 @@ class Apis(commands.Cog):
             embed.set_image(file=disnake.File('image.png'))
             await inter.edit_original_response(content=None, embed=embed)
             os.remove("image.png")
-            
+
+    # BitCoin Slash Command
+    @commands.slash_command(name="bitcoin", description="Get the current price of Bitcoin!")
+    async def bitcoin(inter):
+        import requests
+        import json
+        url = "https://api.coindesk.com/v1/bpi/currentprice.json"
+        response = requests.get(url)
+        value = response.json()["bpi"]["USD"]["rate"]
+        embed = disnake.Embed(title=f"Bitcoin Price", description=f"Current Bitcoin Price: ${value}", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.send(embed=embed)
+
+
 def setup(bot):
     bot.add_cog(Apis(bot))
