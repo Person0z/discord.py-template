@@ -39,6 +39,7 @@ class Apis(commands.Cog):
             embed = disnake.Embed(title=f"The Image You Wanted Generated: {prompt}", color=disnake.Color.random())
             embed.set_image(file=disnake.File('image.png'))
             await inter.edit_original_response(content=None, embed=embed)
-      
+            os.remove("image.png")
+            
 def setup(bot):
     bot.add_cog(Apis(bot))

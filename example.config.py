@@ -1,8 +1,19 @@
-# Your Discord Bot Token Goes Here
-token = 'DISCORD_BOT_TOKEN_HERE'
+# Imports
+import disnake
+
+# Discord Token
+token = 'TOKEN'
 
 # Your Discord Server ID Will Go Here 
-guild = 'SERVER_ID_HERE'
+guild = 'GUILD ID'
 
-# The Prefix You Want For Your Discord Bot, Keep in mind you will only be using slash commands. The Prefix is not needed.
-prefix = 'PREFIX_HERE'
+# The Prefix You Want For Your Discord Bot
+prefix = '!'
+
+# Bot Status
+status = 'Made By Person0z'
+
+# Colors
+Success = disnake.Color.green
+Error = disnake.Color.red
+Random = disnake.Color.random

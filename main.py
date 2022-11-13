@@ -13,7 +13,7 @@ bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), 
 # On Ready
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name="Person0z's Server!"))
+    await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=config.status))
     print('')
     print('======================================')
     print("The bot is ready!")

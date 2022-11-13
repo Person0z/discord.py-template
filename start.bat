@@ -1,0 +1,3 @@
+py main.py
+echo
+
