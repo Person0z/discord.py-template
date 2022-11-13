@@ -72,5 +72,24 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Locked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
+    # Purge Command
+    @commands.slash_command(name='purge',
+                            description='Purge messages from a channel',)
+    async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
+        if not inter.author.guild_permissions.manage_messages:
+            embed = disnake.Embed(title=f"You Do Not Have Permission To Purge Messages!", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(ephemeral=True, embed=embed)   
+        if not inter.guild.me.guild_permissions.manage_messages:
+            embed = disnake.Embed(title=f"I Do Not Have Permission To Purge Messages!", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(delete_after=15, embed=embed)
+        if not channel:
+            channel = inter.channel
+        await channel.purge(limit=amount)
+        embed = disnake.Embed(title=f"Successfully Purged ``{amount}`` Messages!", color=config.Success())
+        embed.set_footer(text=f'Purged by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
+
 def setup(bot):
     bot.add_cog(moderation(bot))
