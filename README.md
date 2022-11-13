@@ -10,6 +10,17 @@ Side note: This bot is going to improve in time, so as of now it may look very b
 
 - Slash Commands
 - Prefix Used Commands
+- Text to Image Generator
+- Invite Command
+- Fun Commands (Being worked on)
+
+## Coming Soon
+
+- Moderation
+- Eco
+- Thread support opener/closer
+- Tickets
+- + More
 
 ### Install the dependencies
 
