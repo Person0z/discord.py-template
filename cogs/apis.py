@@ -7,6 +7,8 @@ import time
 from PIL import Image
 from io import BytesIO
 import random
+import requests
+import json
 
 class Apis(commands.Cog):
     
@@ -44,15 +46,12 @@ class Apis(commands.Cog):
     # BitCoin Slash Command
     @commands.slash_command(name="bitcoin", description="Get the current price of Bitcoin!")
     async def bitcoin(inter):
-        import requests
-        import json
         url = "https://api.coindesk.com/v1/bpi/currentprice.json"
         response = requests.get(url)
         value = response.json()["bpi"]["USD"]["rate"]
         embed = disnake.Embed(title=f"Bitcoin Price", description=f"Current Bitcoin Price: ${value}", color=disnake.Color.random())
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.send(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(Apis(bot))
