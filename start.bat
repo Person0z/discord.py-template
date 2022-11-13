@@ -1,3 +1,2 @@
-py main.py
 echo
-
+python3 main.py
