@@ -20,7 +20,6 @@ Side note: This bot is going to improve in time, so as of now it may look very b
 - Eco
 - Thread support opener/closer
 - Tickets
-- + More
 
 ### Install the dependencies
 
