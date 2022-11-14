@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 import os
+import config
 
 class general(commands.Cog):
     
@@ -46,6 +47,27 @@ class general(commands.Cog):
         embed.add_field(name="Invite Me By Clicking the Link Below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
         await inter.author.send(embed=embed)
         await inter.response.send_message("I sent you a private message!")
+
+    # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(config.welcome_channel)
+        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {member.guild.name}! We hope you enjoy your stay here!", color=disnake.Color.random())
+        embed.set_thumbnail(url=member.avatar.url)
+        embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
+        await channel.send(embed=embed)
+        await channel.send(f"Welcome {member.mention} to the server!", delete_after=0.5)
+
+    # a goodbye message when someone leaves the server with there porfile picture and name in the embed and a goodbye message in the chat in a custom channel
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        channel = self.bot.get_channel(config.welcome_channel)
+        embed = disnake.Embed(title=f"Goodbye {member.name}!", description=f"Goodbye {member.name}! We hope you enjoyed your stay here!", color=disnake.Color.random())
+        embed.set_thumbnail(url=member.avatar.url)
+        embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
+        await channel.send(embed=embed)
+        await channel.send(f"Goodbye {member.mention} from the server!", delete_after=0.5)
+        
 
 def setup(bot):
     bot.add_cog(general(bot))

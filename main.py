@@ -48,6 +48,8 @@ async def on_ready():
     print('')
     
 
+
+
 # Load Cogs
 #@bot.slash_command()
 #async def load(ctx, extension):
