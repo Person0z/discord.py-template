@@ -20,3 +20,6 @@ Random = disnake.Color.random
 
 # Owner ID
 owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
+
+# Welcomes & Goodbyes Channel ID
+welcome_channel = 0000000000000000
