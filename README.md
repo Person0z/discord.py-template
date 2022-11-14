@@ -33,14 +33,28 @@ pip install -r requirements.txt
 > When setting up the bot remove "example" from example.config.py!!
 
 ```python
-# Your Discord Bot Token Goes Here
-token = 'DISCORD_BOT_TOKEN_HERE'
+# Imports
+import disnake
+
+# Discord Token
+token = 'TOKEN'
 
 # Your Discord Server ID Will Go Here 
-guild = 'SERVER_ID_HERE'
+guild = 'GUILD ID'
 
 # The Prefix You Want For Your Discord Bot
-prefix = 'PREFIX_HERE'
+prefix = '!'
+
+# Bot Status
+status = 'Made By Person0z'
+
+# Colors
+Success = disnake.Color.green
+Error = disnake.Color.red
+Random = disnake.Color.random
+
+# Owner ID
+owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
 ```
 
 # How to run
