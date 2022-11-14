@@ -30,7 +30,7 @@ class Apis(commands.Cog):
                           "loading/loading6.gif"]
         embed = disnake.Embed(title=f"Loading...! Generating image... ETA: <t:{ETA}:R>", color=disnake.Color.random())
         embed.set_image(file=disnake.File(random.choice(loading_images)))
-        msg = await inter.send(embed=embed)
+        msg = await inter.send(embed=embed)     
         async with aiohttp.request("POST", "https://backend.craiyon.com/generate", json={"prompt": prompt}) as resp:
             if resp.status != 200:
                 return await inter.send("An error occurred while generating the image.")

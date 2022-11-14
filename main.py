@@ -10,6 +10,21 @@ import config
 # Prefix & Intents
 bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), case_insensitive=True)
 
+# Automatically Update Bot from Github Repo. Requires Git
+@bot.command()
+async def update(ctx):
+    if ctx.author.id in config.owner_ids:
+        await ctx.send("Updating...")
+        os.system("git pull")
+        await ctx.send("Updated!")
+        print("Please Restart The Bot!")
+        await ctx.send("Restarting...")
+        os.system("python main.py")
+        await ctx.send("Restarted!")
+        print("Restarted!")
+    else:
+        await ctx.send("You are not allowed to use this command!")
+
 # On Ready
 @bot.event
 async def on_ready():
