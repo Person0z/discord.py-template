@@ -3,6 +3,7 @@ import disnake
 from disnake.ext import commands
 import os
 import platform
+import time
 
 # Loading things from config
 import config
@@ -14,17 +15,23 @@ bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), 
 @bot.command()
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
-        await ctx.send("Updating...")
+        embed = disnake.Embed(title="Updating...", description="Updating the bot from Github...", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
         os.system("git pull")
-        await ctx.send("Updated!")
-        print("Please Restart The Bot!")
-        await ctx.send("Restarting...")
-        os.system("python main.py")
+        embed = disnake.Embed(title="Updated!", description="Updated the bot from Github!", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+        embed = disnake.Embed(title="Restarting...", description="Restarting the bot...", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+        time.sleep(5.0)
         os.system("python3 main.py")
-        await ctx.send("Restarted!")
-        print("Restarted!")
+        os.system("python main.py")
     else:
-        await ctx.send("You are not allowed to use this command!")
+        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
 
 # On Ready
 @bot.event
