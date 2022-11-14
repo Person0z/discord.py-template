@@ -20,6 +20,7 @@ async def update(ctx):
         print("Please Restart The Bot!")
         await ctx.send("Restarting...")
         os.system("python main.py")
+        os.system("python3 main.py")
         await ctx.send("Restarted!")
         print("Restarted!")
     else:
