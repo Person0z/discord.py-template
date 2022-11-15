@@ -32,6 +32,20 @@ async def update(ctx):
         embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=disnake.Color.random())
         embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
+# A command to stop the bot
+@bot.command()
+async def stop(ctx):
+    if ctx.author.id in config.owner_ids:
+        embed = disnake.Embed(title="Stopping...", description="Stopping the bot...", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+        time.sleep(5.0)
+        os.system("exit")
+    else:
+        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=disnake.Color.random())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+
 
 # On Ready
 @bot.event
