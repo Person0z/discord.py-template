@@ -6,7 +6,7 @@ import platform
 import time
 
 # Loading things from config
-import config
+import config # The config will be updated to a better version soon, 
 
 # Prefix & Intents
 bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), case_insensitive=True)
