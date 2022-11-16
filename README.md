@@ -4,7 +4,7 @@
 
 Discord Python Bot Template, for those looking for ideas or starting to learn Python!
 
-Side note: This bot is going to improve in time, so as of now it may look very bad. However it will look and preform way better in the coming days!
+Side Note: Please keep in mind this bot is still in the working, you will have bugs, code thats not clean (still will work), and updates every day. The bot is going to  improve. Just please give it time and hold on. Remeber nothong good comes fast.
 
 ## Features
 
