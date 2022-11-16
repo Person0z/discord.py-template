@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), 
 @bot.command()
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
-        embed = diskane.Embed(title="Requires GIT. Please install if you do not have it.", description="Bot will still attempt to update. Even if you don't have GIT", color=config.Error())
+        embed = disnake.Embed(title="Requires GIT. Please install if you do not have it.", description="Bot will still attempt to update. Even if you don't have GIT", color=config.Error())
         embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
         await ctx.send(ephemeral=True, embed=embed)
         embed = disnake.Embed(title="Updating...", description="Updating the bot from Github...", color=disnake.Color.random())
