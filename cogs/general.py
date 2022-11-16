@@ -44,7 +44,7 @@ class general(commands.Cog):
                             description='Get the invite link for the bot',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
         embed = disnake.Embed(title="EvoGen Invite URL", color=disnake.Color.random())
-        embed.add_field(name="Invite Me By Clicking the Link Below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
+        embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
         await inter.author.send(embed=embed)
         await inter.response.send_message("I sent you a private message!")
 
