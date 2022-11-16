@@ -37,7 +37,7 @@ class Apis(commands.Cog):
             data = await resp.json()
             img = Image.open(BytesIO(base64.b64decode(data["images"][0])))
             img.save("image.png")
-            embed = disnake.Embed(title=f"The Image You Wanted Generated: {prompt}", color=disnake.Color.random())
+            embed = disnake.Embed(title=f"The image you wanted generated: {prompt}", color=disnake.Color.random())
             embed.set_image(file=disnake.File('image.png'))
             await inter.edit_original_response(content=None, embed=embed)
             os.remove("image.png")
@@ -49,7 +49,7 @@ class Apis(commands.Cog):
         async with aiohttp.request("GET", url) as response:
             text = await response.text()
             value = json.loads(text)["bpi"]["USD"]["rate"]
-            embed = disnake.Embed(title=f"Bitcoin Price", description=f"Current Bitcoin Price: ${value}", color=disnake.Color.random())
+            embed = disnake.Embed(title=f"Bitcoin Price", description=f"Current bitcoin price: ${value}", color=disnake.Color.random())
             embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.send(embed=embed)
 
