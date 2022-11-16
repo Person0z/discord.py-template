@@ -8,18 +8,17 @@ Side note: This bot is going to improve in time, so as of now it may look very b
 
 ## Features
 
-- Slash Commands
-- Prefix Used Commands
-- Text to Image Generator
-- Invite Command
-- Fun Commands (Being worked on)
+- Slash Commands (Mostly everything has this)
+- Prefix Used Commands (Used only for commands that owners should only have access too)
+- Text to Image Generator (Finished)
+- Invite Command (will be cleaned up and more info added on the embed)
+- Fun Commands (Adding more soon, needs to be cleaned up)
+- Moderation (adding more soon, not adding /ban, /kick as discord has that added already)
+- Tickets (needs to be cleaned)
 
 ## Coming Soon
-
-- Moderation
 - Eco
 - Thread support opener/closer
-- Tickets
 
 ### Install the dependencies
 
