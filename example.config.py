@@ -1,3 +1,10 @@
+###############################################
+#           Template made by Person0z         #
+#          https://github.com/Person0z        #
+#           Copyright© Person0z, 2022         #
+#           Do Not Remove This Header         #
+###############################################
+
 # Imports
 import disnake
 
