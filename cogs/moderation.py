@@ -19,12 +19,12 @@ class moderation(commands.Cog):
     async def slowmode(self, inter: disnake.ApplicationCommandInteraction, seconds: int, channel: disnake.TextChannel = None):
 
         if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"You Do Not Have Permission To Set Slowmode!", color=config.Error())
+            embed = disnake.Embed(title=f"You do not have permission to set slowmode!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed) 
 
         if not inter.guild.me.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"I Do Not Have Permission To Set Slowmode!", color=config.Error())
+            embed = disnake.Embed(title=f"I do not have permission to set slowmode!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed) 
         if not channel:
@@ -39,11 +39,11 @@ class moderation(commands.Cog):
                             description='Lock a channel',)
     async def lock(self, inter: disnake.ApplicationCommandInteraction, channel: disnake.TextChannel = None):
         if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"You Do Not Have Permission To Lock ``{channel}!``", color=config.Error())
+            embed = disnake.Embed(title=f"You do not have permission to lock ``{channel}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)            
         if not inter.guild.me.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"I Do Not Have Permission To Lock ``{channel}!``", color=config.Error())
+            embed = disnake.Embed(title=f"I do not have permission to lock ``{channel}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         if not channel:
@@ -58,11 +58,11 @@ class moderation(commands.Cog):
                             description='Unlock a channel',)
     async def unlock(self, inter: disnake.ApplicationCommandInteraction, channel: disnake.TextChannel = None):
         if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"You Do Not Have Permission To Unlock ``{channel}!``", color=config.Error())
+            embed = disnake.Embed(title=f"You do not have permission to unlock ``{channel}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)   
         if not inter.guild.me.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"I Do Not Have Permission To Unlock ``{channel}!``", color=config.Error())
+            embed = disnake.Embed(title=f"I do not have permission to unlock ``{channel}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         if not channel:
@@ -77,11 +77,11 @@ class moderation(commands.Cog):
                             description='Purge messages from a channel',)
     async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
         if not inter.author.guild_permissions.manage_messages:
-            embed = disnake.Embed(title=f"You Do Not Have Permission To Purge Messages!", color=config.Error())
+            embed = disnake.Embed(title=f"You do not have permission To purge messages!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)   
         if not inter.guild.me.guild_permissions.manage_messages:
-            embed = disnake.Embed(title=f"I Do Not Have Permission To Purge Messages!", color=config.Error())
+            embed = disnake.Embed(title=f"I do not have permission to purge messages!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         if not channel:
