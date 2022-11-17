@@ -1,3 +1,10 @@
+###############################################
+#           Template made by Person0z         #
+#          https://github.com/Person0z        #
+#           Copyright© Person0z, 2022         #
+#           Do Not Remove This Header         #
+###############################################
+
 # Imports Don't Remove any!!
 import disnake
 from disnake.ext import commands
@@ -50,16 +57,34 @@ async def on_ready():
     print('Discord Bot Template Made By Person0z')
     print('======================================')    
     print('')
-    
-# Load Cogs
-#@bot.slash_command()
-#async def load(ctx, extension):
-#    bot.load_extension(f'cogs.{extension}')
-    
-# Unload
-#@bot.slash_command()
-#async def unload(ctx, extension):
-#    bot.unload_extension(f'cogs.{extension}')
+
+"""    
+# Load Cogs slash command
+@bot.command()
+async def load(ctx, extension):
+    if ctx.author.id in config.owner_ids:
+        bot.load_extension(f'cogs.{extension}')
+        embed = disnake.Embed(title="Loaded!", description=f"Loaded {extension}!", color=config.Success())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+    else:
+        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=config.Error())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+
+# Unload cogs slash command
+@bot.slash_command()
+async def unload(ctx, extension):
+    if ctx.author.id in config.owner_ids:
+        bot.unload_extension(f'cogs.{extension}')
+        embed = disnake.Embed(title="Unloaded!", description=f"Unloaded {extension}!", color=config.Success())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+    else:
+        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=config.Error())
+        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)
+"""
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):

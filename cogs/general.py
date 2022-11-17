@@ -1,3 +1,11 @@
+###############################################
+#           Template made by Person0z         #
+#          https://github.com/Person0z        #
+#           Copyright© Person0z, 2022         #
+#           Do Not Remove This Header         #
+###############################################
+
+# Importing the required modules
 import disnake
 from disnake.ext import commands
 import os
@@ -14,9 +22,11 @@ class general(commands.Cog):
         
     # Ping Command
     @commands.slash_command(name='ping',
-                           description='Find the web latency of the bot',)
+                            description='Get the bot\'s latency',)
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
-        await inter.response.send_message(f"Pong! {round(self.bot.latency * 1000)}ms")
+        embed = disnake.Embed(title=f"Pong!", description=f"The ping is around `{round(self.bot.latency * 1000)}ms`", color=config.Success())
+        embed.set_footer(text=f'Command executed by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
 
     # Help Command
     @commands.slash_command(name='help',
