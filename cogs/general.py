@@ -26,13 +26,13 @@ class general(commands.Cog):
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
         embed = disnake.Embed(title=f"Pong!", description=f"The ping is around `{round(self.bot.latency * 1000)}ms`", color=config.Success())
         embed.set_footer(text=f'Command executed by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.response.send_message(embed=embed)
+        await inter.response.send_message(ephemeral=True, embed=embed)
 
     # Help Command
     @commands.slash_command(name='help',
                             description='Get Useful Info About The Bot',)
     async def help(self, inter: disnake.ApplicationCommandInteraction):
-        embed = disnake.Embed(title="EvoGen's Personal Help Menu", color=config.Success())
+        embed = disnake.Embed(title=f"{self.bot.user}'s Personal Help Menu", color=config.Success())
         embed.set_author(name="Bot Info", icon_url=self.bot.user.avatar.url)
         embed.add_field(name="Birth Giver", value="```Person0z#0812```", inline=False)
         embed.add_field(name="Bot Version", value="```v1.0```", inline=False)
@@ -42,23 +42,26 @@ class general(commands.Cog):
         embed.add_field(name="Fun Commands", value="```8ball, Coinflip, Ping, Generate, Bitcoin, Dice.```", inline=False)        
         embed.add_field(name="Ticket Commands", value="```Ticket, Close, Add, Remove, List.```", inline=False)
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.response.send_message(embed=embed)
+        await inter.response.send_message(ephemeral=True, embed=embed)
 
     # Check Slash Command (Checks if the bot is online)
     @commands.slash_command(name="check", description="Check if the bot is online!")
     async def check(inter):
         embed = disnake.Embed(title=f"Bot Status", description=f"Bot is online!", color=config.Success())
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.send(embed=embed)
+        await inter.send(ephemeral=True, embed=embed)
 
     # Invite Command
     @commands.slash_command(name='invite',
                             description='Get the invite link for the bot',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
-        embed = disnake.Embed(title="EvoGen Invite URL", color=config.Success())
+        embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", color=config.Success())
         embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
         await inter.author.send(embed=embed)
-        await inter.response.send_message("I sent you a private message!")
+        embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", description=f"Check your DMs {inter.author.mention}!", color=config.Success())
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+
+        await inter.response.send_message(ephemeral=True, embed=embed)
 
     # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
     @commands.Cog.listener()
