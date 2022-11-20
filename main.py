@@ -12,12 +12,24 @@ import os
 import platform
 import time
 import asyncio
+import random
+import sys
 
 # Loading things from config
 import config # The config will be updated to a better version soon, 
-
-# Prefix & Intents
-bot = commands.Bot(command_prefix=config.prefix, intents=disnake.Intents.all(), case_insensitive=True)
+                # but for now it will work fine.
+        
+# Setting up the bot
+bot = commands.Bot(
+    command_prefix=config.prefix,
+    intents=disnake.Intents.all(),
+    case_insensitive=True,
+    owner_ids=config.owner_ids,
+    activity=disnake.Activity(
+        type=disnake.ActivityType.watching,
+        name=config.activity
+    )
+)
 
 # Automatically Update Bot from Github Repo. Requires Git
 @bot.command()
