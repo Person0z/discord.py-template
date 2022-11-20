@@ -44,7 +44,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-status = 'Made By Person0z'
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta"]
 
 # Colors
 Success = disnake.Color.green
@@ -55,7 +55,7 @@ Random = disnake.Color.random
 owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
 
 # Welcomes & Goodbyes Channel ID
-welcome_channel = 000000000000000000
+welcome_channel = 0000000000000000
 ```
 
 # How to run
