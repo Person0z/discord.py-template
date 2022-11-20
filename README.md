@@ -1,5 +1,4 @@
 
-
 # Discord Python Bot Template
 
 Discord Python Bot Template, for those looking for ideas or starting to learn Python!
@@ -19,6 +18,7 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 ## Coming Soon
 - Eco
 - Thread support opener/closer
+- Levels
 
 ### Install the dependencies
 
@@ -63,3 +63,4 @@ The bot can be started with a python command:
 ```sh
 python main.py
 ```
+or you can run start.bat/.sh
