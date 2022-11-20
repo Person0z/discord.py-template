@@ -8,13 +8,12 @@
 ###############################################
 
 import disnake
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement, RoleAward
 import os
 import config
 
 class level(commands.Cog):
-    
     def __init__(self, bot):
     	self.bot = bot
 
@@ -27,18 +26,15 @@ class level(commands.Cog):
     async def on_ready(self):
         print(f'Loaded Cog Levels')
 
-    @bot.event
-    async def on_message(message):
-        await config.lvl.award_xp(amount=[15, 25], message=message, multiply=False)
+    @commands.slash_command(name="rank", description="What is your levels!")
+    async def rank(self, inter):
+        data = await config.lvl.get_data_for(inter.author)
+        await inter.send(f'You are level {data.level} and your rank is {data.rank}')
 
-    @bot.command()
-    async def rank(ctx):
-        data = await lvl.get_data_for(ctx.author)
-        await ctx.send(f'You are level {data.level} and your rank is {data.rank}')
-
-    @bot.command()
-    async def leaderboard(ctx):
-        data = await lvl.each_member_data(ctx.guild, sort_by='rank')
+    @commands.slash_command(name="leaderboard", description="The leaderboard of the rank!")
+    async def leaderboard(self, inter, ctx):
+        data = await config.lvl.each_member_data(ctx.guild, sort_by='rank')
+        await inter.send(data)
 
 def setup(bot):
     bot.add_cog(level(bot))
