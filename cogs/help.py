@@ -1,6 +1,7 @@
 ###############################################
 #           Template made by Person0z         #
 #         Help Command Made by ๖̶̶̶ζ͜͡Zerbaib      #
+#           https://github.com/Zerbaib        #
 #          https://github.com/Person0z        #
 #           Copyright© Person0z, 2022         #
 #           Do Not Remove This Header         #
