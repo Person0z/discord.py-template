@@ -7,6 +7,7 @@
 
 # Imports
 import disnake
+from discordLevelingSystem import DiscordLevelingSystem
 
 # Discord Token
 token = 'TOKEN'
@@ -30,3 +31,8 @@ owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by a
 
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
+
+# lvl create
+lvl = DiscordLevelingSystem()
+lvlchan = 0000000000000000
+lvl.connect_to_database_file(r'db\DiscordLevelingSystem.db')
