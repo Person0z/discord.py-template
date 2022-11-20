@@ -85,6 +85,12 @@ async def status_task():
     statuses = ["/help", "V.1.5", "V2 en dev ^^", "je soutiens: oz-projects.fr/", "je soutiens: eclazion.net", "tous pour Discord.py", "Dev by: Zerbaib", "prefix: /"]
     await bot.change_presence(activity=disnake.Game(random.choice(statuses)))
 
+@bot.event
+async def on_message(message):
+    if message.author == bot.user or message.author.bot:
+        return
+    print(f"{message.guild}, {message.channel} | {str(message.author)} >>> {str(message.content)}")
+
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
