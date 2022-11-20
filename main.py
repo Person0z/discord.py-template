@@ -7,10 +7,11 @@
 
 # Imports Don't Remove any!!
 import disnake
-from disnake.ext import commands
+from disnake.ext import commands, tasks
 import os
 import platform
 import time
+import asyncio
 
 # Loading things from config
 import config # The config will be updated to a better version soon, 
@@ -29,9 +30,6 @@ async def update(ctx):
         embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
         os.system("git pull")
-#        embed = disnake.Embed(title="Updated!", description="Updated the bot from Github!", color=disnake.Color.random())
-#        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-#        await ctx.send(embed=embed)
         embed = disnake.Embed(title="Restarting...", description=f'Restarting the bot... If the bot crashes then please check if config needs to be updated or if you need to install a pip module. Report any bugs on the GitHub Located [Here](https://github.com/Person0z/discord.py-template/)', color=disnake.Color.random())
         embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
@@ -47,44 +45,27 @@ async def update(ctx):
 # On Ready
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name=config.status))
+    print('###############################################')
+    print('#           Template made by Person0z         #')
+    print('#          https://github.com/Person0z        #')
+    print('#           Copyright© Person0z, 2022         #')
+    print('#           Do Not Remove This Header         #')
+    print('###############################################')
     print('')
-    print('======================================')
+    print('')
+    print('===============================================')
     print("The bot is ready!")
-    print(f"Logged in as {bot.user.name}")
-    print(f"Disnake version: {disnake.__version__}")
+    print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
+    print(f'Running on {platform.system()} {platform.release()} ({os.name})')
+    print(f"Disnake version : {disnake.__version__}")
     print(f"Python version: {platform.python_version()}")
-    print('Discord Bot Template Made By Person0z')
-    print('======================================')    
+    print('===============================================')
     print('')
-
-"""    
-# Load Cogs slash command
-@bot.command()
-async def load(ctx, extension):
-    if ctx.author.id in config.owner_ids:
-        bot.load_extension(f'cogs.{extension}')
-        embed = disnake.Embed(title="Loaded!", description=f"Loaded {extension}!", color=config.Success())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-    else:
-        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=config.Error())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-
-# Unload cogs slash command
-@bot.slash_command()
-async def unload(ctx, extension):
-    if ctx.author.id in config.owner_ids:
-        bot.unload_extension(f'cogs.{extension}')
-        embed = disnake.Embed(title="Unloaded!", description=f"Unloaded {extension}!", color=config.Success())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-    else:
-        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=config.Error())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-"""
+    print('')
+    print('================== Loaded Cogs ================')
+    await bot.wait_until_ready()
+    await asyncio.sleep(0.01)
+    print('===============================================')
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
