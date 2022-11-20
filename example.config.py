@@ -18,7 +18,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = "/help"
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta"]
 
 # Colors
 Success = disnake.Color.green
