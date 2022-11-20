@@ -76,8 +76,14 @@ async def on_ready():
     print('')
     print('================== Loaded Cogs ================')
     await bot.wait_until_ready()
+    status_task.start()
     await asyncio.sleep(0.01)
     print('===============================================')
+
+@tasks.loop(minutes=0.1)
+async def status_task():
+    statuses = ["/help", "V.1.5", "V2 en dev ^^", "je soutiens: oz-projects.fr/", "je soutiens: eclazion.net", "tous pour Discord.py", "Dev by: Zerbaib", "prefix: /"]
+    await bot.change_presence(activity=disnake.Game(random.choice(statuses)))
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
