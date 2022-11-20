@@ -18,6 +18,7 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 ## Coming Soon
 - Eco
 - Thread support opener/closer
+- Levels
 
 ### Install the dependencies
 
