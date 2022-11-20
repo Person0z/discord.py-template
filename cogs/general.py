@@ -28,22 +28,6 @@ class general(commands.Cog):
         embed.set_footer(text=f'Command executed by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(ephemeral=True, embed=embed)
 
-    # Help Command
-    @commands.slash_command(name='help',
-                            description='Get Useful Info About The Bot',)
-    async def help(self, inter: disnake.ApplicationCommandInteraction):
-        embed = disnake.Embed(title=f"{self.bot.user}'s Personal Help Menu", color=config.Success())
-        embed.set_author(name="Bot Info", icon_url=self.bot.user.avatar.url)
-        embed.add_field(name="Birth Giver", value="```Person0z#0812```", inline=False)
-        embed.add_field(name="Bot Version", value="```v1.0```", inline=False)
-        embed.add_field(name="Prefix", value="```Slash Commands```", inline=False)
-        embed.add_field(name="Ping", value=f"```Pong! {round(self.bot.latency * 1000)}ms```", inline=False)
-        embed.add_field(name="Mod Commands", value="```Un/Ban, Kick, Nuke, Slowmode, Purge, Un/Lock. ```", inline=False)
-        embed.add_field(name="Fun Commands", value="```8ball, Coinflip, Ping, Generate, Bitcoin, Dice.```", inline=False)        
-        embed.add_field(name="Ticket Commands", value="```Ticket, Close, Add, Remove, List.```", inline=False)
-        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.response.send_message(ephemeral=True, embed=embed)
-
     # Check Slash Command (Checks if the bot is online)
     @commands.slash_command(name="check", description="Check if the bot is online!")
     async def check(inter):
