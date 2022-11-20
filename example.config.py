@@ -18,7 +18,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-status = 'Made By Person0z'
+activity = "/help"
 
 # Colors
 Success = disnake.Color.green
