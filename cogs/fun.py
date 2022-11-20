@@ -10,6 +10,7 @@ import disnake
 from disnake.ext import commands
 import os
 import random
+import aiohttp
 
 class fun(commands.Cog):
     
@@ -44,6 +45,25 @@ class fun(commands.Cog):
         embed = disnake.Embed(title=f"You Flipped A Coin!", description=f"You Flipped {random.choice(coin)}", color=disnake.Color.random())
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.send(embed=embed)
-    
+
+    @commands.slash_command(
+        name="randomfact",
+        description="Get a random fact."
+    )
+    async def randomfact(self, inter):
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://uselessfacts.jsph.pl/random.json?language=en") as request:
+                if request.status == 200:
+                    data = await request.json()
+                    embed = disnake.Embed(title=f"Random Fact!", description=data["text"], color=0xD75BF4)
+                    embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+                else:
+                    embed = disnake.Embed(
+                        title="Error!",
+                        description="There is something wrong with the API, please try again later",
+                        color=0xE02B2B
+                    )
+                await inter.send(embed=embed)
+                
 def setup(bot):
     bot.add_cog(fun(bot))
