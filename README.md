@@ -1,5 +1,4 @@
 
-
 # Discord Python Bot Template
 
 Discord Python Bot Template, for those looking for ideas or starting to learn Python!
@@ -63,3 +62,4 @@ The bot can be started with a python command:
 ```sh
 python main.py
 ```
+or you can run start.bat/.sh
