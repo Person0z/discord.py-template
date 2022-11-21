@@ -1,5 +1,6 @@
 .env
 config.py
+configlvl.py
 *.pyc
 
 
