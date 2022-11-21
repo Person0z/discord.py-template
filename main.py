@@ -16,8 +16,8 @@ import random
 import sys
 
 # Loading things from config
-import config # The config will be updated to a better version soon, 
-                # but for now it will work fine.
+import config    # The config will be updated to a better version soon, 
+import configlvl # but for now it will work fine.
         
 # Setting up the bot
 bot = commands.Bot(
@@ -63,8 +63,8 @@ async def on_ready():
     print("#                                             #")
     print('#           Do Not Remove This Header         #')
     print('###############################################')
-    print('')
-    print('')
+    print()
+    print()
     print('===============================================')
     print("The bot is ready!")
     print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
@@ -72,8 +72,8 @@ async def on_ready():
     print(f"Disnake version : {disnake.__version__}")
     print(f"Python version: {platform.python_version()}")
     print('===============================================')
-    print('')
-    print('')
+    print()
+    print()
     print('================== Loaded Cogs ================')
     await bot.wait_until_ready()
     status_task.start()
@@ -85,6 +85,10 @@ async def on_ready():
 async def status_task():
     statuses = ["/help", "V.1.3-beta", "Made by Person0z"]
     await bot.change_presence(activity=disnake.Game(random.choice(config.activity)))
+
+@bot.event
+async def on_message(message):
+    await configlvl.lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([configlvl.nitro_booster, configlvl.associate_role], 20, multiply=False))
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
