@@ -1,6 +1,8 @@
 import disnake
 from disnake.ext import commands
 import configlvl
+import config
+from main import bot
 from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement, RoleAward
 
 class level(commands.Cogs):
