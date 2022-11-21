@@ -9,6 +9,7 @@
 import disnake
 from disnake.ext import commands
 import os
+import asyncio
 
 class tickets(commands.Cog):
     
@@ -20,88 +21,51 @@ class tickets(commands.Cog):
         print(f'Loaded Cog Tickets')
         
 
-    # Ticket Category
-    @commands.Cog.listener()
-    async def on_guild_channel_create(self, channel):
-        if channel.name.startswith('ticket-'):
-            category = disnake.utils.get(channel.guild.categories, name='Tickets')
-            await channel.edit(category=category)
-   
-    # Ticket Creation Slash Command 
-    @commands.slash_command(name='ticket', description='Create a ticket')
-    async def ticket(self, inter):
-        guild = inter.guild
-        channel = await guild.create_text_channel(f'ticket-{inter.author.name}')
-        await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
-        await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
-        await channel.send(f'{inter.author.mention} Welcome to your ticket! Please wait for a staff member to help you!')
-        await inter.send(f'Your ticket has been created at {channel.mention}')
+#    @commands.slash_command()
+#    async def blep(
+#        inter: disnake.ApplicationCommandInteraction,
+#        animal: str = commands.Param(choices=["Dog", "Cat", "Penguin"])
+#    ):
+#        await inter.response.send_message(animal)
 
-    # Close Ticket Slash Command
-    @commands.slash_command(name='close', description='Close a ticket')
-    async def close(self, inter):
-        if inter.channel.name.startswith('ticket-'):
-            await inter.channel.delete()
-            await inter.send('Ticket has been closed!')
-        else:
-            await inter.send('This is not a ticket!')
+    # Slash command for tickets which has options of opening a ticket, closing a ticket, and deleting a ticket
+    @commands.slash_command()
+    async def ticket(
+        inter: disnake.ApplicationCommandInteraction,
+        action: str = commands.Param(choices=["open", "close", "add"])
+    ):
+        # If the user selects open, it will create a ticket
+        if action == "open":
+            # Creates a ticket category if it doesn't exist
+            if not disnake.utils.get(inter.guild.categories, name="Tickets"):
+                await inter.guild.create_category("Tickets")
+            # Creates the ticket channel
+            channel = await inter.guild.create_text_channel(
+                name=f"ticket-{inter.author.name}",
+                category=disnake.utils.get(inter.guild.categories, name="Tickets"),
+                topic=f"Ticket for {inter.author.name}",
+                reason=f"Ticket created by {inter.author.name}",
+            )
+            # Sets the permissions for the ticket channel
+            await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
+            await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
 
-    # Add User To Ticket Slash Command
-    @commands.slash_command(name='add', description='Add a user to a ticket')
-    async def add(self, inter, user: disnake.Member):
-        if inter.channel.name.startswith('ticket-'):
-            await inter.channel.set_permissions(user, send_messages=True, read_messages=True)
-            await inter.send(f'{user.mention} has been added to the ticket!')
-        else:
-            await inter.send('This is not a ticket!')
-
-    # Remove User From Ticket Slash Command
-    @commands.slash_command(name='remove', description='Remove a user from a ticket')
-    async def remove(self, inter, user: disnake.Member):
-        if inter.channel.name.startswith('ticket-'):
-            await inter.channel.set_permissions(user, send_messages=False, read_messages=False)
-            await inter.send(f'{user.mention} has been removed from the ticket!')
-        else:
-            await inter.send('This is not a ticket!')
-
-    # List Users In Ticket Slash Command
-    @commands.slash_command(name='list', description='List users in a ticket')
-    async def list(self, inter):
-        if inter.channel.name.startswith('ticket-'):
-            await inter.send(f'Users in the ticket: {inter.channel.members}')
-        else:
-            await inter.send('This is not a ticket!')
-    
-    # Make a transcript of the ticket
-    @commands.slash_command(name='transcript', description='Make a transcript of the ticket')
-    async def transcript(self, inter):
-        if inter.channel.name.startswith('ticket-'):
-            messages = await inter.channel.history(limit=None).flatten()
-            with open(f'{inter.channel.name}.txt', 'w') as f:
-                for message in messages:
-                    f.write(f'{message.author}: {message.content}\n')
-            await inter.send(file=disnake.File(f'{inter.channel.name}.txt'))
-            os.remove(f'{inter.channel.name}.txt')
-
-
-    # Ticket Help Slash Command
-    @commands.slash_command(name='tickethelp', description='Ticket Help')
-    async def tickethelp(self, inter):
-        embed = disnake.Embed(title='Ticket Help', description='Here are the commands for the ticket system!', color=0x00ff00)
-        embed.add_field(name='/ticket', value='Create a ticket', inline=False)
-        embed.add_field(name='/close', value='Close a ticket', inline=False)
-        embed.add_field(name='/add', value='Add a user to a ticket', inline=False)
-        embed.add_field(name='/remove', value='Remove a user from a ticket', inline=False)
-        embed.add_field(name='/list', value='List users in a ticket', inline=False)
-        await inter.send(embed=embed)
-
-    # Make sures the user has only one ticket open at a time
-    @commands.Cog.listener()
-    async def on_guild_channel_create(self, channel):
-        if channel.name.startswith('ticket-'):
-            for c in channel.guild.channels:
-                if c.name.startswith('ticket-') and c != channel:
-                    await c.delete()
+            # Sends a message to the ticket channel
+            await channel.send(
+                f"Hello {inter.author.mention}, welcome to your ticket! Please wait for a staff member to help you."
+            )
+            # Sends a message to the user
+            await inter.response.send_message(
+                f"Your ticket has been created at {channel.mention}"
+            )
+        # If the user selects close, it will close the ticket
+        elif action == "close":
+            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
+            if inter.channel.name.startswith("ticket-"):
+                await inter.channel.delete()
+                await inter.response.send_message("Your ticket has been closed.")
+            else:
+                await inter.response.send_message("You don't have a ticket open.")
 
 def setup(bot):
     bot.add_cog(tickets(bot))

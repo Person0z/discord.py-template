@@ -99,28 +99,34 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Purged by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
-    # kick command 
+    # kick command
     @commands.slash_command(name='kick',
                             description='Kick a member',)
-    async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = "No reason provided"):
+    async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = None):
         if not inter.author.guild_permissions.kick_members:
-            embed = disnake.Embed(title=f"You do not have permission to kick ``{member}!``", color=config.Error())
+            embed = disnake.Embed(title=f"You do not have permission to kick ``{member}``!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)   
         if not inter.guild.me.guild_permissions.kick_members:
-            embed = disnake.Embed(title=f"I do not have permission to kick ``{member}!``", color=config.Error())
+            embed = disnake.Embed(title=f"I do not have permission to kick ``{member}``!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
-        embed = disnake.Embed(title=f"You Have Been Kicked from **{member.guild.name}**!", color=config.Success())
-        embed.add_field(name="Reason:", value=f"``{reason}``", inline=False)
-        embed.set_footer(text=f'Kicked by {inter.author}', icon_url=inter.author.avatar.url)
-        await member.send(embed=embed)
+        if member.top_role >= inter.author.top_role:
+            embed = disnake.Embed(title=f"You cannot kick ``{member}`` because they have a higher role than you!", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(ephemeral=True, embed=embed)
+        if member.top_role >= inter.guild.me.top_role:
+            embed = disnake.Embed(title=f"I cannot kick ``{member}`` because they have a higher role than me!", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(ephemeral=True, embed=embed)
+        if reason is None:
+            reason = "No reason provided"
         await member.kick(reason=reason)
-        embed = disnake.Embed(title=f"Successfully Kicked ``{member}`` for ``{reason}``", color=config.Success())
+        embed = disnake.Embed(title=f"Successfully Kicked ``{member}``!", color=config.Success())
         embed.set_footer(text=f'Kicked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
-    # ban command 
+    # ban command
     @commands.slash_command(name='ban',
                             description='Ban a member',)
     async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = "No reason provided"):
@@ -130,6 +136,10 @@ class moderation(commands.Cog):
             return await inter.response.send_message(ephemeral=True, embed=embed)   
         if not inter.guild.me.guild_permissions.ban_members:
             embed = disnake.Embed(title=f"I do not have permission to ban ``{member}!``", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(delete_after=15, embed=embed)
+        if member.top_role >= inter.author.top_role:
+            embed = disnake.Embed(title=f"You cannot ban ``{member}`` because they have a higher role than you!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         embed = disnake.Embed(title=f"You Have Been Banned from **{member.guild.name}**!", color=config.Success())
