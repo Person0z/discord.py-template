@@ -24,11 +24,7 @@ bot = commands.Bot(
     command_prefix=config.prefix,
     intents=disnake.Intents.all(),
     case_insensitive=True,
-    owner_ids=config.owner_ids,
-    activity=disnake.Activity(
-        type=disnake.ActivityType.watching,
-        name=config.activity
-    )
+    owner_ids=config.owner_ids
 )
 
 # Automatically Update Bot from Github Repo. Requires Git
@@ -80,8 +76,15 @@ async def on_ready():
     print('')
     print('================== Loaded Cogs ================')
     await bot.wait_until_ready()
+    status_task.start()
     await asyncio.sleep(0.01)
     print('===============================================')
+
+# Status Task
+@tasks.loop(minutes=0.15)
+async def status_task():
+    statuses = ["/help", "V.1.3-beta", "Made by Person0z"]
+    await bot.change_presence(activity=disnake.Game(random.choice(config.activity)))
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
