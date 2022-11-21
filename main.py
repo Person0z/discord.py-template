@@ -80,10 +80,6 @@ async def on_ready():
     await asyncio.sleep(0.01)
     print('===============================================')
 
-@bot.event
-async def on_message(message):
-    await config.lvl.award_xp(amount=[24, 25], message=message, bonus=DiscordLevelingSystem.Bonus([config.nitro_booster, config.role1], 20, multiply=False))
-
 # Status Task
 @tasks.loop(minutes=0.15)
 async def status_task():
