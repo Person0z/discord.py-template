@@ -1,7 +1,9 @@
 .env
 config.py
+
 configlvl.py
+cogs/level.py
+.db/
+
 *.pyc
-
-
 .vs/
