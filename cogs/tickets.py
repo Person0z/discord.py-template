@@ -32,7 +32,8 @@ class tickets(commands.Cog):
     @commands.slash_command()
     async def ticket(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["open", "close", "add"])
+        action: str = commands.Param(choices=["open", "close", "add"]),
+        user: disnake.User = commands.Param(description="The user you want to add to the ticket")
     ):
         # If the user selects open, it will create a ticket
         if action == "open":
@@ -66,6 +67,15 @@ class tickets(commands.Cog):
                 await inter.response.send_message("Your ticket has been closed.")
             else:
                 await inter.response.send_message("You don't have a ticket open.")
+        # If the user selects add, it will add a user to the ticket Ex: /ticket action:add user:Person0z
+        elif action == "add":
+            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
+            if inter.channel.name.startswith("ticket-"):
+                await channel.set_permissions(inter.user, send_messages=True, read_messages=True)
+                await inter.response.send_message(f"{user.mention} has been added to the ticket.")
+            else:
+                await inter.response.send_message("You don't have a ticket open.")
+
 
 def setup(bot):
     bot.add_cog(tickets(bot))

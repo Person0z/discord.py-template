@@ -89,7 +89,9 @@ async def status_task():
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')   
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
-# Login to Discord with the bot's token.
-bot.run(config.token)
+# Run The Bot 
+bot.run(config.token, reconnect=True)
+
+

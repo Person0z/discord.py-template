@@ -168,7 +168,7 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Unbanned by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
-    # Nuke command that nukes channels 
+    # Nuke command that nukes channels
     @commands.slash_command(name='nuke',
                             description='Nuke a channel',)
     async def nuke(self, inter: disnake.ApplicationCommandInteraction, channel: disnake.TextChannel = None):

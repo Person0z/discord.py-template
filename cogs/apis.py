@@ -31,11 +31,11 @@ class Apis(commands.Cog):
     async def generate(inter, *, prompt: str):
         await inter.response.defer()
         ETA = int(time.time() + 60)
-        loading_images = ["loading/loading.gif",
-                          "loading/loading2.gif",
-                          "loading/loading3.gif", 
-                          "loading/loading4.gif",
-                          "loading/loading5.gif"]
+        loading_images = ["assests/loading/loading.gif",
+                          "assests/loading/loading2.gif",
+                          "assests/loading/loading3.gif", 
+                          "assests/loading/loading4.gif",
+                          "assests/loading/loading5.gif"]
         embed = disnake.Embed(title=f"Loading...! Generating image... ETA: <t:{ETA}:R>", color=disnake.Color.random())
         embed.set_image(file=disnake.File(random.choice(loading_images)))
         await inter.send(embed=embed)
