@@ -67,18 +67,25 @@ class Apis(commands.Cog):
         inter: disnake.ApplicationCommandInteraction,
         action: str = commands.Param(choices=["bird", "dog", "cat", "fox", "koala", "panda", "redpanda"]),
     ):
+    
+        bird = disnake.Color.blue()
+        dog = disnake.Color.green()
+        cat = disnake.Color.blue()
+        fox = disnake.Color.orange()
+        koala = disnake.Color.dark_green()
+        panda = disnake.Color.red()
+        redpanda = disnake.Color.dark_red()
+
         async with aiohttp.ClientSession() as session:
             request = await session.get(f'https://some-random-api.ml/img/{action}')
             animaljson = await request.json()
             request2 = await session.get(f'https://some-random-api.ml/facts/{action}')
             factjson = await request2.json()
-            embed = disnake.Embed(title=f"{action.title()} Image", color=disnake.Color.random())
+            embed = disnake.Embed(title=f"{action.title()} Image", color=eval(action))
             embed.set_image(url=animaljson['link'])
             embed.add_field(name=f"{action.title()} Fact", value=factjson['fact'])
             embed.set_footer(text=f'Requested by {inter.author} ', icon_url=inter.author.avatar.url)
             await inter.send(embed=embed)
-
-
 
 def setup(bot):
     bot.add_cog(Apis(bot))
