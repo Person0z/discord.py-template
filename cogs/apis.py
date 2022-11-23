@@ -61,5 +61,24 @@ class Apis(commands.Cog):
             embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.send(embed=embed)
 
+    # Animal Slash Command with options for different animals 
+    @commands.slash_command()
+    async def animal(
+        inter: disnake.ApplicationCommandInteraction,
+        action: str = commands.Param(choices=["bird", "dog", "cat", "fox", "koala", "panda", "redpanda"]),
+    ):
+        async with aiohttp.ClientSession() as session:
+            request = await session.get(f'https://some-random-api.ml/img/{action}')
+            animaljson = await request.json()
+            request2 = await session.get(f'https://some-random-api.ml/facts/{action}')
+            factjson = await request2.json()
+            embed = disnake.Embed(title=f"{action.title()} Image", color=disnake.Color.random())
+            embed.set_image(url=animaljson['link'])
+            embed.add_field(name=f"{action.title()} Fact", value=factjson['fact'])
+            embed.set_footer(text=f'Requested by {inter.author} ', icon_url=inter.author.avatar.url)
+            await inter.send(embed=embed)
+
+
+
 def setup(bot):
     bot.add_cog(Apis(bot))
