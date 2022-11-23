@@ -28,24 +28,30 @@ bot = commands.Bot(
     owner_ids=config.owner_ids
 )
 
-# Update Bot from Github Repo. Requires Git and starts the bot depending on the OS you are using.
 @bot.command()
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
         if platform.system() == "Windows":
-            embed = disnake.Embed(title="Updating... (Windows)", description="Updating the bot from the Github Repo...", color=config.Success())
-            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=embed)
-            subprocess.call("git pull", shell=True)
-            subprocess.call([sys.executable, "main.py"])
-            sys.exit()
+            try:
+                embed = disnake.Embed(title="Updating... (Windows)", description="Updating the bot from the Github Repo...", color=config.Success())
+                embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+                await ctx.send(embed=embed)
+                subprocess.call("git pull", shell=True)
+                subprocess.call([sys.executable, "main.py"])
+                sys.exit()
+            except:
+                await ctx.send("Git failed to update the bot! Please try again later.")
+
         elif platform.system() == "Linux":
-            embed = disnake.Embed(title="Updating... (Linux)", description="Updating the bot from the Github Repo...", color=config.Success())
-            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=embed)
-            subprocess.call(["git", "pull"])
-            subprocess.call([sys.executable, "main.py"])
-            sys.exit()
+            try:
+                embed = disnake.Embed(title="Updating... (Linux)", description="Updating the bot from the Github Repo...", color=config.Success())
+                embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+                await ctx.send(embed=embed)
+                subprocess.call(["git", "pull"])
+                subprocess.call([sys.executable, "main.py"])
+                sys.exit()
+            except:
+                await ctx.send("Git failed to update the bot! Please try again later.")
         else:
             embed = disnake.Embed(title="Error", description="Your OS is not supported!", color=config.Error())
             await ctx.send(embed=embed)
