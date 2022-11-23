@@ -74,13 +74,6 @@ async def on_ready():
     print(f"Python version: {platform.python_version()}")
     print('=' * 50)
 
-
-
-
-
-
-
-
 # Status Task
 @tasks.loop(minutes=0.15)
 async def status_task():
