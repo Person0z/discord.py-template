@@ -9,6 +9,7 @@
 import disnake
 from disnake.ext import commands, tasks
 import os
+import subprocess
 import platform
 import time
 import asyncio
@@ -27,28 +28,22 @@ bot = commands.Bot(
     owner_ids=config.owner_ids
 )
 
-# Automatically Update Bot from Github Repo. Requires Git
+# Update Bot from Github Repo. Requires Git and starts the bot depending on the OS you are using.
 @bot.command()
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
-        embed = disnake.Embed(title="Requires GIT. Please install if you do not have it.", description="Bot will still attempt to update. Even if you don't have GIT", color=config.Error())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-        embed = disnake.Embed(title="Updating...", description="Updating the bot from Github...", color=disnake.Color.random())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-        os.system("git pull")
-        embed = disnake.Embed(title="Restarting...", description=f'Restarting the bot... If the bot crashes then please check if config needs to be updated or if you need to install a pip module. Report any bugs on the GitHub Located [Here](https://github.com/Person0z/discord.py-template/)', color=disnake.Color.random())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-        print("If you see python not found. Don't Worry. It will still restart. I have done it for both Linux & Windows OS")
-        time.sleep(3.0)
-        os.system("python3 main.py")
-        os.system("python main.py")
+        if platform.system() == "Windows":
+            os.system("git pull")
+            subprocess.call([sys.executable, "main.py"])
+            sys.exit()
+        elif platform.system() == "Linux":
+            os.system("git pull")
+            subprocess.call([sys.executable, "main.py"])
+            sys.exit()
+        else:
+            await ctx.send("Your OS is not supported.")
     else:
-        embed = disnake.Embed(title="Error!", description="You do not have permission to use this command!", color=disnake.Color.random())
-        embed.set_footer(text=f'Requested by {ctx.author}', icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
+        await ctx.send("You are not allowed to use this command.")    
 
 # On Ready
 @bot.event

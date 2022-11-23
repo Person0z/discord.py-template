@@ -65,23 +65,24 @@ class Apis(commands.Cog):
     @commands.slash_command()
     async def animal(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["bird", "dog", "cat", "fox", "koala", "panda", "redpanda"]),
+        action: str = commands.Param(choices=["bird", "dog", "cat", "fox", "koala", "panda"]),
     ):
     
-        bird = disnake.Color.blue()
-        dog = disnake.Color.green()
-        cat = disnake.Color.blue()
-        fox = disnake.Color.orange()
-        koala = disnake.Color.dark_green()
-        panda = disnake.Color.red()
-        redpanda = disnake.Color.dark_red()
+        colors = {
+            "bird": disnake.Color.blue(),
+            "dog": disnake.Color.green(),
+            "cat": disnake.Color.orange(),
+            "fox": disnake.Color.purple(),
+            "koala": disnake.Color.dark_green(),
+            "panda": disnake.Color.dark_gold(),
+        }
 
         async with aiohttp.ClientSession() as session:
             request = await session.get(f'https://some-random-api.ml/img/{action}')
             animaljson = await request.json()
             request2 = await session.get(f'https://some-random-api.ml/facts/{action}')
             factjson = await request2.json()
-            embed = disnake.Embed(title=f"{action.title()} Image", color=eval(action))
+            embed = disnake.Embed(title=f"{action.title()} Image", color=colors[action])
             embed.set_image(url=animaljson['link'])
             embed.add_field(name=f"{action.title()} Fact", value=factjson['fact'])
             embed.set_footer(text=f'Requested by {inter.author} ', icon_url=inter.author.avatar.url)
