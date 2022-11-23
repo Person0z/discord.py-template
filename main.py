@@ -75,7 +75,6 @@ async def on_ready():
     print('')
     print('')
     print('================== Loaded Cogs ================')
-    await bot.wait_until_ready()
     status_task.start()
     await asyncio.sleep(0.01)
     print('===============================================')
