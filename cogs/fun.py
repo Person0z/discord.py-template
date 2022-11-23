@@ -24,7 +24,7 @@ class fun(commands.Cog):
     # Dice Roll Slash Command
     @commands.slash_command(name="dice", description="Roll a dice!")
     async def dice(inter):
-        dice = ["assests/dice/1.png", "assests/dice/2.png", "assests/dice/3.png", "assests/dice/4.png", "assests/dice/5.png", "assests/dice/6.png"]    
+        dice = ["assets/dice/1.png", "assets/dice/2.png", "assets/dice/3.png", "assets/dice/4.png", "assets/dice/5.png", "assets/dice/6.png"]    
         embed = disnake.Embed(title=f"You Rolled A Dice!", color=disnake.Color.random())
         embed.set_image(file=disnake.File(random.choice(dice)))
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
