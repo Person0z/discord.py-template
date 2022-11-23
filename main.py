@@ -33,17 +33,25 @@ bot = commands.Bot(
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
         if platform.system() == "Windows":
+            embed = disnake.Embed(title="Updating... (Windows)", description="Updating the bot from the Github Repo...", color=config.Success())
+            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=embed)
             subprocess.call("git pull", shell=True)
             subprocess.call([sys.executable, "main.py"])
             sys.exit()
         elif platform.system() == "Linux":
+            embed = disnake.Embed(title="Updating... (Linux)", description="Updating the bot from the Github Repo...", color=config.Success())
+            embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=embed)
             subprocess.call(["git", "pull"])
             subprocess.call([sys.executable, "main.py"])
             sys.exit()
         else:
-            await ctx.send("Your OS is not supported.")
+            embed = disnake.Embed(title="Error", description="Your OS is not supported!", color=config.Error())
+            await ctx.send(embed=embed)
     else:
-        await ctx.send("You are not allowed to use this command.")    
+        embed = disnake.Embed(title="Error", description="You are not allowed to use this command!", color=config.Error())
+        await ctx.send(embed=embed)
 
 # On Ready
 @bot.event
