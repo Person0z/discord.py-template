@@ -73,13 +73,13 @@ async def on_ready():
     print(f"Disnake version : {disnake.__version__}")
     print(f"Python version: {platform.python_version()}")
     print('=' * 50)
-    print()
-    print()
-    print('==================== Loaded Cogs =================')
-    await bot.wait_until_ready()
-    status_task.start()
-    await asyncio.sleep(0.01)
-    print('=' * 50)
+
+
+
+
+
+
+
 
 # Status Task
 @tasks.loop(minutes=0.15)
