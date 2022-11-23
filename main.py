@@ -33,11 +33,11 @@ bot = commands.Bot(
 async def update(ctx):
     if ctx.author.id in config.owner_ids:
         if platform.system() == "Windows":
-            os.system("git pull")
+            subprocess.call("git pull", shell=True)
             subprocess.call([sys.executable, "main.py"])
             sys.exit()
         elif platform.system() == "Linux":
-            os.system("git pull")
+            subprocess.call(["git", "pull"])
             subprocess.call([sys.executable, "main.py"])
             sys.exit()
         else:
