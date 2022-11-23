@@ -93,7 +93,6 @@ async def on_ready():
 # Status Task
 @tasks.loop(minutes=0.15)
 async def status_task():
-    statuses = ["/help", "V.1.3-beta", "Made by Person0z"]
     await bot.change_presence(activity=disnake.Game(random.choice(config.activity)))
 
 # Load Cogs On Start
