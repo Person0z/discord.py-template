@@ -253,7 +253,7 @@ class moderation(commands.Cog):
 
     # warns command that shows the amount of warns a user has
     @commands.slash_command(name='warns',
-                            description='Check the warns of a member',)
+                            description='Shows the amount of warns of a member',)
     async def warns(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member):
         if not inter.author.guild_permissions.kick_members:
             embed = disnake.Embed(title=f"You do not have permission to check the warns of ``{member}!``", color=config.Error())
@@ -263,18 +263,14 @@ class moderation(commands.Cog):
             embed = disnake.Embed(title=f"I do not have permission to check the warns of ``{member}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
-        if member.top_role >= inter.author.top_role:
-            embed = disnake.Embed(title=f"You cannot check the warns of ``{member}`` because they have a higher role than you!", color=config.Error())
-            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(delete_after=15, embed=embed)
         with open('warns.json', 'r') as f:
             warns = json.load(f)
         if str(member.id) not in warns:
             embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
-            embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
+            embed.set_footer(text=f'Warns checked by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(embed=embed)
-        embed = disnake.Embed(title=f"``{member}`` has ``{len(warns[str(member.id)])}`` warns!", description=f"**Reason:** \n```{warns}```", color=config.Success())
-        embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
+        embed = disnake.Embed(title=f"``{member}`` has ``{len(warns[str(member.id)])}`` warns!", color=config.Success())
+        embed.set_footer(text=f'Warns checked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
     # clearwarns command that clears the amount of warns that you choose of a user 
@@ -315,6 +311,34 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
+    # clearallwarns command that clears all the warns of a user
+    @commands.slash_command(name='clearallwarns',
+                            description='Clear all the warns of a member',)
+    async def clearallwarns(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member):
+        if not inter.author.guild_permissions.kick_members:
+            embed = disnake.Embed(title=f"You do not have permission to clear the warns of ``{member}!``", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(ephemeral=True, embed=embed)   
+        if not inter.guild.me.guild_permissions.kick_members:
+            embed = disnake.Embed(title=f"I do not have permission to clear the warns of ``{member}!``", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(delete_after=15, embed=embed)
+        if member.top_role >= inter.author.top_role:
+            embed = disnake.Embed(title=f"You cannot clear the warns of ``{member}`` because they have a higher role than you!", color=config.Error())
+            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(delete_after=15, embed=embed)
+        with open('warns.json', 'r') as f:
+            warns = json.load(f)
+        if str(member.id) not in warns:
+            embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
+            embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
+            return await inter.response.send_message(embed=embed)
+        warns.pop(str(member.id))
+        with open('warns.json', 'w') as f:
+            json.dump(warns, f, indent=4)
+        embed = disnake.Embed(title=f"Successfully cleared all warns of ``{member}``!", color=config.Success())
+        embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
 
 def setup(bot):
     bot.add_cog(moderation(bot))
