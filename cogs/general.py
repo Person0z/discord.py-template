@@ -59,7 +59,7 @@ class general(commands.Cog):
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
         await channel.send(embed=embed)
-        await channel.send(f"Welcome {member.mention} to the server!", delete_after=0.5)
+        await channel.send(f"{member.mention}", delete_after=0.5)
 
     # a goodbye message when someone leaves the server with there porfile picture and name in the embed and a goodbye message in the chat in a custom channel
     @commands.Cog.listener()
