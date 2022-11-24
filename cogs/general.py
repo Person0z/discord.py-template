@@ -73,6 +73,38 @@ class general(commands.Cog):
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
         await channel.send(embed=embed)
+            
+    # user info command
+    @commands.slash_command(name='userinfo',
+                            description='Get info about a user',)
+    async def userinfo(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member = None):
+        if member is None:
+            member = inter.author
+        embed = disnake.Embed(title=f"{member.name}'s Info", color=config.Success())
+        embed.add_field (name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```", inline=False)
+        embed.add_field (name="User Top Role", value=f"{member.top_role.mention}", inline=False)
+        embed.add_field (name="User Roles", value=f"{', '.join([role.mention for role in member.roles])}", inline=False)
+        embed.add_field (name="User Permissions", value=f"```{', '.join([perm for perm, value in member.guild_permissions if value])}```", inline=False)
+        embed.add_field (name="User Status", value=f"```{member.status}```", inline=False)
+        embed.add_field (name="User Boosting", value=f"```{member.premium_since}```", inline=False)
+        embed.add_field (name="User Avatar", value=f"[Click Here]({member.avatar.url})", inline=False)
+        embed.add_field (name="User Profile", value=f"[Click Here](https://discord.com/users/{member.id})", inline=False)
+        embed.add_field (name="User Mention", value=f"{member.mention}", inline=False)
+        embed.set_thumbnail(url=member.avatar.url)
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
+
+    # server info command
+    @commands.slash_command(name='serverinfo',
+                            description='Get info about the server',)
+    async def serverinfo(self, inter: disnake.ApplicationCommandInteraction):
+        embed = disnake.Embed(title=f"{inter.guild.name}'s Info", color=config.Success())
+        embed.add_field (name="\nServer Info", value=f"\n**Server:** ```{inter.guild.name} ({inter.guild.id})```\n**Server Owner:** ```{inter.guild.owner.name}#{inter.guild.owner.discriminator} ({inter.guild.owner.id})```\n**Server Created:** ```{inter.guild.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Server Region:** ```{inter.guild.region}```\n**Nitro Info (Boosts):** ```People Boosting: {inter.guild.premium_subscription_count}\nServer Boost Level: {inter.guild.premium_tier}```\n**Server Members:** ```{inter.guild.member_count}```\n**Server Channels:** ```{len(inter.guild.channels)}```\n**Server Emojis:** ```{len(inter.guild.emojis)}```", inline=False)
+        embed.add_field (name="Server Roles", value=f"{', '.join([role.mention for role in inter.guild.roles])}", inline=False)
+        embed.add_field (name="Server Icon", value=f"[Click Here]({inter.guild.icon.url})", inline=False)
+        embed.set_thumbnail(url=inter.guild.icon.url)
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
 
 
 def setup(bot):
