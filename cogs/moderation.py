@@ -98,7 +98,7 @@ class moderation(commands.Cog):
         await channel.purge(limit=amount)
         embed = disnake.Embed(title=f"Successfully Purged ``{amount}`` Messages!", color=config.Success())
         embed.set_footer(text=f'Purged by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.response.send_message(embed=embed)
+        await inter.response.send_message(embed=embed, delete_after=5)
 
     # kick command
     @commands.slash_command(name='kick',
