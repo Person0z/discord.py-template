@@ -16,8 +16,11 @@ class level(commands.Cogs):
     async def on_message(message):
         await lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([nitro_booster, associate_role], 20, multiply=False))
 
-    @bot.event
-    async def on_dls_level_up(member: discord.Member, message: discord.Message, data: MemberData):
+    #@bot.event
+    #async def on_dls_level_up(member: discord.Member, message: discord.Message, data: MemberData):
+
+
+
 
 
 def setup(bot):
