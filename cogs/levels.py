@@ -1,6 +1,8 @@
 import disnake
 from disnake.ext import commands
 import discordLevelingSysteme
+import config
+import configlvl
 
 class level(commands.Cogs):
     def __init__(self, bot):
