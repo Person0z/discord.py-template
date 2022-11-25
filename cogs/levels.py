@@ -12,5 +12,9 @@ class level(commands.Cogs):
     async def on_ready(self):
         print(f'Loaded Cog Levels')
 
+    @bot.event
+    async def on_message(message):
+        await lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([nitro_booster, associate_role], 20, multiply=False))
+
 def setup(bot):
     bot.add_cog(level())
