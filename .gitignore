@@ -1,4 +1,7 @@
 .env
-config.py
 *.pyc
+
 .vs/
+
+config.py
+configlvl.py
