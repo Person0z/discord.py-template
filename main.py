@@ -17,8 +17,8 @@ import random
 import sys
 
 # Loading things from config
-import config # The config will be updated to a better version soon, 
-                # but for now it will work fine.
+import config    # The config will be updated to a better version soon, 
+import configlvl # but for now it will work fine.
         
 # Setting up the bot
 bot = commands.Bot(
