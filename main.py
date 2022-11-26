@@ -8,6 +8,7 @@
 # Imports Don't Remove any!!
 import disnake
 from disnake.ext import commands, tasks
+from discordLevelingSystem import DiscordLevelingSystem
 import os
 import subprocess
 import platform
@@ -97,7 +98,7 @@ async def status_task():
 
 @bot.event
 async def on_message(message):
-    await lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([nitro_booster, associate_role], 20, multiply=False))
+    await configlvl.lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([configlvl.nitro_booster, configlvl.associate_role], 20, multiply=False))
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):
