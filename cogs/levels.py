@@ -1,6 +1,6 @@
 import disnake
 from disnake.ext import commands
-import discordLevelingSysteme
+from discordLevelingSystem import DiscordLevelingSystem, LevelUpAnnouncement, RoleAward
 import config
 import configlvl
 
