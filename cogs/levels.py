@@ -20,4 +20,4 @@ class level(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(level())
+    bot.add_cog(level(bot))
