@@ -1,5 +1,5 @@
 import disnake
-import discordLevelingSysteme
+import discordLevelingSystem
 
 lvl = DiscordLevelingSystem()
 lvl.connect_to_database_file(r'db\DiscordLevelingSystem.db')
