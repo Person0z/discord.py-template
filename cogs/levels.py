@@ -17,5 +17,10 @@ class level(commands.Cog):
         data = await configlvl.lvl.get_data_for(ctx.author)
         await ctx.send(f"You are level {data.level} you have {data.xp} xp\n and your rank is {data.rank}")
 
+    @commands.slash_command()
+    async def leaderboard(ctx):
+        data = await configlvl.lvl.each_member_data(str(config.guild), sort_by="rank")
+        await ctx.send(f"{data}")
+
 def setup(bot):
     bot.add_cog(level(bot))
