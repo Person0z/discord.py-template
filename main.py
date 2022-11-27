@@ -99,7 +99,6 @@ async def status_task():
 @bot.event
 async def on_message(message):
     await configlvl.lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([configlvl.nitro_booster, configlvl.associate_role], 20, multiply=False))
-    print(f"xp up: {configlvl.lvl.award_xp}")
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):

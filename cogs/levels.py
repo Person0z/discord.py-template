@@ -13,9 +13,9 @@ class level(commands.Cog):
         print(f'Loaded Cog Levels')
 
     @commands.slash_command()
-    async def rank(inter):
-        data = await configlvl.lvl.get_data_for(inter.author)
-        await inter.send(f"You are level {data.level} and your rank is {data.rank}")
+    async def rank(ctx):
+        data = await configlvl.lvl.get_data_for(ctx.author)
+        await ctx.send(f"You are level {data.level} you have {data.xp} xp\n and your rank is {data.rank}")
 
 def setup(bot):
     bot.add_cog(level(bot))
