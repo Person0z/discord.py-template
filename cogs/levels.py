@@ -19,7 +19,7 @@ class level(commands.Cog):
 
     @commands.slash_command()
     async def leaderboard(ctx):
-        print()
+        await ctx.send("aaa")
 
 
 def setup(bot):
