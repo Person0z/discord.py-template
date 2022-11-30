@@ -19,7 +19,7 @@ class level(commands.Cog):
 
     @commands.slash_command()
     async def leaderboard(ctx):
-        data = await configlvl.lvl.each_member_data(ctx.guild, sort_by='rank')
+        # data = await configlvl.lvl.each_member_data(ctx.guild, sort_by='rank') # fetch data doesnt work
         await ctx.send("aaa")
 
 
