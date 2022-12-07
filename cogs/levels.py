@@ -12,11 +12,15 @@ class level(commands.Cog):
     async def on_ready(self):
         print(f'Loaded Cog Levels')
 
-    #@bot.event
-    #async def on_dls_level_up(member: discord.Member, message: discord.Message, data: MemberData):
+    @commands.slash_command()
+    async def rank(ctx):
+        data = await configlvl.lvl.get_data_for(ctx.author)
+        await ctx.send(f"You are level {data.level} you have {data.xp} xp\n and your rank is {data.rank}")
 
-
-
+    @commands.slash_command()
+    async def leaderboard(ctx):
+        # data = await configlvl.lvl.each_member_data(ctx.guild, sort_by='rank') # fetch data doesnt work
+        await ctx.send("aaa")
 
 
 def setup(bot):
