@@ -57,6 +57,10 @@ class help(commands.Cog):
                             "```/remove - Remove a user from the ticket```" +
                             "```/list - List Pople and roles in a ticket```",
                             inline=True)
+        embedVar.add_field(name="Rank Commands", 
+                           value=
+                           "```/rank - See your rank in the chat```",
+                           inline=False)
         embedVar.set_thumbnail(
             url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
         )
