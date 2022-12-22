@@ -80,6 +80,7 @@ async def on_ready():
     print('===============================================')
     print("The bot is ready!")
     print(f'Logged in as {bot.user.name}#{bot.user.discriminator} | {bot.user.id}')
+    print(f"I am on {len(bot.guilds)} server")
     print(f'Running on {platform.system()} {platform.release()} ({os.name})')
     print(f"Disnake version : {disnake.__version__}")
     print(f"Python version: {platform.python_version()}")
