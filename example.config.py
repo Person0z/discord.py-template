@@ -32,4 +32,4 @@ owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by a
 welcome_channel = 0000000000000000
 
 # Logging Channel ID
-deleted_logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
+logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
