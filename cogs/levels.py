@@ -15,7 +15,8 @@ class level(commands.Cog):
     @commands.slash_command()
     async def rank(ctx):
         data = await configlvl.lvl.get_data_for(ctx.author)
-        await ctx.send(f"You are level {data.level} you have {data.xp} xp\n and your rank is {data.rank}")
+        embed = disnake.Embed(title="Our rank info", description=f"You are level {data.level} you have {data.xp} xp\n and your rank is {data.rank}")
+        await ctx.send(embed=embed)
 
     @commands.slash_command()
     async def leaderboard(ctx):
