@@ -8,7 +8,6 @@
 # Imports Don't Remove any!!
 import disnake
 from disnake.ext import commands, tasks
-from discordLevelingSystem import DiscordLevelingSystem
 import os
 import subprocess
 import platform
@@ -19,7 +18,6 @@ import sys
 
 # Loading things from config
 import config    # The config will be updated to a better version soon, 
-import configlvl # but for now it will work fine.
         
 # Setting up the bot
 bot = commands.Bot(
@@ -95,10 +93,6 @@ async def on_ready():
 @tasks.loop(minutes=0.15)
 async def status_task():
     await bot.change_presence(activity=disnake.Game(random.choice(config.activity)))
-
-@bot.event
-async def on_message(message):
-    await configlvl.lvl.award_xp(amount=[15, 25], message=message, bonus=DiscordLevelingSystem.Bonus([configlvl.nitro_booster, configlvl.associate_role], 20, multiply=False))
 
 # Load Cogs On Start
 for filename in os.listdir('./cogs'):

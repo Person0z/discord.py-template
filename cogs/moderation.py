@@ -340,5 +340,6 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
+
 def setup(bot):
     bot.add_cog(moderation(bot))
