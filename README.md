@@ -15,10 +15,14 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 - Moderation (adding more soon, not adding /ban, /kick as discord has that added already)
 - Tickets (needs to be cleaned)
 
-## Coming Soon
-- Eco
-- Thread support opener/closer
-- Levels
+<details>
+    <summary>## Coming Soon</summary>
+
+    - [ ] Eco
+    - [ ] Thread support opener/closer
+    - [ ] Levels
+    - [ ] Music
+</details>
 
 ### Install the dependencies
 
