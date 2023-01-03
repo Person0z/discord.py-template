@@ -16,7 +16,7 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 - Tickets (needs to be cleaned)
 
 <details>
-    <summary>## Coming Soon</summary>
+    <summary>Coming Soon</summary>
 
     - [ ] Eco
     - [ ] Thread support opener/closer
