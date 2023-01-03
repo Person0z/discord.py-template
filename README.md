@@ -22,6 +22,7 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
     - [ ] Thread support opener/closer
     - [ ] Levels
     - [ ] Music
+
 </details>
 
 ### Install the dependencies
