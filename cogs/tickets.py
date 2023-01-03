@@ -18,7 +18,7 @@ class tickets(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Tickets')
+        print('Loaded Cog Tickets')
         
 
 #    @commands.slash_command()
@@ -36,7 +36,22 @@ class tickets(commands.Cog):
         user: disnake.User = commands.Param(description="The user you want to add to the ticket")
     ):
         # If the user selects open, it will create a ticket
-        if action == "open":
+        if action == "add":
+            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
+            if inter.channel.name.startswith("ticket-"):
+                await channel.set_permissions(inter.user, send_messages=True, read_messages=True)
+                await inter.response.send_message(f"{user.mention} has been added to the ticket.")
+            else:
+                await inter.response.send_message("You don't have a ticket open.")
+
+        elif action == "close":
+            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
+            if inter.channel.name.startswith("ticket-"):
+                await inter.channel.delete()
+                await inter.response.send_message("Your ticket has been closed.")
+            else:
+                await inter.response.send_message("You don't have a ticket open.")
+        elif action == "open":
             # Creates a ticket category if it doesn't exist
             if not disnake.utils.get(inter.guild.categories, name="Tickets"):
                 await inter.guild.create_category("Tickets")
@@ -59,22 +74,6 @@ class tickets(commands.Cog):
             await inter.response.send_message(
                 f"Your ticket has been created at {channel.mention}"
             )
-        # If the user selects close, it will close the ticket
-        elif action == "close":
-            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
-            if inter.channel.name.startswith("ticket-"):
-                await inter.channel.delete()
-                await inter.response.send_message("Your ticket has been closed.")
-            else:
-                await inter.response.send_message("You don't have a ticket open.")
-        # If the user selects add, it will add a user to the ticket Ex: /ticket action:add user:Person0z
-        elif action == "add":
-            channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
-            if inter.channel.name.startswith("ticket-"):
-                await channel.set_permissions(inter.user, send_messages=True, read_messages=True)
-                await inter.response.send_message(f"{user.mention} has been added to the ticket.")
-            else:
-                await inter.response.send_message("You don't have a ticket open.")
 
 
 def setup(bot):

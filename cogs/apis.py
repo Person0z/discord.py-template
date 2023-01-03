@@ -24,7 +24,7 @@ class Apis(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog API')
+        print('Loaded Cog API')
 
     # Image Genertor
     @commands.slash_command(name="generate", description="Generate an image from a prompt!")
@@ -57,7 +57,11 @@ class Apis(commands.Cog):
         async with aiohttp.request("GET", url) as response:
             text = await response.text()
             value = json.loads(text)["bpi"]["USD"]["rate"]
-            embed = disnake.Embed(title=f"Bitcoin Price", description=f"Current bitcoin price: ${value}", color=disnake.Color.random())
+            embed = disnake.Embed(
+                title="Bitcoin Price",
+                description=f"Current bitcoin price: ${value}",
+                color=disnake.Color.random(),
+            )
             embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.send(embed=embed)
 

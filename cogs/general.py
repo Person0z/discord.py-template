@@ -18,20 +18,28 @@ class general(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog General')
+        print('Loaded Cog General')
         
     # Ping Command
     @commands.slash_command(name='ping',
                             description='Get the bot\'s latency',)
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
-        embed = disnake.Embed(title=f"Pong!", description=f"The ping is around `{round(self.bot.latency * 1000)}ms`", color=config.Success())
+        embed = disnake.Embed(
+            title="Pong!",
+            description=f"The ping is around `{round(self.bot.latency * 1000)}ms`",
+            color=config.Success(),
+        )
         embed.set_footer(text=f'Command executed by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(ephemeral=True, embed=embed)
 
     # Check Slash Command (Checks if the bot is online)
     @commands.slash_command(name="check", description="Check if the bot is online!")
     async def check(inter):
-        embed = disnake.Embed(title=f"Bot Status", description=f"Bot is online!", color=config.Success())
+        embed = disnake.Embed(
+            title="Bot Status",
+            description="Bot is online!",
+            color=config.Success(),
+        )
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.send(ephemeral=True, embed=embed)
 
@@ -40,7 +48,11 @@ class general(commands.Cog):
                             description='Get the invite link for the bot',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
         embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", color=config.Success())
-        embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
+        embed.add_field(
+            name="Invite me by clicking the link below",
+            value="Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)",
+            inline=True,
+        )
         await inter.author.send(embed=embed)
         embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", description=f"Check your DMs {inter.author.mention}!", color=config.Success())
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
