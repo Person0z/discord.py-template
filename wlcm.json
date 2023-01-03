@@ -1,5 +1,3 @@
-// 00 = at the server id
-// 11 = at the channel id
 {
     "00": "11"
 }
