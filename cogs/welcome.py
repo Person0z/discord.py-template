@@ -42,11 +42,6 @@ class welcome(commands.Cog):
             embed = disnake.Embed(title=f"You do not have permission to set welcome chan", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)
-        
-        json_data = json.dumps(wlcom)
-        json_dict = json.loads(json_data)
-        json_dict[f'{inter.guild.id}'] = f'{inter.channel.id}'
-
         embed = disnake.Embed(title=f"Successfully add channel {inter.channel} to welcome channel", color=config.Success())
         embed.set_footer(text=f'Set by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
