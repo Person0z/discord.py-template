@@ -18,7 +18,7 @@ class logging(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Logging')
+        print('Loaded Cog Logging')
 
 
     # logs deleted messages from all channels in the server
@@ -28,7 +28,11 @@ class logging(commands.Cog):
             return
         if message.guild.id == config.guild:
             for channel in config.logs:
-                embed = disnake.Embed(title=f"Message Deleted", description=f"**Message:** {message.content}\n**Channel:** {message.channel.mention}\n**Author:** {message.author.mention}", color=config.Random)
+                embed = disnake.Embed(
+                    title="Message Deleted",
+                    description=f"**Message:** {message.content}\n**Channel:** {message.channel.mention}\n**Author:** {message.author.mention}",
+                    color=config.Random,
+                )
                 await self.bot.get_channel(channel).send(embed=embed)
 
     

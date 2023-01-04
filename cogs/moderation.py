@@ -20,7 +20,7 @@ class moderation(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Moderation') 
+        print('Loaded Cog Moderation') 
 
     # Slowmode Command
     @commands.slash_command(name='slowmode',
@@ -28,14 +28,20 @@ class moderation(commands.Cog):
     async def slowmode(self, inter: disnake.ApplicationCommandInteraction, seconds: int, channel: disnake.TextChannel = None):
 
         if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"You do not have permission to set slowmode!", color=config.Error())
+            embed = disnake.Embed(
+                title="You do not have permission to set slowmode!",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed) 
 
         if not inter.guild.me.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"I do not have permission to set slowmode!", color=config.Error())
+            embed = disnake.Embed(
+                title="I do not have permission to set slowmode!",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(delete_after=15, embed=embed) 
+            return await inter.response.send_message(delete_after=15, embed=embed)
         if not channel:
             channel = inter.channel
         await channel.edit(slowmode_delay=seconds)
@@ -86,11 +92,17 @@ class moderation(commands.Cog):
                             description='Purge messages from a channel',)
     async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
         if not inter.author.guild_permissions.manage_messages:
-            embed = disnake.Embed(title=f"You do not have permission To purge messages!", color=config.Error())
+            embed = disnake.Embed(
+                title="You do not have permission To purge messages!",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(ephemeral=True, embed=embed)   
+            return await inter.response.send_message(ephemeral=True, embed=embed)
         if not inter.guild.me.guild_permissions.manage_messages:
-            embed = disnake.Embed(title=f"I do not have permission to purge messages!", color=config.Error())
+            embed = disnake.Embed(
+                title="I do not have permission to purge messages!",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         if not channel:
@@ -280,7 +292,7 @@ class moderation(commands.Cog):
         if not inter.author.guild_permissions.kick_members:
             embed = disnake.Embed(title=f"You do not have permission to clear the warns of ``{member}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(ephemeral=True, embed=embed)   
+            return await inter.response.send_message(ephemeral=True, embed=embed)
         if not inter.guild.me.guild_permissions.kick_members:
             embed = disnake.Embed(title=f"I do not have permission to clear the warns of ``{member}!``", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
@@ -290,7 +302,10 @@ class moderation(commands.Cog):
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         if amount > 5:
-            embed = disnake.Embed(title=f"You cannot clear more than 5 warns at a time!", color=config.Error())
+            embed = disnake.Embed(
+                title="You cannot clear more than 5 warns at a time!",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(delete_after=15, embed=embed)
         with open('warns.json', 'r') as f:
@@ -303,7 +318,7 @@ class moderation(commands.Cog):
             embed = disnake.Embed(title=f"``{member}`` does not have ``{amount}`` warns!", color=config.Success())
             embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(embed=embed)
-        for i in range(amount):
+        for _ in range(amount):
             warns[str(member.id)].pop()
         with open('warns.json', 'w') as f:
             json.dump(warns, f, indent=4)

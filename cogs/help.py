@@ -19,7 +19,7 @@ class help(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Help')
+        print('Loaded Cog Help')
 
     # Help Command
     @commands.slash_command(name='help',
