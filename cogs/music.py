@@ -8,7 +8,7 @@ class music(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Music')
+        print('Loaded Cog Music')
 
     @commands.slash_command(name="play", description="play music on youtube")
     async def play(self, inter: disnake.ApplicationCommandInteraction, name: int):
