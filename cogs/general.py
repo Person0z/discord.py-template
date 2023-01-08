@@ -39,8 +39,9 @@ class general(commands.Cog):
     @commands.slash_command(name='invite',
                             description='Get the invite link for the bot',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
+        bot_client_id = self.bot.user.id
         embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", color=config.Success())
-        embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)", inline=True)
+        embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id={bot_client_id}&permissions=8&scope=bot)", inline=True)
         await inter.author.send(embed=embed)
         embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", description=f"Check your DMs {inter.author.mention}!", color=config.Success())
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
@@ -48,16 +49,18 @@ class general(commands.Cog):
         await inter.response.send_message(ephemeral=True, embed=embed)
 
     # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
+
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        role = disnake.utils.get(member.guild.roles, name="Member")
         channel = self.bot.get_channel(config.welcome_channel)
-        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
-        embed.add_field (name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
+        role = disnake.utils.get(member.guild.roles, name="Member")
+        server = member.guild.name
+        await member.add_roles(role)
+        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {server}! We hope you enjoy your stay here!", color=config.Success())
+        embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
         await channel.send(embed=embed)
-        await member.add_roles(role)
         await channel.send(f"{member.mention}", delete_after=0.5)
 
     # a goodbye message when someone leaves the server with there porfile picture and name in the embed and a goodbye message in the chat in a custom channel

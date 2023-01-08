@@ -127,7 +127,7 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Kicked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
-    # ban command
+    # ban command with hiarchy check and a per server ban list
     @commands.slash_command(name='ban',
                             description='Ban a member',)
     async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = "No reason provided"):
