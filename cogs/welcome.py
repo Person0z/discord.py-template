@@ -11,7 +11,7 @@ class welcome(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Welcome')
+        print('Loaded Cog Welcome')
 
     # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
     @commands.Cog.listener()
@@ -39,7 +39,10 @@ class welcome(commands.Cog):
     @commands.slash_command(name="addwelcome", description="Add the welcome chan")
     async def addwelcome(inter):
         if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(title=f"You do not have permission to set welcome chan", color=config.Error())
+            embed = disnake.Embed(
+                title="You do not have permission to set welcome chan",
+                color=config.Error(),
+            )
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
             return await inter.response.send_message(ephemeral=True, embed=embed)
         embed = disnake.Embed(title=f"Successfully add channel {inter.channel} to welcome channel", color=config.Success())
