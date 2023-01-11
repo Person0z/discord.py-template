@@ -3,7 +3,6 @@ from disnake.ext import commands, tasks
 import os
 import json
 import config
-from config import wlcom
 
 class welcome(commands.Cog):
     def __init__(self, bot):
@@ -35,19 +34,6 @@ class welcome(commands.Cog):
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
         await channel.send(embed=embed)
-
-    @commands.slash_command(name="addwelcome", description="Add the welcome chan")
-    async def addwelcome(inter):
-        if not inter.author.guild_permissions.manage_channels:
-            embed = disnake.Embed(
-                title="You do not have permission to set welcome chan",
-                color=config.Error(),
-            )
-            embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(ephemeral=True, embed=embed)
-        embed = disnake.Embed(title=f"Successfully add channel {inter.channel} to welcome channel", color=config.Success())
-        embed.set_footer(text=f'Set by {inter.author}', icon_url=inter.author.avatar.url)
-        await inter.response.send_message(embed=embed)
 
 def setup(bot):
     bot.add_cog(welcome(bot))
