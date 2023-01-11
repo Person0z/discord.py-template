@@ -47,10 +47,11 @@ class general(commands.Cog):
     @commands.slash_command(name='invite',
                             description='Get the invite link for the bot',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
+        bot_client_id = self.bot.user.id
         embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", color=config.Success())
         embed.add_field(
             name="Invite me by clicking the link below",
-            value="Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id=1041164439199694868&permissions=8&scope=bot)",
+            value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id={bot_client_id}&permissions=8&scope=bot)",
             inline=True,
         )
         await inter.author.send(embed=embed)
