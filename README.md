@@ -17,8 +17,8 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 
 ## Coming Soon
 - Eco
-- Thread support opener/closer
-- Levels
+- Redoing Stuff, code
+- Levels - No ETA
 
 ### Install the dependencies
 
@@ -44,7 +44,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta"]
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta", "Made with Zerbaib", "In dev"]
 
 # Colors
 Success = disnake.Color.green
@@ -56,11 +56,14 @@ owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by a
 
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
+
+# Logging Channel ID
+logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
 ```
 
 # How to run
 The bot can be started with a python command:
 ```sh
-python main.py
+python main.py OR py main.py
 ```
 or you can run start.bat/.sh
