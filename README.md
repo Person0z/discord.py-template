@@ -44,7 +44,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.1"]
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.2"]
 
 # Colors
 Success = disnake.Color.green
@@ -53,6 +53,10 @@ Random = disnake.Color.random
 
 # Owner ID
 owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
+
+# Radio Station URL
+radio = 'http://media-ice.musicradio.com/HeartLondonMP3' # Using HeartFM Radio, Im planning on making the ability to have more than one radio saved 
+                                                                        # so people can choose from a select few instead of being limited to just one
 
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
