@@ -27,23 +27,6 @@ bot = commands.Bot(
     owner_ids=config.owner_ids
 )
 
-@bot.event
-async def on_voice_state_update(member, before, after):
-    if after.channel is None:
-        channel = bot.get_channel(before.channel.id)
-    else:
-        channel = bot.get_channel(after.channel.id)
-    voice_client = channel.guild.voice_client
-    users_in_channel = [m for m in channel.members if not m.bot]
-    if not users_in_channel:
-        if voice_client and voice_client.is_playing():
-            voice_client.pause()
-            print('pause')
-    else:
-        if voice_client.is_paused():
-            voice_client.resume()
-            print('unpause')
-
 @bot.command()
 async def update(ctx):
     if ctx.author.id in config.owner_ids:

@@ -3,9 +3,31 @@ from disnake.ext import commands
 import asyncio
 import config
 
-class Music(commands.Cog):
+class Radio(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'Loaded Cog Radio')
+        
+    # puase the music when no one is in the vc and unpause when someone joins
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+        if after.channel is None:
+            channel = self.bot.get_channel(before.channel.id)
+        else:
+            channel = self.bot.get_channel(after.channel.id)
+        voice_client = channel.guild.voice_client
+        
+        if voice_client and voice_client.channel.id == channel.id:
+            users_in_channel = [m for m in channel.members if not m.bot]
+            if not users_in_channel:
+                if voice_client.is_playing():
+                    voice_client.pause()
+            else:
+                if voice_client.is_paused():
+                    voice_client.resume()
 
     @commands.slash_command()
     async def radio(
@@ -26,7 +48,8 @@ class Music(commands.Cog):
         }
 
         if inter.author.voice is None:
-            await inter.send("You are not in a voice channel.")
+            embed = disnake.Embed(title="Radio", description="```You are not in a voice channel.```", color=disnake.Color.red())
+            await inter.send(embed=embed)
             return
         voice_client = inter.author.voice.channel.guild.voice_client
         if voice_client is None:
@@ -47,4 +70,4 @@ class Music(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Music(bot))
+    bot.add_cog(Radio(bot))
