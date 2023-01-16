@@ -117,6 +117,22 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         bot.load_extension(f'cogs.{filename[:-3]}')
 
+# A slash command to reload cogs
+@bot.slash_command(name="reload", description="Reloads a cog")
+async def reload(inter: disnake.ApplicationCommandInteraction, cog: str):
+    if inter.author.id in config.owner_ids:
+        try:
+            bot.reload_extension(f"cogs.{cog}")
+            embed = disnake.Embed(title="Success", description=f"Reloaded {cog}", color=config.Success())
+            await inter.send(embed=embed, ephemeral=True)
+        except Exception as e:
+            embed = disnake.Embed(title="Error", description=f"Failed to reload {cog} because of {e}", color=config.Error())
+            await inter.send(embed=embed, ephemeral=True)
+    else:
+        embed = disnake.Embed(title="Error", description="You are not allowed to use this command!", color=config.Error())
+        await inter.send(embed=embed, ephemeral=True)
+
+
 # Run The Bot 
 bot.run(config.token, reconnect=True)
 
