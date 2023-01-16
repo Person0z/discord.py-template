@@ -11,9 +11,11 @@ class Radio(commands.Cog):
     async def on_ready(self):
         print(f'Loaded Cog Radio')
         
-    # puase the music when no one is in the vc and unpause when someone joins
+    # Deafen + play/pause
     @commands.Cog.listener()
-    async def on_voice_state_update(self, member, before, after):
+    async def on_voice_state_update(self, member, before, after, **kwargs):
+        if member == self.bot.user and before.deaf != after.deaf and not after.deaf:
+            await member.edit(deafen=True)
         if after.channel is None:
             channel = self.bot.get_channel(before.channel.id)
         else:
@@ -29,14 +31,7 @@ class Radio(commands.Cog):
                 if voice_client.is_paused():
                     voice_client.resume()
 
-    # Deafing the bot
-    @commands.Cog.listener()
-    async def on_voice_state_update(self, member, before, after, **kwargs):
-        if member == self.bot.user and before.deaf != after.deaf and not after.deaf:
-            await member.edit(deafen=True)
-
-
-
+                    
     @commands.slash_command()
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
