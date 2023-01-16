@@ -29,6 +29,14 @@ class Radio(commands.Cog):
                 if voice_client.is_paused():
                     voice_client.resume()
 
+    # Deafing the bot
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after, **kwargs):
+        if member == self.bot.user and before.deaf != after.deaf and not after.deaf:
+            await member.edit(deafen=True)
+
+
+
     @commands.slash_command()
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
