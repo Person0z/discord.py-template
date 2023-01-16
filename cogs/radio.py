@@ -1,49 +1,50 @@
-###############################################
-#           Template made by Person0z         #
-#          https://github.com/Person0z        #
-#           Copyright© Person0z, 2022         #
-#           Do Not Remove This Header         #
-###############################################
-
-# Importing Libraries
 import disnake
 from disnake.ext import commands
 import asyncio
 import config
 
-class Radio(commands.Cog):
+class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(name="radio", description="Play a radio station")
-    async def radio(self, inter):
-        channel = inter.author.voice.channel
-        embed = disnake.Embed(title="Radio", description="Playing Heart London", color=disnake.Color.random())
+    @commands.slash_command()
+    async def radio(
+        inter: disnake.ApplicationCommandInteraction,
+        action: str = commands.Param(choices=["98.7 The Shark", "HeartFM", 'NPR']),
+    ):
 
-        vc = await channel.connect()
-        stream_url = config.radio
-        vc.play(disnake.FFmpegPCMAudio(stream_url))
+        stations = {
+            "98.7 The Shark": "https://26313.live.streamtheworld.com/WPBBFMAAC.aac?apv=a2&source=webA2",
+            "HeartFM": "http://media-ice.musicradio.com/HeartLondonMP3",
+            "NPR": "https://npr-ice.streamguys1.com/live.mp3",
+        }
 
-        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        images = {
+            "98.7 The Shark": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/WPBBFM_Logo.webp",
+            "HeartFM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/heart_400x400.jpg",
+            "NPR": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/npr-national-public-radio-vector-logo-small.png",
+        }
+
+        if inter.author.voice is None:
+            await inter.send("You are not in a voice channel.")
+            return
+        voice_client = inter.author.voice.channel.guild.voice_client
+        if voice_client is None:
+            await inter.author.voice.channel.connect()
+            voice_client = inter.author.voice.channel.guild.voice_client
+        if voice_client.is_playing():
+            voice_client.stop()
+        source = disnake.PCMVolumeTransformer(disnake.FFmpegPCMAudio(stations[action]))
+        voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
+
+
+        embed = disnake.Embed(title="Radio", description=f"```Now playing {action} in {inter.author.voice.channel}```", color=disnake.Color.green())
+
+        embed.set_thumbnail(url=images[action])
+        embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+
         await inter.send(embed=embed)
 
 
-    @commands.slash_command(name="pause", description="pause the radio")
-    async def pause(self, inter):
-        vc = inter.voice_client
-        vc.pause()
-
-    @commands.slash_command(name="resume", description="resume the radio")
-    async def resume(self, inter):
-        vc = inter.voice_client
-        vc.resume()
-
-#    @commands.slash_command(name="stop", description="stop the radio") # Don't Work yet, Working on a fix.
-#    async def stop(self, inter):
-#        vc = inter.voice_client
-#        vc.stop()
-#        await vc.disconnect()
-
-
 def setup(bot):
-    bot.add_cog(Radio(bot))
+    bot.add_cog(Music(bot))
