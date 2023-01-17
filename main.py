@@ -107,12 +107,18 @@ async def reload(inter: disnake.ApplicationCommandInteraction, cog: str):
         try:
             bot.reload_extension(f"cogs.{cog}")
             embed = disnake.Embed(title="Success", description=f"Reloaded {cog}", color=config.Success())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
             await inter.send(embed=embed, ephemeral=True)
         except Exception as e:
             embed = disnake.Embed(title="Error", description=f"Failed to reload {cog} because of {e}", color=config.Error())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
             await inter.send(embed=embed, ephemeral=True)
     else:
         embed = disnake.Embed(title="Error", description="You are not allowed to use this command!", color=config.Error())
+        embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+        embed.set_thumbnail(url=inter.guild.me.avatar.url)
         await inter.send(embed=embed, ephemeral=True)
 
 

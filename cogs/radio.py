@@ -37,7 +37,6 @@ class Radio(commands.Cog):
         inter: disnake.ApplicationCommandInteraction,
         action: str = commands.Param(choices=["98.7 The Shark", "HeartFM", '106.1 KISS FM', 'NPR']),
     ):
-
         stations = {
             "98.7 The Shark": "https://26313.live.streamtheworld.com/WPBBFMAAC.aac?apv=a2&source=webA2",
             "HeartFM": "http://media-ice.musicradio.com/HeartLondonMP3",
@@ -66,13 +65,27 @@ class Radio(commands.Cog):
         voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
 
 
-        embed = disnake.Embed(title="Radio", description=f"```Now playing {action} in {inter.author.voice.channel}```", color=disnake.Color.green())
+        embed = disnake.Embed(title="Radio | Connect", description=f"```Now playing {action} in {inter.author.voice.channel}```", color=disnake.Color.green())
 
         embed.set_thumbnail(url=images[action])
         embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
 
         await inter.send(embed=embed)
 
+    @commands.slash_command(name="disconnect", description="Disconnects the bot from the voice channel")
+    async def disconnect(inter: disnake.ApplicationCommandInteraction):
+        voice_client = inter.guild.voice_client
+        if voice_client is None:
+            embed = disnake.Embed(title="Radio | Disconnect", description="```I am not currently connected to any voice channels.```", color=disnake.Color.red())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
+            await inter.send(embed=embed)
+        else:
+            await voice_client.disconnect()
+            embed = disnake.Embed(title="Radio | Disconnect", description="```I have successfully disconnected from the voice channel.```", color=disnake.Color.green())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
+            await inter.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Radio(bot))
