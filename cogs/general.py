@@ -9,6 +9,7 @@
 import disnake
 from disnake.ext import commands, tasks
 import os
+import psutil 
 import config
 
 class general(commands.Cog):
@@ -35,18 +36,6 @@ class general(commands.Cog):
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.send(ephemeral=True, embed=embed)
 
-    # Invite Command
-    @commands.slash_command(name='invite',
-                            description='Get the invite link for the bot',)
-    async def invite(self, inter: disnake.ApplicationCommandInteraction):
-        bot_client_id = self.bot.user.id
-        embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", color=config.Success())
-        embed.add_field(name="Invite me by clicking the link below", value=f"Invite me by clicking [here](https://discord.com/api/oauth2/authorize?client_id={bot_client_id}&permissions=8&scope=bot)", inline=True)
-        await inter.author.send(embed=embed)
-        embed = disnake.Embed(title=f"{self.bot.user}'s Invite URL", description=f"Check your DMs {inter.author.mention}!", color=config.Success())
-        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
-
-        await inter.response.send_message(ephemeral=True, embed=embed)
 
     # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
 
@@ -54,9 +43,8 @@ class general(commands.Cog):
     async def on_member_join(self, member):
         channel = self.bot.get_channel(config.welcome_channel)
         role = disnake.utils.get(member.guild.roles, name="Member")
-        server = member.guild.name
         await member.add_roles(role)
-        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {server}! We hope you enjoy your stay here!", color=config.Success())
+        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to Zluqe | Free Bot Hosting! We hope you enjoy your stay here!", color=config.Success())
         embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
@@ -104,7 +92,23 @@ class general(commands.Cog):
         embed.set_thumbnail(url=inter.guild.icon.url)
         embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
-
-
+        
+    # Bot CPU and RAM usage with storage usage
+    @commands.slash_command(name='botinfo',
+                            description='Get info about the bot',)
+    async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
+        cpu = psutil.cpu_percent()
+        ram_percent = psutil.virtual_memory().percent
+        ram_total = psutil.virtual_memory().total / (1024.0 ** 3)
+        storage_percent = psutil.disk_usage('/').percent
+        storage_total = psutil.disk_usage('/').total / (1024.0 ** 3)
+        embed = disnake.Embed(title=f"{self.bot.user.name}'s Info", color=config.Success())
+        embed.add_field (name="\nBot Info", value=f"\n**Bot:** ```{self.bot.user.name}#{self.bot.user.discriminator} ({self.bot.user.id})```\n**Bot Created:** ```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Bot CPU Usage:** ```{cpu}% / 100%```\n**Bot RAM Usage:** ```{ram_percent}% / {ram_total:.2f}GB```\n**Bot Storage Usage:** ```{storage_percent}% / {storage_total:.2f}GB```\n**Bot Ping:** ```{round(self.bot.latency * 1000)}ms```\n**Bot Version:** ```{config.version}```\n**Bot Library:** ```Disnake```\n**Bot Developer:** ```Person0z#0812```", inline=False)
+        embed.add_field (name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
+        embed.add_field (name="Bot Profile", value=f"[Click Here](https://discord.com/users/{self.bot.user.id})", inline=False)
+        embed.set_thumbnail(url=self.bot.user.avatar.url)
+        embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
+        await inter.response.send_message(embed=embed)
+        
 def setup(bot):
     bot.add_cog(general(bot))
