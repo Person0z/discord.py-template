@@ -2,3 +2,4 @@ disnake
 aiohttp
 Pillow
 PyNaCl
+psutil
