@@ -11,6 +11,9 @@ import disnake
 # Discord Token
 token = 'TOKEN'
 
+# Version
+version = '1.5.3'
+
 # Your Discord Server ID Will Go Here 
 guild = 'GUILD ID'
 
@@ -18,7 +21,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.2"]
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.3"]
 
 # Colors
 Success = disnake.Color.green
