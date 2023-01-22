@@ -98,12 +98,12 @@ class general(commands.Cog):
                             description='Get info about the bot',)
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         cpu = psutil.cpu_percent()
-        ram_percent = psutil.virtual_memory().percent
+        ram_used = psutil.virtual_memory().used / (1024.0 ** 3)
         ram_total = psutil.virtual_memory().total / (1024.0 ** 3)
-        storage_percent = psutil.disk_usage('/').percent
+        storage_used = psutil.disk_usage('/').used / (1024.0 ** 3)
         storage_total = psutil.disk_usage('/').total / (1024.0 ** 3)
         embed = disnake.Embed(title=f"{self.bot.user.name}'s Info", color=config.Success())
-        embed.add_field (name="\nBot Info", value=f"\n**Bot:** ```{self.bot.user.name}#{self.bot.user.discriminator} ({self.bot.user.id})```\n**Bot Created:** ```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Bot CPU Usage:** ```{cpu}% / 100%```\n**Bot RAM Usage:** ```{ram_percent}% / {ram_total:.2f}GB```\n**Bot Storage Usage:** ```{storage_percent}% / {storage_total:.2f}GB```\n**Bot Ping:** ```{round(self.bot.latency * 1000)}ms```\n**Bot Version:** ```{config.version}```\n**Bot Library:** ```Disnake```\n**Bot Developer:** ```Person0z#0812```", inline=False)
+        embed.add_field (name="\nBot Info", value=f"\n**Bot:** ```{self.bot.user.name}#{self.bot.user.discriminator} ({self.bot.user.id})```\n**Bot Created:** ```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Bot CPU Usage:** ```{cpu}% / 100%```\n**Bot RAM Usage:** ```{ram_used:.2f} GB / {ram_total:.2f} GB```\n**Bot Storage Usage:** ```{storage_used:.2f} GB / {storage_total:.2f} GB```\n**Bot Ping:** ```{round(self.bot.latency * 1000)}ms```\n**Bot Version:** ```{config.version}```\n**Bot Library:** ```Disnake```\n**Bot Developer:** ```Person0z#0812```", inline=False)
         embed.add_field (name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
         embed.add_field (name="Bot Profile", value=f"[Click Here](https://discord.com/users/{self.bot.user.id})", inline=False)
         embed.set_thumbnail(url=self.bot.user.avatar.url)
