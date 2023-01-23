@@ -33,6 +33,7 @@ owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by a
 
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
+join_role = 'Member' # The role you want to give to new members
 
 # Logging Channel ID
 logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
