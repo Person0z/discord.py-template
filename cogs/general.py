@@ -42,7 +42,7 @@ class general(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = self.bot.get_channel(config.welcome_channel)
-        role = disnake.utils.get(member.guild.roles, name=join_role)
+        role = disnake.utils.get(member.guild.roles, name=config.join_role)
         await member.add_roles(role)
         embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to Zluqe | Free Bot Hosting! We hope you enjoy your stay here!", color=config.Success())
         embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
