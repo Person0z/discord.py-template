@@ -15,15 +15,10 @@ Side Note: Please keep in mind this bot is still in the working, you will have b
 - Moderation (adding more soon, not adding /ban, /kick as discord has that added already)
 - Tickets (needs to be cleaned)
 
-<details>
-    <summary>Coming Soon</summary>
-
-    - [ ] Eco
-    - [ ] Thread support opener/closer
-    - [ ] Levels
-    - [ ] Music
-
-</details>
+## Coming Soon
+- Eco
+- Redoing Stuff, code
+- Levels - No ETA
 
 ### Install the dependencies
 
@@ -34,38 +29,32 @@ pip install -r requirements.txt
 ### Setting up the bot properties
 
 > When setting up the bot remove "example" from example.config.py!!
-
 ```python
 # Imports
 import disnake
-
 # Discord Token
 token = 'TOKEN'
-
 # Your Discord Server ID Will Go Here 
 guild = 'GUILD ID'
-
 # The Prefix You Want For Your Discord Bot
 prefix = '!'
-
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta"]
-
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.2"]
 # Colors
 Success = disnake.Color.green
 Error = disnake.Color.red
 Random = disnake.Color.random
-
 # Owner ID
 owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
-
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
+# Logging Channel ID
+logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
 ```
 
 # How to run
 The bot can be started with a python command:
 ```sh
-python main.py
+python main.py OR py main.py
 ```
 or you can run start.bat/.sh

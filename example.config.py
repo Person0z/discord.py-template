@@ -11,6 +11,9 @@ import disnake
 # Discord Token
 token = 'TOKEN'
 
+# Version
+version = '1.5.3'
+
 # Your Discord Server ID Will Go Here 
 guild = 'GUILD ID'
 
@@ -18,7 +21,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "V.1.3-beta", "Made with Zerbaib", "In dev"]
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.3"]
 
 # Colors
 Success = disnake.Color.green
@@ -30,6 +33,7 @@ owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by a
 
 # Welcomes & Goodbyes Channel ID
 welcome_channel = 0000000000000000
+join_role = 'Member' # The role you want to give to new members
 
 # Logging Channel ID
 logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
