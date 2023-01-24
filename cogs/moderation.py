@@ -85,14 +85,15 @@ class moderation(commands.Cog):
     @commands.slash_command(name='purge',
                             description='Purge messages from a channel',)
     async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
+        await inter.response.defer()
         if not inter.author.guild_permissions.manage_messages:
             embed = disnake.Embed(title=f"You do not have permission To purge messages!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(ephemeral=True, embed=embed)   
+            return await interaction.edit_original_response(ephemeral=True, embed=embed)   
         if not inter.guild.me.guild_permissions.manage_messages:
             embed = disnake.Embed(title=f"I do not have permission to purge messages!", color=config.Error())
             embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-            return await inter.response.send_message(delete_after=15, embed=embed)
+            return await interaction.edit_original_response(delete_after=15, embed=embed)
         if not channel:
             channel = inter.channel
         await channel.purge(limit=amount)
@@ -127,7 +128,7 @@ class moderation(commands.Cog):
         embed.set_footer(text=f'Kicked by {inter.author}', icon_url=inter.author.avatar.url)
         await inter.response.send_message(embed=embed)
 
-    # ban command with hiarchy check and a per server ban list
+    # ban command
     @commands.slash_command(name='ban',
                             description='Ban a member',)
     async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = "No reason provided"):
@@ -202,7 +203,7 @@ class moderation(commands.Cog):
                     await message.delete()
                     embed = disnake.Embed(title=f"``{attachment.filename}`` is not allowed!", color=config.Error())
                     embed.set_footer(text=f'Attempted by {message.author}', icon_url=message.author.avatar.url)
-                    await message.channel.send(ephemeral=True, embed=embed)
+                    await message.channel.send(embed=embed)
 
     # warn command that logs warnings & reason for the warn to a json and then kicks the user if they reach 3 warns, then bans them if they reach 5 warns
     @commands.slash_command(name='warn',
