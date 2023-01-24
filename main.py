@@ -63,6 +63,10 @@ async def update(ctx):
 # On Ready
 @bot.event
 async def on_ready():
+    if config.version != "1.5.4":
+        print('===============================================')
+        print('WARNING! You are not using the latest version!')
+        print('===============================================')
     print('###############################################')
     print('#           Template made by Person0z         #')
     print('#          https://github.com/Person0z        #')
