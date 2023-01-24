@@ -12,7 +12,7 @@ import disnake
 token = 'TOKEN'
 
 # Version
-version = '1.5.3'
+version = '1.5.4'
 
 # Your Discord Server ID Will Go Here 
 guild = 'GUILD ID'
