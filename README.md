@@ -3,7 +3,7 @@
   Discord Python Bot Template
 </h1>
 
-Discord Python Bot Template, for those looking for ideas or starting to learn Python!
+<p align="center">Discord Python Bot Template, for those looking for ideas or starting to learn Python!<p>
 <p align="center">
   <a href="//github.com/Person0z/discord.py-template"><img src="https://img.shields.io/github/repo-size/Person0z/discord.py-template"></a>
   <a href="//github.com/Person0z/discord.py-template/commits"><img src="https://img.shields.io/github/last-commit/Person0z/discord.py-template"></a>
