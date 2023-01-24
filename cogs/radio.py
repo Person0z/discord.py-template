@@ -42,7 +42,7 @@ class Radio(commands.Cog):
     @commands.slash_command()
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["98.7 The Shark", "HeartFM", '106.1 KISS FM', "HOT 99.5", 'NPR']),
+        action: str = commands.Param(choices=["98.7 The Shark", "HeartFM", '106.1 KISS FM', "HOT 99.5", 'NPR', 'NRJ']),
     ):
         stations = {
             "98.7 The Shark": "https://26313.live.streamtheworld.com/WPBBFMAAC.aac?apv=a2&source=webA2",
@@ -50,6 +50,7 @@ class Radio(commands.Cog):
             "106.1 KISS FM": "https://ample.revma.ihrhls.com/zc2245/22_13dmvikifum3q02/playlist.m3u8?zip=75002&callLetters=KHKS-FM&country=US&streamid=2245&site-url=https%3A%2F%2Fwww.iheart.com%2Flive%2F1061-kiss-fm-2245%2F&dist=iheart&partnertok=eyJraWQiOiJpaGVhcnQiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsc2lkIjoiY29va2llOmEzOTUyMzczLWQ4MjgtNDQ1MC05NDU1LTUyNGFjZDQ3MTcxMyIsImF1ZCI6InRkIiwic3ViIjoiMTc2MzE4NTkwOSIsImNvcHBhIjowLCJpc3MiOiJpaGVhcnQiLCJ1c19wcml2YWN5IjoiMVlOTiIsImRpc3QiOiJpaGVhcnQiLCJleHAiOjE2NzM5MTkxNTIsImlhdCI6MTY3MzgzMjc1Miwib21pZCI6MH0.F5O5DYz6W4uwlBrr11DFMe1htqO1azgYG63aiYPYNz4&terminalid=159&locale=en-US&clientType=web&modTime=1673905997795&profileid=1763185909&triton-uid=cookie%3Ac05e0a92-568f-48ad-8ec1-2037e3dbda5f&host=webapp.US&us_privacy=1-N-&devicename=web-desktop&subscription_type=free&territory=US&stationid=2245",
             "HOT 99.5": "https://stream.revma.ihrhls.com/zc2509/hls.m3u8?streamid=2509&zip=&aw_0_1st.playerid=iHeartRadioWebPlayer&aw_0_1st.skey=6549968366&clientType=web&companionAds=false&deviceName=web-mobile&dist=iheart&host=webapp.US&listenerId=&playedFrom=157&pname=live_profile&profileId=6549968366&stationid=2509&terminalId=159&territory=US",
             "NPR": "https://npr-ice.streamguys1.com/live.mp3",
+            "NRJ": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3",
         }
 
         images = {
@@ -58,6 +59,7 @@ class Radio(commands.Cog):
             "106.1 KISS FM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/logod.webp",
             "HOT 99.5": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/hiot.png",
             "NPR": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/npr-national-public-radio-vector-logo-small.png",
+            "NRJ": "https://www.nrj.fr/uploads/assets/nrj/icons/android-icon-192x192.png",
         }
 
         if inter.author.voice is None:
