@@ -1,4 +1,3 @@
-
 # Discord Python Bot Template
 
 Discord Python Bot Template, for those looking for ideas or starting to learn Python!
