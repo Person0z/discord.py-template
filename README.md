@@ -10,8 +10,6 @@
   <a href="//github.com/Person0z/discord.py-template/contributors"><img src="https://img.shields.io/github/contributors/Person0z/discord.py-template"></a>
 </p>
 
-Side Note: Please keep in mind this bot is still in the working, you will have bugs, code thats not clean (still will work), and updates every day. The bot is going to  improve. Just please give it time and hold on. Remeber nothong good comes fast.
-
 ## Features
 
 - Slash Commands (Slash commands: /help, /radio.. etc)
