@@ -91,6 +91,5 @@ class tickets(commands.Cog):
                 f"Your ticket has been created at {channel.mention}"
             )
 
-
 def setup(bot):
     bot.add_cog(tickets(bot))
