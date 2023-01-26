@@ -65,6 +65,22 @@ class tickets(commands.Cog):
             # Sets the permissions for the ticket channel
             await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
             await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
+        try:
+            # If the user selects open, it will create a ticket
+            if action == "open":
+                # Creates a ticket category if it doesn't exist
+                if not disnake.utils.get(inter.guild.categories, name="Tickets"):
+                    await inter.guild.create_category("Tickets")
+                # Creates the ticket channel
+                channel = await inter.guild.create_text_channel(
+                    name=f"ticket-{inter.author.name}",
+                    category=disnake.utils.get(inter.guild.categories, name="Tickets"),
+                    topic=f"Ticket for {inter.author.name}",
+                    reason=f"Ticket created by {inter.author.name}",
+                )
+                # Sets the permissions for the ticket channel
+                await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
+                await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
 
             # Sends a message to the ticket channel
             await channel.send(
