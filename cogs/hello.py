@@ -18,7 +18,7 @@ class hello(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog General')
+        print(f'Loaded Cog Hello')
 
     @commands.Cog.listener()
     async def on_message(self, message):
