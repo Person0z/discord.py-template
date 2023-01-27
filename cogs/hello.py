@@ -48,6 +48,9 @@ class hello(commands.Cog):
 
         if message.content.startswith("slt"):
             await message.add_reaction("👋")
+        
+        if message.content.startswith("bienvenue"):
+            await message.add_reaction("👋")
 
 def setup(bot):
     bot.add_cog(hello(bot))
