@@ -65,10 +65,10 @@ class Radio(commands.Cog):
             if voice_client.is_playing():
                 voice_client.stop()
 
-            # source = disnake.PCMVolumeTransformer(
-            #    disnake.FFmpegPCMAudio(_stations[f"{region}_Stations"][action]))
-            # voice_client.play(source, after=lambda e: print(
-            #    f'Player error: {e}') if e else None)
+            source = disnake.PCMVolumeTransformer(
+                disnake.FFmpegPCMAudio(_stations[f"{region}_Stations"][action]))
+            voice_client.play(source, after=lambda e: print(
+                f'Player error: {e}') if e else None)
 
             embed = disnake.Embed(
                 title="Radio | Connect", description=f"```Now playing {action} in {inter.author.voice.channel}```", color=disnake.Color.green())
