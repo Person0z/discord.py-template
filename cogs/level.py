@@ -17,7 +17,7 @@ class level(commands.Cog):
     
     def __init__(self, bot):
     	self.bot = bot
-        
+
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog Level')
@@ -27,10 +27,11 @@ class level(commands.Cog):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
 
-        if "message.author.id" in data:
-            data = json.load(rank_file)
+        if data.get(f"{message.author.id}"):
             xp = data.get(f"{message.author.id}")
-            data[f"{message.author.id}"] = xp + random.randint(1, 25)
+            randome = random.randint(1, 25)
+            data[f"{message.author.id}"] = xp + randome
+            
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
         else:
