@@ -4,5 +4,3 @@ Pillow
 PyNaCl
 psutil
 requests
-thefuzz
-python-Levenshtein
