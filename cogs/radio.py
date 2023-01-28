@@ -79,7 +79,6 @@ class Radio(commands.Cog):
             await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending radio message: {e}')
-            await inter.send(f"Error sending radio message: {e}")
             await inter.send(embed=errors.create_error_embed(f"Error sending radio command: {e}"))
 
     @radio.autocomplete('action')
