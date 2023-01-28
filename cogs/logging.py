@@ -18,8 +18,8 @@ class logging(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Loaded Cog Logging')
-
+        print(f'Loaded Cog Logging')
+            
 
     # logs deleted messages from all channels in the server
     @commands.Cog.listener()

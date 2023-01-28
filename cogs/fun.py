@@ -11,6 +11,7 @@ from disnake.ext import commands
 import os
 import random
 import aiohttp
+import config
 
 class fun(commands.Cog):
     
@@ -19,7 +20,7 @@ class fun(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Loaded Cog Fun')
+        print('Loading Fun Cog')
 
     # Dice Roll Slash Command
     @commands.slash_command(name="dice", description="Roll a dice!")
@@ -32,6 +33,7 @@ class fun(commands.Cog):
             msg = await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending dice message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending dice command: {e}"))
 
     # 8 ball command
     @commands.slash_command(name="8ball", description="Ask the 8ball a question!")
@@ -43,6 +45,7 @@ class fun(commands.Cog):
             await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending 8ball message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending 8 Ball command: {e}"))
         
     # Coinflip Slash Command
     @commands.slash_command(name="coinflip", description="Flip a coin!")
@@ -76,6 +79,7 @@ class fun(commands.Cog):
                     await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending randomfact message: {e}')
+            await ctx.send(embed=errors.create_error_embed(f"Error sending randomfact command: {e}"))
                 
 def setup(bot):
     bot.add_cog(fun(bot))

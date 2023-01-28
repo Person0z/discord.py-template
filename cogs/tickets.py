@@ -10,6 +10,7 @@ import disnake
 from disnake.ext import commands
 import os
 import asyncio
+import config
 
 class tickets(commands.Cog):
     
@@ -19,7 +20,7 @@ class tickets(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog Tickets')
-        
+            
 
 #    @commands.slash_command()
 #    async def blep(
@@ -78,6 +79,7 @@ class tickets(commands.Cog):
                     await inter.response.send_message("You don't have a ticket open.")
         except Exception as e:
             print(f'Error in ticket: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending ticket command: {e}"))
 
 def setup(bot):
     bot.add_cog(tickets(bot))

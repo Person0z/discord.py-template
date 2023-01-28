@@ -1,0 +1,20 @@
+{
+  "US_Stations": {
+    "98.7 The Shark": "https://15113.live.streamtheworld.com/WPBBFMAACHI.aac?listening-from-radio-garden=1674862367",
+    "106.1 KISS FM": "https://ample.revma.ihrhls.com/zc2245/22_13dmvikifum3q02/playlist.m3u8?zip=75002&callLetters=KHKS-FM&country=US&streamid=2245&site-url=https%3A%2F%2Fwww.iheart.com%2Flive%2F1061-kiss-fm-2245%2F&dist=iheart&partnertok=eyJraWQiOiJpaGVhcnQiLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsc2lkIjoiY29va2llOmEzOTUyMzczLWQ4MjgtNDQ1MC05NDU1LTUyNGFjZDQ3MTcxMyIsImF1ZCI6InRkIiwic3ViIjoiMTc2MzE4NTkwOSIsImNvcHBhIjowLCJpc3MiOiJpaGVhcnQiLCJ1c19wcml2YWN5IjoiMVlOTiIsImRpc3QiOiJpaGVhcnQiLCJleHAiOjE2NzM5MTkxNTIsImlhdCI6MTY3MzgzMjc1Miwib21pZCI6MH0.F5O5DYz6W4uwlBrr11DFMe1htqO1azgYG63aiYPYNz4&terminalid=159&locale=en-US&clientType=web&modTime=1673905997795&profileid=1763185909&triton-uid=cookie%3Ac05e0a92-568f-48ad-8ec1-2037e3dbda5f&host=webapp.US&us_privacy=1-N-&devicename=web-desktop&subscription_type=free&territory=US&stationid=2245",
+    "HOT 99.5": "https://n0eb-e2.revma.ihrhls.com/zc2509?listening-from-radio-garden=1674862192&rj-tok=AAABhfWaDo4A1P1nlCWO-EQt2w&rj-ttl=5",
+    "NPR": "https://npr-ice.streamguys1.com/live.mp3"
+  },
+  "US_Images": {
+    "98.7 The Shark": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/WPBBFM_Logo.webp",
+    "106.1 KISS FM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/logod.webp",
+    "HOT 99.5": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/hiot.png",
+    "NPR": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/npr-national-public-radio-vector-logo-small.png"
+  },
+  "UK_Stations": {
+    "HeartFM": "https://media-ice.musicradio.com/HeartLondonMP3"
+  },
+  "UK_Images": {
+    "HeartFM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/heart_400x400.jpg"
+  }
+}

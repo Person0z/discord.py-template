@@ -16,6 +16,7 @@ from PIL import Image
 from io import BytesIO
 import random
 import json
+import config
 
 class Apis(commands.Cog):
     
@@ -65,7 +66,8 @@ class Apis(commands.Cog):
                 embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
                 await inter.send(embed=embed)
         except Exception as e:
-            await inter.send(f"An error occurred while getting the bitcoin price. {e}")
+            print(f"Error sending bitcoin command: {e}")
+            await inter.send(embed=errors.create_error_embed(f"Error sending bitcoin command: {e}"))
 
     # Animal Slash Command with options for different animals 
     @commands.slash_command()
@@ -94,7 +96,8 @@ class Apis(commands.Cog):
                 embed.set_footer(text=f'Requested by {inter.author} ', icon_url=inter.author.avatar.url)
                 await inter.send(embed=embed)
         except Exception as e:
-            await inter.send(f"An error occurred while getting the animal image. {e}")
+            await inter.send(embed=errors.create_error_embed(f"Error sending animal command: {e}"))
+            
 
 def setup(bot):
     bot.add_cog(Apis(bot))

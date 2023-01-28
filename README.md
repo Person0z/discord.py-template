@@ -5,6 +5,7 @@
 
 <p align="center">Discord Python Bot Template, for those looking for ideas or starting to learn Python!<p>
 <p align="center">
+  <a href="https://discord.gg/D8rjRN3uJQ"><img src="https://img.shields.io/discord/1054287234544713788?logo=discord"></a>
   <a href="//github.com/Person0z/discord.py-template"><img src="https://img.shields.io/github/repo-size/Person0z/discord.py-template"></a>
   <a href="//github.com/Person0z/discord.py-template/commits"><img src="https://img.shields.io/github/last-commit/Person0z/discord.py-template"></a>
   <a href="//github.com/Person0z/discord.py-template/contributors"><img src="https://img.shields.io/github/contributors/Person0z/discord.py-template"></a>
@@ -59,7 +60,7 @@ guild = 'GUILD ID'
 prefix = '!'
 
 # Bot Status
-activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.3"]
+activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.6"]
 
 # Colors
 Success = disnake.Color.green
@@ -82,3 +83,6 @@ The bot can be started with a python command:
 ```sh
 python main.py OR python3 main.py OR .sh/bat files
 ```
+
+# Sponsers
+[Zluqe, Experience hassle-free bot hosting with Zluqe. Our platform offers free hosting for both Python, Java and JavaScript bots, making it the one-stop solution for all your Discord needs.](https://zluqe.com/)

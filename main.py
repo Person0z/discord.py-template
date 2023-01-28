@@ -67,7 +67,7 @@ async def update(ctx):
 # On Ready
 @bot.event
 async def on_ready():
-    if config.version != "1.5.5":
+    if config.version != "1.5.6":
         print('===============================================')
         print('WARNING! You are not using the latest version!')
         print('===============================================')
@@ -133,5 +133,53 @@ async def reload(inter: disnake.ApplicationCommandInteraction, cog: str):
     except Exception as e:
         print(f'An error occured while reloading a cog! {e}')
 
+# A slash command to load cogs
+@bot.slash_command(name="load", description="Loads a cog")
+async def load(inter: disnake.ApplicationCommandInteraction, cog: str):
+    try:
+        if inter.author.id in config.owner_ids:
+            try:
+                bot.load_extension(f"cogs.{cog}")
+                embed = disnake.Embed(title="Success", description=f"Loaded {cog}", color=config.Success())
+                embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+                embed.set_thumbnail(url=inter.guild.me.avatar.url)
+                await inter.send(embed=embed, ephemeral=True)
+            except Exception as e:
+                embed = disnake.Embed(title="Error", description=f"Failed to load {cog} because of {e}", color=config.Error())
+                embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+                embed.set_thumbnail(url=inter.guild.me.avatar.url)
+                await inter.send(embed=embed, ephemeral=True)
+        else:
+            embed = disnake.Embed(title="Error", description="You are not allowed to use this command!", color=config.Error())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
+            await inter.send(embed=embed, ephemeral=True)
+    except Exception as e:
+        print(f'An error occured while loading a cog! {e}')
+
+# A slash command to unload cogs
+@bot.slash_command(name="unload", description="Unloads a cog")
+async def unload(inter: disnake.ApplicationCommandInteraction, cog: str):
+    try:
+        if inter.author.id in config.owner_ids:
+            try:
+                bot.unload_extension(f"cogs.{cog}")
+                embed = disnake.Embed(title="Success", description=f"Unloaded {cog}", color=config.Success())
+                embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+                embed.set_thumbnail(url=inter.guild.me.avatar.url)
+                await inter.send(embed=embed, ephemeral=True)
+            except Exception as e:
+                embed = disnake.Embed(title="Error", description=f"Failed to unload {cog} because of {e}", color=config.Error())
+                embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+                embed.set_thumbnail(url=inter.guild.me.avatar.url)
+                await inter.send(embed=embed, ephemeral=True)
+        else:
+            embed = disnake.Embed(title="Error", description="You are not allowed to use this command!", color=config.Error())
+            embed.set_footer(text=f"Requested by {inter.author}", icon_url=inter.author.avatar.url)
+            embed.set_thumbnail(url=inter.guild.me.avatar.url)
+            await inter.send(embed=embed, ephemeral=True)
+    except Exception as e:
+        print(f'An error occured while unloading a cog! {e}')
+    
 # Run The Bot 
 bot.run(config.token, reconnect=True)

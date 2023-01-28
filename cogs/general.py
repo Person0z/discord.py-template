@@ -23,7 +23,7 @@ class general(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog General')
-        
+
     # Ping Command
     @commands.slash_command(name='ping',
                             description='Get the bot\'s latency',)
@@ -34,6 +34,7 @@ class general(commands.Cog):
             await inter.response.send_message(ephemeral=True, embed=embed)
         except Exception as e:
             print(f'Error Sending Ping Command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending ping command: {e}"))
 
     # Check Slash Command (Checks if the bot is online)
     @commands.slash_command(name="check", description="Check if the bot is online!")
@@ -44,24 +45,28 @@ class general(commands.Cog):
             await inter.send(ephemeral=True, embed=embed)
         except Exception as e:
             print(f'Error Sending Check Command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending check command: {e}"))
 
     # a welcome message when someone joins the server with there porfile picture and name in the embed and a welcome message in the chat in a custom channel
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.bot.get_channel(config.welcome_channel)
-        role = disnake.utils.get(member.guild.roles, name=config.join_role)
-        if role:
-            try:
-                await member.add_roles(role)
-            except Exception as e:
-                print(f'Error adding role to member: {e}')
-        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"{member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
-        embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
-        embed.set_thumbnail(url=member.avatar.url)
-        embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
-        await channel.send(embed=embed)
-        await channel.send(f"{member.mention}", delete_after=0.2)
+        try:
+            channel = self.bot.get_channel(config.welcome_channel)
+            role = disnake.utils.get(member.guild.roles, name=config.join_role)
+            if role:
+                try:
+                    await member.add_roles(role)
+                except Exception as e:
+                    print(f'Error adding role to member: {e}')
+            embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"{member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
+            embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
+            embed.set_thumbnail(url=member.avatar.url)
+            embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
+            await channel.send(embed=embed)
+            await channel.send(f"{member.mention}", delete_after=0.2)
+        except Exception as e:
+            print(f'Error sending welcome message: {e}')
 
     # a goodbye message when someone leaves the server with there porfile picture and name in the embed and a goodbye message in the chat in a custom channel
     @commands.Cog.listener()
@@ -99,6 +104,7 @@ class general(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending userinfo message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending userinfo command: {e}"))
     
     # server info command
     @commands.slash_command(name='serverinfo',
@@ -114,6 +120,7 @@ class general(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending serverinfo message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending serverinfo command: {e}"))
         
     # Bot CPU and RAM usage with storage usage
     @commands.slash_command(name='botinfo',
@@ -134,6 +141,7 @@ class general(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending botinfo message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending botinfo command: {e}"))
 
 
     # invite the bot to your server
@@ -147,6 +155,7 @@ class general(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending invite message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending invite command: {e}"))
         
     @commands.Cog.listener()
     async def on_message(self, message):
