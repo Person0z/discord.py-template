@@ -83,15 +83,18 @@ class Radio(commands.Cog):
 
     @radio.autocomplete('action')
     async def radio_audiocomplete(self, inter: disnake.ApplicationCommandInteraction, action: str):
-        stations = []
-        region = inter.filled_options["region"]
-        with open("stations.json") as f:
-            data = json.load(f)
-            for i in data[f"{region}_Stations"]:
-                if action in i:
-                    stations.append(i)
-        return stations
-
+        try:
+            stations = []
+            region = inter.filled_options["region"]
+            with open("stations.json") as f:
+                data = json.load(f)
+                for i in data[f"{region}_Stations"]:
+                    if action in i:
+                        stations.append(i)
+            return stations
+        except Exception as e:
+            print(f'Error sending radio autocomplete: {e}')
+            
     @commands.slash_command(name="disconnect", description="Disconnects the bot from the voice channel")
     async def disconnect(inter: disnake.ApplicationCommandInteraction):
         try:
