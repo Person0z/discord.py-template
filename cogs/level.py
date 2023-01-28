@@ -10,6 +10,8 @@
 
 import disnake
 from disnake.ext import commands, tasks
+import json
+import random
 
 class level(commands.Cog):
     
@@ -22,7 +24,15 @@ class level(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(message):
-        data = []
+        data = {000:50}
+        data_dict = json.loads(data)
+
+        if message.author.id in data_dict:
+            xp = data_dict.get(message.author.id)
+            xp = xp + random.randint(1, 25)
+            data_dict[message.author.id] = xp
+        else:
+            data_dict[message.author.id] = random.randint(1, 25)
 
 
 def setup(bot):
