@@ -23,27 +23,26 @@ class level(commands.Cog):
         print(f'Loaded Cog Level')
         
     @commands.Cog.listener()
-    async def on_message(message):
+    async def on_message(self, message):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
 
         if message.author.id in data:
-            xp = data.get(message.author.id)
+            xp = data.get(f"{message.author.id}")
             xp = xp + random.randint(1, 25)
             data[f"{message.author.id}"] = xp
             with open('./rank.json', 'w') as rank_file:
-                data = json.load(rank_file)
+                json.dump(data, rank_file)
         else:
             data[f"{message.author.id}"] = random.randint(1, 25)
             with open('./rank.json', 'w') as rank_file:
-                data = json.load(rank_file)
-    
+                json.dump(data, rank_file)
+                
     @commands.slash_command(name="rank", description="Check your rank !")
-    async def rank(inter):
+    async def rank(self, inter):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
-        get_data = json.loads(data)
-        xp = get_data.get()
+        xp = data.get(f"{inter.author.id}")
         await inter.send(f"your xp is {xp}")
 
 
