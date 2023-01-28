@@ -27,10 +27,10 @@ class level(commands.Cog):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
 
-        if message.author.id in data:
+        if "message.author.id" in data:
+            data = json.load(rank_file)
             xp = data.get(f"{message.author.id}")
-            xp = xp + random.randint(1, 25)
-            data[f"{message.author.id}"] = xp
+            data[f"{message.author.id}"] = xp + random.randint(1, 25)
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
         else:
