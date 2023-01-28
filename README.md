@@ -84,3 +84,6 @@ The bot can be started with a python command:
 ```sh
 python main.py OR python3 main.py OR .sh/bat files
 ```
+
+# Sponsers
+[Zluqe, Experience hassle-free bot hosting with Zluqe. Our platform offers free hosting for both Python, Java and JavaScript bots, making it the one-stop solution for all your Discord needs.](https://zluqe.com/)
