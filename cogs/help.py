@@ -20,7 +20,7 @@ class help(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog Help')
-
+            
     # Help Command with subcommands 
     @commands.slash_command()
     async def help(
@@ -104,7 +104,7 @@ class help(commands.Cog):
                 await inter.response.send_message(embed=embedVar)
         except Exception as e:
             print(f'Error sending help message: {e}')
-            
+            await ctx.send(embed=errors.create_error_embed(f"Error sending help command: {e}"))
 
 def setup(bot):
     bot.add_cog(help(bot))

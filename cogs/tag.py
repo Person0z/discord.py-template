@@ -2,6 +2,7 @@ import disnake
 from disnake.ext import commands
 import os
 import json
+import config
 
 class Tag(commands.Cog):
     def __init__(self, bot):
@@ -10,7 +11,7 @@ class Tag(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog Tags')
-
+            
     # Tag view command 
     @commands.slash_command(name="tag", description="View a tag")
     async def tag(self, inter, tag: str):
@@ -25,6 +26,7 @@ class Tag(commands.Cog):
             await inter.send(embed=embed)
         except Exception as e:
             print(f'Error in tag: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending tag command: {e}"))
 
     # Tag add command
     @commands.slash_command(name="addtag", description="Add a tag")
@@ -44,6 +46,7 @@ class Tag(commands.Cog):
             await inter.send(f"Added tag {tag}")
         except Exception as e:
             print(f'Error in addtag: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending addtag command: {e}"))
 
     # Tag remove command
     @commands.slash_command(name="removetag", description="Remove a tag")
@@ -63,6 +66,7 @@ class Tag(commands.Cog):
             await inter.send(f"Removed tag {tag}")
         except Exception as e:
             print(f'Error in removetag: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending removetag command: {e}"))
 
     # Tag list command
     @commands.slash_command(name="taglist", description="List all tags")
@@ -94,6 +98,7 @@ class Tag(commands.Cog):
             await inter.send(f"Edited tag {tag}")
         except Exception as e:
             print(f'Error in edittag: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending edittag command: {e}"))
 
 def setup(bot):
     bot.add_cog(Tag(bot))

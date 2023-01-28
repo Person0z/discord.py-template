@@ -11,8 +11,7 @@ import disnake
 from disnake.ext import commands
 import asyncio
 import config
-from thefuzz import process
-
+from helpers import errors
 
 class Radio(commands.Cog):
     def __init__(self, bot):
@@ -80,6 +79,8 @@ class Radio(commands.Cog):
             await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending radio message: {e}')
+            await inter.send(f"Error sending radio message: {e}")
+            await inter.send(embed=errors.create_error_embed(f"Error sending radio command: {e}"))
 
     @radio.autocomplete('action')
     async def radio_audiocomplete(self, inter: disnake.ApplicationCommandInteraction, action: str):
@@ -88,9 +89,9 @@ class Radio(commands.Cog):
         with open("stations.json") as f:
             data = json.load(f)
             for i in data[f"{region}_Stations"]:
-                stations.append(i)
-        values: list[str] = process.extract(action, stations, limit=25)
-        return [i[0] for i in values]
+                if action in i:
+                    stations.append(i)
+        return stations
 
     @commands.slash_command(name="disconnect", description="Disconnects the bot from the voice channel")
     async def disconnect(inter: disnake.ApplicationCommandInteraction):
@@ -113,7 +114,18 @@ class Radio(commands.Cog):
                 await inter.send(embed=embed)
         except Exception as e:
             print(f'Error sending disconnect command: {e}')
+            
+    @commands.slash_command(name="volume", description="volume of the bot")
+    async def volume(self, ctx, volume: int):
+        try:
+            if ctx.voice_client is None:
+                return await ctx.send("Not connected to a voice channel.")
 
+            ctx.voice_client.source.volume = volume / 100
+            await ctx.send(f"Changed volume to {volume}%")
+        except Exception as e:
+            print(f'Error sending volume command: {e}')
+            await ctx.send(f"Error sending volume command: {e}")
 
 def setup(bot):
     bot.add_cog(Radio(bot))

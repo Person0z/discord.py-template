@@ -21,7 +21,7 @@ class moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'Loaded Cog Moderation') 
-
+            
     # Slowmode Command
     @commands.slash_command(name='slowmode',
                             description='Set the slowmode of a channel',)
@@ -45,6 +45,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)        
         except Exception as e:
             print(f'Error sending slow command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending slowmode command: {e}"))
 
     # Lock Command
     @commands.slash_command(name='lock',
@@ -67,6 +68,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending lock command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending lock command: {e}"))
 
     # Unlock Command
     @commands.slash_command(name='unlock',
@@ -89,6 +91,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending unlock command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending unlock command: {e}"))
 
     # Purge Command
     @commands.slash_command(name='purge',
@@ -112,6 +115,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed, delete_after=5)
         except Exception as e:
             print(f'Error sending purge command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending purge command: {e}"))
 
     # kick command
     @commands.slash_command(name='kick',
@@ -142,6 +146,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending kick command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending kick command: {e}"))
 
     # ban command
     @commands.slash_command(name='ban',
@@ -170,6 +175,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending ban command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending ban command: {e}"))
 
     # unban command 
     @commands.slash_command(name='unban',
@@ -190,6 +196,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending unban command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending unban command: {e}"))
 
     # Nuke command that nukes channels
     @commands.slash_command(name='nuke',
@@ -215,6 +222,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending nuke command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending nuke command: {e}"))
 
     # deletes any .exe, .bat, .sh files that are uploaded however allows certain roles to bypass this
     @commands.Cog.listener()
@@ -281,7 +289,8 @@ class moderation(commands.Cog):
                 await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending warn command: {e}')
-    
+            await inter.send(embed=errors.create_error_embed(f"Error sending warn command: {e}"))
+
     # warns command that shows the amount of warns a user has
     @commands.slash_command(name='warns',
                             description='Shows the amount of warns of a member',)
@@ -306,6 +315,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending warns command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending warns command: {e}"))
 
     # clearwarns command that clears the amount of warns that you choose of a user 
     @commands.slash_command(name='clearwarns',
@@ -347,6 +357,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending clearwarns command: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending clearwarns command: {e}"))
 
     # clearallwarns command that clears all the warns of a user
     @commands.slash_command(name='clearallwarns',
@@ -379,7 +390,7 @@ class moderation(commands.Cog):
             await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending clearallwarns command: {e}')
-
+            await inter.send(embed=errors.create_error_embed(f"Error sending clearallwarns command: {e}"))
 
 def setup(bot):
     bot.add_cog(moderation(bot))
