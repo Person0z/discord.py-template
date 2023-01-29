@@ -112,7 +112,7 @@ class help(commands.Cog):
                 embedVar.add_field(name="Level Commands",
                                     value=
                                     "```/rank - See you rank info```" +
-                                    "```/xp - Soon```" +
+                                    "```/xp - See your total xp```" +
                                     "```/level - Soon```" +
                                     "```/stage - Soon",
                                     inline=False)

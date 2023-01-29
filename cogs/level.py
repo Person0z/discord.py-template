@@ -12,6 +12,7 @@ import disnake
 from disnake.ext import commands, tasks
 import json
 import random
+import config
 
 class level(commands.Cog):
     
@@ -48,7 +49,14 @@ class level(commands.Cog):
         xp = data.get(f"{inter.author.id}")
         await inter.send(f"your xp is {xp}")
 
-
+    @commands.slash_command(name="xp", description="Check your total xp!")
+    async def xp(self, inter):
+        with open('./rank.json') as rank_file:
+            data = json.load(rank_file)
+        xp = data.get(f"{inter.author.id}")
+        embedVar = disnake.Embed(colour=config.Success())
+        embedVar.add_field(name="You have", value=f"**``{xp}`` xp!**", inline=False)
+        await inter.response.send_message(embed=embedVar)
 
 def setup(bot):
     bot.add_cog(level(bot))
