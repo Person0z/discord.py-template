@@ -24,6 +24,8 @@ class level(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
 
