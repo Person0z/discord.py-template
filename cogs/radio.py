@@ -44,7 +44,7 @@ class Radio(commands.Cog):
     @commands.slash_command()
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
-        region: typing.Literal["US", "UK"],
+        region: typing.Literal["US", "UK", "FR"],
         action: str
     ):
         try:

@@ -16,5 +16,11 @@
   },
   "UK_Images": {
     "HeartFM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/heart_400x400.jpg"
+  },
+  "FR_Stations": {
+    "NRJ": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3"
+  },
+  "FR_Images": {
+    "NRJ": "https://www.nrj.fr/uploads/assets/nrj/icons/android-icon-192x192.png"
   }
 }
