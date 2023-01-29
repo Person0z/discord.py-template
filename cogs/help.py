@@ -114,7 +114,7 @@ class help(commands.Cog):
                                     "```/rank - See your info```" +
                                     "```/xp - See your total xp```" +
                                     "```/level - See your level```" +
-                                    "```/stage - Soon",
+                                    "```/stage - See your stage```",
                                     inline=False)
                 embedVar.set_thumbnail(
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
