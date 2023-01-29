@@ -47,7 +47,14 @@ class level(commands.Cog):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
         xp = data.get(f"{inter.author.id}")
-        await inter.send(f"your xp is {xp}")
+        calc_lvl = xp/100
+        if calc_lvl < 1:
+            lvl = 0
+        lvl = round(calc_lvl)
+        embedVar = disnake.Embed(colour=config.Success())
+        embedVar.add_field(name="You have", value=f"**``{xp}`` xp!**", inline=False)
+        embedVar.add_field(name="You are at the", value=f"**``{lvl}`` level!**", inline=False)
+        await inter.response.send_message(embed=embedVar)
 
     @commands.slash_command(name="xp", description="Check your total xp!")
     async def xp(self, inter):
