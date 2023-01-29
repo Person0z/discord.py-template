@@ -111,7 +111,7 @@ class help(commands.Cog):
                 embedVar.add_field(name="Bot Prefix", value="```/ + !```", inline=False)
                 embedVar.add_field(name="Level Commands",
                                     value=
-                                    "```/rank - See you rank info```" +
+                                    "```/rank - See your info```" +
                                     "```/xp - See your total xp```" +
                                     "```/level - See your level```" +
                                     "```/stage - Soon",
