@@ -41,6 +41,8 @@ class level(commands.Cog):
             data[f"{message.author.id}"] = random.randint(1, 25)
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
+        
+        # in the future dev the give role with lvl
                 
     @commands.slash_command(name="rank", description="Check your global info!")
     async def rank(self, inter):
