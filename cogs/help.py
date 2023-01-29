@@ -22,10 +22,10 @@ class help(commands.Cog):
         print(f'Loaded Cog Help')
             
     # Help Command with subcommands 
-    @commands.slash_command()
+    @commands.slash_command(name='help', description='Show help command',)
     async def help(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio']),
+        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio', 'level']),
     ):
         try:
             if action == "general":
@@ -97,6 +97,24 @@ class help(commands.Cog):
                                     value=
                                     "```/radio - Start a radio station```" +
                                     "```/disconnect - Stop a radio station```",
+                                    inline=False)
+                embedVar.set_thumbnail(
+                    url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
+                )
+                await inter.response.send_message(embed=embedVar)
+
+            if action == "level":
+                embedVar = disnake.Embed(
+                    title="Level Commands!",
+                    description="Check important commands, that you can use!",
+                    colour=config.Success())
+                embedVar.add_field(name="Bot Prefix", value="```/ + !```", inline=False)
+                embedVar.add_field(name="Level Commands",
+                                    value=
+                                    "```/rank - See you rank info```" +
+                                    "```/xp - Soon```" +
+                                    "```/level - Soon```" +
+                                    "```/stage - Soon",
                                     inline=False)
                 embedVar.set_thumbnail(
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
