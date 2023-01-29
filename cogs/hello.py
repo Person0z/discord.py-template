@@ -24,34 +24,34 @@ class hello(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        if message.content.startswith("hey"):
+        if message.content.startswith("hey "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("yo"):
+        if message.content.startswith("yo "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("hello"):
+        if message.content.startswith("hello "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("wlc"):
+        if message.content.startswith("wlc "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("welcome"):
+        if message.content.startswith("welcome "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("bonjour"):
+        if message.content.startswith("bonjour "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("salut"):
+        if message.content.startswith("salut "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("bjr"):
+        if message.content.startswith("bjr "):
             await message.add_reaction("👋")
 
-        if message.content.startswith("slt"):
+        if message.content.startswith("slt "):
             await message.add_reaction("👋")
         
-        if message.content.startswith("bienvenue"):
+        if message.content.startswith("bienvenue "):
             await message.add_reaction("👋")
 
 def setup(bot):
