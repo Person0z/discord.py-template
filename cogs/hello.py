@@ -22,6 +22,8 @@ class hello(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
         if message.content.startswith("hey"):
             await message.add_reaction("👋")
 
