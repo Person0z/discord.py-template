@@ -18,9 +18,11 @@
     "HeartFM": "https://us-east-1.tixte.net/uploads/person0z.with-your.mom/heart_400x400.jpg"
   },
   "FR_Stations": {
-    "NRJ": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3"
+    "NRJ": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3",
+    "Skyrock": "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3"
   },
   "FR_Images": {
-    "NRJ": "https://www.nrj.fr/uploads/assets/nrj/icons/android-icon-192x192.png"
+    "NRJ": "https://www.nrj.fr/uploads/assets/nrj/icons/android-icon-192x192.png",
+    "Skyrock": "https://skyrock.fm/favicon32.png"
   }
 }
