@@ -42,7 +42,7 @@ class level(commands.Cog):
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
                 
-    @commands.slash_command(name="rank", description="Check your rank !")
+    @commands.slash_command(name="rank", description="Check your global info!")
     async def rank(self, inter):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
