@@ -159,6 +159,8 @@ class general(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.content.startswith("hey"):
+            await message.add_reaction("👋")
         if len(message.attachments) > 0:
             if message.attachments[0].url.endswith(('.txt', '.js', '.py', '.c', '.cpp', '.java')) == True:
                 download = message.attachments[0].url
