@@ -58,5 +58,18 @@ class level(commands.Cog):
         embedVar.add_field(name="You have", value=f"**``{xp}`` xp!**", inline=False)
         await inter.response.send_message(embed=embedVar)
 
+    @commands.slash_command(name="level", description="Check your level!")
+    async def level(self, inter):
+        with open('./rank.json') as rank_file:
+            data = json.load(rank_file)
+        xp = data.get(f"{inter.author.id}")
+        calc_lvl = xp/100
+        if calc_lvl < 1:
+            lvl = 0
+        lvl = round(calc_lvl)
+        embedVar = disnake.Embed(colour=config.Success())
+        embedVar.add_field(name="You are at the", value=f"**``{lvl}`` level!**", inline=False)
+        await inter.response.send_message(embed=embedVar)
+
 def setup(bot):
     bot.add_cog(level(bot))

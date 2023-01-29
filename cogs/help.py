@@ -113,7 +113,7 @@ class help(commands.Cog):
                                     value=
                                     "```/rank - See you rank info```" +
                                     "```/xp - See your total xp```" +
-                                    "```/level - Soon```" +
+                                    "```/level - See your level```" +
                                     "```/stage - Soon",
                                     inline=False)
                 embedVar.set_thumbnail(
