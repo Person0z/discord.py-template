@@ -31,6 +31,7 @@
 - per server tags + warns
 - logging messages + more
 - Someway to make updating the bot faster
+- level system
 
 If you have suggestions on adding something, feel free to ask and or make a PR!
 
