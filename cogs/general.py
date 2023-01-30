@@ -8,6 +8,7 @@
 # Importing the required modules
 import disnake
 from disnake.ext import commands, tasks
+from helpers import errors
 import os
 import psutil 
 import requests

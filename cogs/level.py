@@ -10,6 +10,7 @@
 
 import disnake
 from disnake.ext import commands, tasks
+from helpers import errors
 import json
 import random
 import config
