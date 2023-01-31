@@ -104,7 +104,7 @@ class general(commands.Cog):
             embed.add_field(name="**Bot Version:**", value=f"```{config.version}```")
             embed.add_field(name="**Bot Library:**", value=f"```Disnake```")
             embed.add_field(name="**Bot Servers:**", value=f"```{len(self.bot.guilds)}```", inline=False)
-            embed.add_field(name="**Bot Developer:**", value=f"```Person0z#0812```", inline=False)
+            embed.add_field(name="**Bot Developer:**", value=f"```Person0z#0812\n./Zerbaib.sh#6400\nJaymart95```", inline=False)
             embed.add_field(name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
             embed.add_field(name="Bot Profile", value=f"[Click Here](https://discord.com/users/{self.bot.user.id})", inline=False)
             embed.set_thumbnail(url=self.bot.user.avatar.url)
