@@ -116,7 +116,7 @@ class help(commands.Cog):
                                     "```/xp - See your total xp```" +
                                     "```/level - See your level```" +
                                     "```/stage - See your stage```"+
-                                    "```/givexp - Give xp to a member```",
+                                    "```/givexp - Give xp to a member | need \"manage_guild\" perm```",
                                     inline=False)
                 embedVar.set_thumbnail(
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
