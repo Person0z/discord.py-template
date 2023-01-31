@@ -67,7 +67,7 @@ async def update(ctx):
 # On Ready
 @bot.event
 async def on_ready():
-    if config.version != "1.5.7":
+    if config.version != "1.5.8":
         print('===============================================')
         print('WARNING! You are not using the latest version!')
         print('===============================================')
