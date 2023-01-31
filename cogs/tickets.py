@@ -12,6 +12,7 @@ from helpers import errors
 import os
 import asyncio
 import config
+from helpers import errors
 
 class tickets(commands.Cog):
     
