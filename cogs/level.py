@@ -71,6 +71,22 @@ class level(commands.Cog):
         embedVar.add_field(name="You have", value=f"**``{xp}`` xp**", inline=False)
         await inter.response.send_message(embed=embedVar)
 
+    @commands.slash_command(name="", description="")
+    async def givexp(self, inter, member: disnake.Member, amount: int):
+        with open('./rank.json') as rank_file:
+            data = json.load(rank_file)
+
+        if data.get(f"{member.id}"):
+            xp = data.get(f"{member.id}")
+            data[f"{member.id}"] = xp + amount
+            
+            with open('./rank.json', 'w') as rank_file:
+                json.dump(data, rank_file)
+        else:
+            data[f"{member.id}"] = amount
+            with open('./rank.json', 'w') as rank_file:
+                json.dump(data, rank_file)
+
     @commands.slash_command(name="level", description="Check your level")
     async def level(self, inter):
         with open('./rank.json') as rank_file:
