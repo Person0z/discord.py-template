@@ -8,7 +8,6 @@
 # Importing Libraries
 import disnake
 from disnake.ext import commands
-from helpers import errors
 import os
 import aiohttp
 import base64

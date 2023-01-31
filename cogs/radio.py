@@ -9,7 +9,6 @@ import json
 import typing
 import disnake
 from disnake.ext import commands
-from helpers import errors
 import asyncio
 import config
 from helpers import errors
