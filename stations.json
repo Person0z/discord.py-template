@@ -19,10 +19,12 @@
   },
   "FR_Stations": {
     "NRJ": "http://cdn.nrjaudio.fm/audio1/fr/30001/mp3_128.mp3",
-    "Skyrock": "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3"
+    "Skyrock": "http://www.skyrock.fm/stream.php/tunein16_128mp3.mp3",
+    "CityCraftRadio": "http://stream.zeno.fm/ho6grodgymetv"
   },
   "FR_Images": {
-    "NRJ": "https://www.nrj.fr/uploads/assets/nrj/icons/android-icon-192x192.png",
-    "Skyrock": "https://skyrock.fm/favicon32.png"
+    "NRJ": "https://static1.ozap.com/articles/5/48/31/65/@/4499700-nrj-opengraph_1200-1.png",
+    "Skyrock": "https://skyrock.fm/favicon32.png",
+    "CityCraftRadio": "https://city-craft.fr/storage/img/citycraftlogosite.png"
   }
 }
