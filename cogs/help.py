@@ -87,7 +87,6 @@ class help(commands.Cog):
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
                 )
                 await inter.response.send_message(embed=embedVar)
-
             if action == "tickets":
                 embedVar = disnake.Embed(
                     title="Ticket Commands!",
@@ -121,7 +120,6 @@ class help(commands.Cog):
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
                 )
                 await inter.response.send_message(embed=embedVar)
-
             if action == "level":
                 embedVar = disnake.Embed(
                     title="Level Commands!",
@@ -131,9 +129,10 @@ class help(commands.Cog):
                 embedVar.add_field(name="Level Commands",
                                     value=
                                     "```/rank - See your info```" +
+                                    "```/top - See the member top with bigger xp```" +
                                     "```/xp - See your total xp```" +
                                     "```/level - See your level```" +
-                                    "```/stage - See your stage```"+
+                                    "```/stage - See your stage```" +
                                     "```/givexp - Give xp to a member | you need admin perm```",
                                     inline=False)
                 embedVar.set_thumbnail(
@@ -142,7 +141,7 @@ class help(commands.Cog):
                 await inter.response.send_message(embed=embedVar)
         except Exception as e:
             print(f'Error sending help message: {e}')
-            await ctx.send(embed=errors.create_error_embed(f"Error sending help command: {e}"))
+            await inter.send(embed=errors.create_error_embed(f"Error sending help command: {e}"))
 
 def setup(bot):
     bot.add_cog(help(bot))
