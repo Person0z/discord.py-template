@@ -75,7 +75,7 @@ class level(commands.Cog):
             sorted_data = sorted(data.items(), key=lambda x: x[1], reverse=True)
             short_top = sorted_data[:top]
 
-            embedVar = disnake.Embed(title="Top 10 of the member xp", colour=config.Success())
+            embedVar = disnake.Embed(title=f"Top {top} of the member xp", colour=config.Success())
             for key, value in short_top:
                 user = self.bot.get_user(int(key))
                 if user:
