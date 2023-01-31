@@ -72,7 +72,7 @@ class level(commands.Cog):
         await inter.response.send_message(embed=embedVar)
 
     @commands.slash_command(name="givexp", description="Give xp to a member!")
-    @commands.default_member_permissions(manage_guild=True, moderate_members=True)
+    @commands.default_member_permissions(manage_guild=True)
     async def givexp(self, inter, member: disnake.Member, amount: int):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
