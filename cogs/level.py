@@ -71,7 +71,7 @@ class level(commands.Cog):
         embedVar.add_field(name="You have", value=f"**``{xp}`` xp**", inline=False)
         await inter.response.send_message(embed=embedVar)
 
-    @commands.slash_command(name="", description="")
+    @commands.slash_command(name="givexp", description="Give xp to a member!")
     async def givexp(self, inter, member: disnake.Member, amount: int):
         with open('./rank.json') as rank_file:
             data = json.load(rank_file)
