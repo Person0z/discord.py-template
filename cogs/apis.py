@@ -17,6 +17,7 @@ from io import BytesIO
 import random
 import json
 import config
+from helpers import errors
 
 class Apis(commands.Cog):
     

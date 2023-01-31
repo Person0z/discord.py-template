@@ -12,6 +12,7 @@ import os
 import time
 import config
 import json
+from helpers import errors
 
 class moderation(commands.Cog):
     

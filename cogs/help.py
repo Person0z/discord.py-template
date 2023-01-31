@@ -11,6 +11,7 @@ import disnake
 from disnake.ext import commands
 import os
 import config
+from helpers import errors
 
 class help(commands.Cog):
 

@@ -12,6 +12,7 @@ import os
 import random
 import aiohttp
 import config
+from helpers import errors
 
 class fun(commands.Cog):
     

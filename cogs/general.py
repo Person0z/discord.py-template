@@ -14,6 +14,7 @@ import requests
 import json
 import aiohttp
 import config
+from helpers import errors
 
 class general(commands.Cog):
     

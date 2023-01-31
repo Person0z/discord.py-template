@@ -11,6 +11,7 @@ from disnake.ext import commands
 import os
 import asyncio
 import config
+from helpers import errors
 
 class tickets(commands.Cog):
     

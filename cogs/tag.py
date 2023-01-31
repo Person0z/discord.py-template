@@ -3,6 +3,7 @@ from disnake.ext import commands
 import os
 import json
 import config
+from helpers import errors
 
 class Tag(commands.Cog):
     def __init__(self, bot):

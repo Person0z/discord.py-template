@@ -11,6 +11,7 @@ from disnake.ext import commands
 import os
 import random
 import config
+from helpers import errors
 
 class logging(commands.Cog):
     def __init__(self, bot):
