@@ -26,8 +26,7 @@ class general(commands.Cog):
         print(f'Loaded Cog General')
 
     # Ping Command
-    @commands.slash_command(name='ping',
-                            description='Get the bot\'s latency',)
+    @commands.slash_command(name='ping', description='Get the bot\'s latency')
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title=f"Pong!", description=f"The ping is around `{round(self.bot.latency * 1000)}ms`", color=config.Success())
@@ -49,8 +48,7 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending check command: {e}"))
 
     # user info command
-    @commands.slash_command(name='userinfo',
-                            description='Get info about a user',)
+    @commands.slash_command(name='userinfo', description='Get info about a user')
     async def userinfo(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member = None):
         try:
             if member is None:
@@ -73,8 +71,7 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending userinfo command: {e}"))
     
     # server info command
-    @commands.slash_command(name='serverinfo',
-                            description='Get info about the server',)
+    @commands.slash_command(name='serverinfo', description='Get info about the server')
     async def serverinfo(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title=f"{inter.guild.name}'s Info", color=config.Success())
@@ -89,8 +86,7 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending serverinfo command: {e}"))
         
     # Bot CPU and RAM usage with storage usage
-    @commands.slash_command(name='botinfo',
-                            description='Get info about the bot',)
+    @commands.slash_command(name='botinfo', description='Get info about the bot')
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         try:
             cpu = psutil.cpu_percent()
@@ -111,8 +107,7 @@ class general(commands.Cog):
 
 
     # invite the bot to your server
-    @commands.slash_command(name='invite',
-                            description='Invite the bot to your server',)
+    @commands.slash_command(name='invite', description='Invite the bot to your server')
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title="Invite Me", color=config.Success())
