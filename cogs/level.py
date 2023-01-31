@@ -62,6 +62,27 @@ class level(commands.Cog):
         embedVar.add_field(name="You are at the", value=f"**``{stg}`` stage**", inline=False)
         await inter.response.send_message(embed=embedVar)
 
+    @commands.slash_command(name="top", description="Check the top of xp in all time!")
+    async def top(self, inter, top: int):
+        try:
+            with open('./rank.json') as rank_file:
+                data = json.load(rank_file)
+        
+            sorted_data = sorted(data.items(), key=lambda x: x[1], reverse=True)
+            short_top = sorted_data[:top]
+
+            embedVar = disnake.Embed(title="Top 10 of the member xp", colour=config.Success())
+            for key, value in short_top:
+                user = self.bot.get_user(int(key))
+                if user:
+                    embedVar.add_field(name=f"{user.name}", value=f"```With {value} xp```", inline=False)
+                else:
+                    embedVar.add_field(name=f"Not Fund", value=f" ", inline=False)
+            await inter.response.send_message(embed=embedVar)
+        except Exception as e:
+            print(f'Error sending help message: {e}')
+            await inter.send(embed=errors.create_error_embed(f"Error sending help command: {e}"))
+
     @commands.slash_command(name="xp", description="Check your total xp!")
     async def xp(self, inter):
         with open('./rank.json') as rank_file:
