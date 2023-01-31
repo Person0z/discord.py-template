@@ -26,12 +26,31 @@ class help(commands.Cog):
     @commands.slash_command(name='help', description='Show help command',)
     async def help(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio', 'level']),
+        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio', 'level', 'moderation']),
     ):
         try:
             if action == "general":
                 embedVar = disnake.Embed(
                     title="General Commands!",
+                    description="Check important commands, that you can use!",
+                    colour=config.Success())
+                embedVar.add_field(name="Bot Prefix", value="```/ + !```", inline=False)
+                embedVar.add_field(name="Moderation Commands",
+                                    value=
+                                        "```/ping - See the ping of the bot```" +
+                                        "```/check - Check if the bot is online```" +
+                                        "```/userinfo - Look info about user```" +
+                                        "```/serverinfo - Get info about the server```" +
+                                        "```/botinfo - Get info about the bot```" +
+                                        "```/invite - Get the link of the bot```",
+                                        inline=False)
+                embedVar.set_thumbnail(
+                    url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
+                )
+                await inter.response.send_message(embed=embedVar)
+            if action == "moderation":
+                embedVar = disnake.Embed(
+                    title="Moderation Commands!",
                     description="Check important commands, that you can use!",
                     colour=config.Success())
                 embedVar.add_field(name="Bot Prefix", value="```/ + !```", inline=False)
@@ -50,7 +69,6 @@ class help(commands.Cog):
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
                 )
                 await inter.response.send_message(embed=embedVar)
-
             if action == "fun":
                 embedVar = disnake.Embed(
                     title="Fun Commands!",
