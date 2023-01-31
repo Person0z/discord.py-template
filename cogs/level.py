@@ -82,10 +82,14 @@ class level(commands.Cog):
             
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
+            
         else:
             data[f"{member.id}"] = amount
             with open('./rank.json', 'w') as rank_file:
                 json.dump(data, rank_file)
+        embedVar = disnake.Embed(colour=config.Success())
+        embedVar.add_field(name="You have give", value=f"**``{amount}`` xp to  {member}**", inline=False)
+        await inter.response.send_message(embed=embedVar)
 
     @commands.slash_command(name="level", description="Check your level")
     async def level(self, inter):
