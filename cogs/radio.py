@@ -41,7 +41,7 @@ class Radio(commands.Cog):
                 if voice_client.is_paused():
                     voice_client.resume()
 
-    @commands.slash_command()
+    @commands.slash_command(name="radio", description="Play radio on a voice channel!")
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
         region: typing.Literal["US", "UK", "FR"],
