@@ -9,6 +9,7 @@
 import disnake
 from disnake.ext import commands
 import os
+from datetime import datetime
 import random
 import config
 from helpers import errors
@@ -47,14 +48,18 @@ class logging(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         try:
-            if message.author.bot:
-                return
-            if message.guild.id == config.guild:
-                for channel in config.logs:
-                    embed = disnake.Embed(title=f"Message Deleted", description=f"**Message:** {message.content}\n**Channel:** {message.channel.mention}\n**Author:** {message.author.mention}", color=config.Random)
-                    await self.bot.get_channel(channel).send(embed=embed)
+            channel = self.bot.get_channel(1054579107666591804)
+            embed = disnake.Embed(
+                title="Message Deleted",
+                description=f"Message sent by **{message.author.mention}** in **{message.channel.mention}** was deleted.",
+                color=disnake.Color.red()
+            )
+            embed.add_field(name="Message:", value=f'```{message.content}```')
+            embed.set_footer(text=f"Message ID: {message.id}")
+            await channel.send(embed=embed)
         except Exception as e:
-            print(f'Error in on_message_delete: {e}')
+            print(f'Error sending logging message: {e}')
+            
     
 def setup(bot):
     bot.add_cog(logging(bot))
