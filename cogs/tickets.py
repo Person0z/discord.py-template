@@ -10,6 +10,8 @@ import disnake
 from disnake.ext import commands
 import os
 import asyncio
+import config
+from helpers import errors
 
 
 class tickets(commands.Cog):
@@ -31,7 +33,6 @@ class tickets(commands.Cog):
 #        await inter.response.send_message(animal)
 
     # Slash command for tickets which has options of opening a ticket, closing a ticket, and deleting a ticket
-
 
     @commands.slash_command()
     async def ticket(self,
