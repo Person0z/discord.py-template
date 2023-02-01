@@ -13,13 +13,19 @@ import asyncio
 import config
 from helpers import errors
 
-class Radio(commands.Cog):
+class voice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Radio')
+        print(f'Loaded Cog voice')
+
+    # Deafen on join
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after, **kwargs):
+        if member == self.bot.user and before.deaf != after.deaf and not after.deaf:
+            await member.edit(deafen=True)
 
     # Deafen + play/pause
     @commands.Cog.listener()
@@ -44,7 +50,7 @@ class Radio(commands.Cog):
     @commands.slash_command()
     async def radio(
         inter: disnake.ApplicationCommandInteraction,
-        region: typing.Literal["US", "UK"],
+        region: typing.Literal["US", "UK", "FR"],
         action: str
     ):
         try:
@@ -130,4 +136,4 @@ class Radio(commands.Cog):
             await ctx.send(f"Error sending volume command: {e}")
 
 def setup(bot):
-    bot.add_cog(Radio(bot))
+    bot.add_cog(voice(bot))
