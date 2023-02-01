@@ -22,6 +22,7 @@
 - Tickets (/tickets: needs to be redone)
 - Radios (Play radio's from online sources)
 - Pastebin (uploads files to a pastebin so you dont have to download files that you dont trust)
+- level system
 
 ## Coming Soon
 - Redoing Tickets
@@ -31,7 +32,6 @@
 - per server tags + warns
 - logging messages + more
 - Someway to make updating the bot faster
-- level system
 
 If you have suggestions on adding something, feel free to ask and or make a PR!
 
