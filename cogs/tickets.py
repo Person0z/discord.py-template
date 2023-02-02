@@ -100,6 +100,7 @@ class tickets(commands.Cog):
                         await transcript_channel.send(file=disnake.File(transcript_file_name))
                         await inter.channel.delete()
                         os.remove(transcript_file_name)
+                        self.tickets.remove(inter.author.id)
                     else:
                         await inter.response.send_message("You don't have a ticket open.")
 

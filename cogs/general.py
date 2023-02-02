@@ -160,6 +160,8 @@ class general(commands.Cog):
         
     @commands.Cog.listener()
     async def on_message(self, message):
+        if message.author.bot:
+            return
         if len(message.attachments) > 0:
             if message.attachments[0].url.endswith(('.txt', '.js', '.py', '.c', '.cpp', '.java')) == True:
                 download = message.attachments[0].url
@@ -186,6 +188,6 @@ class general(commands.Cog):
                         await message.reply(embed=embed)
             else:
                 return
-        
+                
 def setup(bot):
     bot.add_cog(general(bot))
