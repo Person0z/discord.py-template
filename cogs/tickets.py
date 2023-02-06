@@ -58,7 +58,7 @@ class tickets(commands.Cog):
                 )
                 self.tickets.append(inter.author.id)
                 # Sets the permissions for the ticket channel
-                await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
+                await channel.set_permissions(inter.author, send_messages=True, read_messages=True, read_message_history=True, attach_files=True, embed_links=True, add_reactions=True, external_emojis=True, use_external_emojis=True, use_slash_commands=True)
                 await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
                 
                 # Sends a message to the ticket channel
