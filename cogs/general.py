@@ -126,37 +126,6 @@ class general(commands.Cog):
         except Exception as e:
             print(f'Error sending invite message: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending invite command: {e}"))
-        
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.content.startswith("hey"):
-            await message.add_reaction("👋")
-        if len(message.attachments) > 0:
-            if message.attachments[0].url.endswith(('.txt', '.js', '.py', '.c', '.cpp', '.java')) == True:
-                download = message.attachments[0].url
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(download, allow_redirects=True) as r:
-                        text = await r.text()
-                        text = "\n".join(text.splitlines())
-                        truncated = False
-                        if len(text) > 100000:
-                            text = text[:99999]
-                            truncated = True
-                        req = requests.post('https://paste.zluqe.com/documents', data=text)
-                        key = json.loads(req.content)['key']
-                        response = ""
-                        response = response + "https://paste.zluqe.com/" + key
-                        response = response + "\nRequested by " + message.author.mention
-                        if truncated:
-                            response = response + "\n(file was truncated because it was too long.)"
-                        embed = disnake.Embed(title="Please Use The Zluqe Paste Service", color=0x1D83D4)
-                        embed.add_field(name='Paste URL', value=f'> [File Paste Link](https://paste.zluqe.com/{key})')
-                        embed.add_field(name='File Extension', value='> '+ download.split('.')[-1])
-                        embed.add_field(name='File Size', value='> '+ str(round(len(text)/1000)) + ' KB')
-                        embed.set_footer(text=f'Requested by {message.author}', icon_url=message.author.avatar.url)
-                        await message.reply(embed=embed)
-            else:
-                return
-        
+                
 def setup(bot):
     bot.add_cog(general(bot))
