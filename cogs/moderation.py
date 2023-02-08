@@ -227,11 +227,11 @@ class moderation(commands.Cog):
 
     # deletes any .exe, .bat, .sh files that are uploaded however allows certain roles to bypass this
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message, inter):
         try:
             if ".gg/" in message.content:
                 await message.delete()
-                await message.send('Do not send Discord invit link', mention_author=True)
+                await inter.message.channel.send('Do not send Discord invit link', mention_author=True)
             if message.author.bot:
                 return
             if message.attachments:
