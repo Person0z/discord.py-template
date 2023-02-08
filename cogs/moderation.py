@@ -229,6 +229,9 @@ class moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         try:
+            if message.content('.gg/'):
+                await message.channel.purge(limit=1)
+                await message.reply('Do not send Discord invit link', mention_author=True)
             if message.author.bot:
                 return
             if message.attachments:
