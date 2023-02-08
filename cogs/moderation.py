@@ -231,7 +231,7 @@ class moderation(commands.Cog):
         try:
             if ".gg/" in message.content:
                 await message.delete()
-                await message.reply('Do not send Discord invit link', mention_author=True)
+                await message.send('Do not send Discord invit link', mention_author=True)
             if message.author.bot:
                 return
             if message.attachments:
