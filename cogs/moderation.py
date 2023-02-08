@@ -229,7 +229,7 @@ class moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         try:
-            if message.content('.gg/'):
+            if ".gg/" in message.content:
                 await message.delete()
                 await message.reply('Do not send Discord invit link', mention_author=True)
             if message.author.bot:
