@@ -92,7 +92,10 @@ class tickets(commands.Cog):
                         async for message in inter.channel.history(limit=None):
                             if message.author.id == inter.guild.me.id:
                                 continue
-                            messages.append(f"{message.author} | ({message.author.id}): {message.content}")
+                            reply = ''
+                            if message.reactions:
+                                reply = f"(Reacted to by {[str(r.users) for r in message.reactions][0]})"
+                            messages.append(f"{message.author} ({message.author.id}): {message.content} {reply}")
                         messages = messages[::-1]
                         transcript_file_name = f"transcript-ticket-{inter.author.name}.txt"
                         with open(transcript_file_name, "w") as f:
@@ -100,6 +103,7 @@ class tickets(commands.Cog):
                         await transcript_channel.send(file=disnake.File(transcript_file_name))
                         await inter.channel.delete()
                         os.remove(transcript_file_name)
+                    if inter.author.id in self.tickets:
                         self.tickets.remove(inter.author.id)
                     else:
                         await inter.response.send_message("You don't have a ticket open.")
