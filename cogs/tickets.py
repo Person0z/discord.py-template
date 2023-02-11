@@ -22,7 +22,7 @@ class tickets(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Tickets')
+        print('Loaded Cog Tickets')
 
     # Slash command for tickets which has options of opening a ticket, closing a ticket, and deleting a ticket
 
