@@ -6,6 +6,7 @@
 ###############################################
 
 # imports and stuff
+from distutils.fancy_getopt import FancyGetopt
 import disnake
 from disnake.ext import commands
 import os
@@ -26,8 +27,8 @@ class logging(commands.Cog):
     async def on_member_join(self, member):
         role = disnake.utils.get(member.guild.roles, name=config.join_role)
         channel = self.bot.get_channel(config.join_channel)
-        embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
-        embed.add_field (name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
+        embed = disnake.Embed(title=f"Bienvenue {member.name}!", description=f"Bienvenue sur {member.guild.name}! On est heureux que tu soie la !", color=config.Success())
+        # embed.add_field(name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
         await channel.send(embed=embed)
