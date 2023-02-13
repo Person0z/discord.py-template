@@ -103,11 +103,11 @@ class moderation(commands.Cog):
             if not inter.author.guild_permissions.manage_messages:
                 embed = disnake.Embed(title=f"You do not have permission To purge messages!", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-                return await interaction.edit_original_response(ephemeral=True, embed=embed)   
+                return await inter.response.send_message(ephemeral=True, embed=embed)   
             if not inter.guild.me.guild_permissions.manage_messages:
                 embed = disnake.Embed(title=f"I do not have permission to purge messages!", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-                return await interaction.edit_original_response(delete_after=15, embed=embed)
+                return await inter.response.send_message(delete_after=15, embed=embed)
             if not channel:
                 channel = inter.channel
             await channel.purge(limit=amount)
@@ -229,6 +229,9 @@ class moderation(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         try:
+            if ".gg/" in message.content:
+                await message.delete()
+                await message.channel.send(f'Do not send Discord invit link <@{message.author.id}>', delete_after=10)
             if message.author.bot:
                 return
             if message.attachments:
