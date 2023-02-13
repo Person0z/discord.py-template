@@ -26,7 +26,8 @@ class general(commands.Cog):
         print(f'Loaded Cog General')
 
     # Ping Command
-    @commands.slash_command(name='ping', description='Get the bot\'s latency')
+    @commands.slash_command(name='ping',
+                            description='Get the bot\'s latency',)
     async def ping(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title=f"Pong!", description=f"The ping is around `{round(self.bot.latency * 1000)}ms`", color=config.Success())
@@ -48,7 +49,8 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending check command: {e}"))
 
     # user info command
-    @commands.slash_command(name='userinfo', description='Get info about a user')
+    @commands.slash_command(name='userinfo',
+                            description='Get info about a user',)
     async def userinfo(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member = None):
         try:
             if member is None:
@@ -71,7 +73,8 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending userinfo command: {e}"))
     
     # server info command
-    @commands.slash_command(name='serverinfo', description='Get info about the server')
+    @commands.slash_command(name='serverinfo',
+                            description='Get info about the server',)
     async def serverinfo(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title=f"{inter.guild.name}'s Info", color=config.Success())
@@ -86,7 +89,8 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending serverinfo command: {e}"))
         
     # Bot CPU and RAM usage with storage usage
-    @commands.slash_command(name='botinfo', description='Get info about the bot')
+    @commands.slash_command(name='botinfo',
+                            description='Get info about the bot',)
     async def botinfo(self, inter: disnake.ApplicationCommandInteraction):
         try:
             cpu = psutil.cpu_percent()
@@ -95,18 +99,9 @@ class general(commands.Cog):
             storage_used = psutil.disk_usage('/').used / (1024.0 ** 3)
             storage_total = psutil.disk_usage('/').total / (1024.0 ** 3)
             embed = disnake.Embed(title=f"{self.bot.user.name}'s Info", color=config.Success())
-            embed.add_field(name="**Bot:**", value=f"```{self.bot.user.name}#{self.bot.user.discriminator} ({self.bot.user.id})```", inline=False)
-            embed.add_field(name="**Bot Created:**", value=f"```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```", inline=False)
-            embed.add_field(name="**Bot CPU Usage:**", value=f"```{cpu}% / 100%```")
-            embed.add_field(name="**Bot RAM Usage:**", value=f"```{ram_used:.2f} GB / {ram_total:.2f} GB```")
-            embed.add_field(name="**Bot Storage Usage:**", value=f"```{storage_used:.2f} GB / {storage_total:.2f} GB```")
-            embed.add_field(name="**Bot Ping:**", value=f"```{round(self.bot.latency * 1000)}ms```")
-            embed.add_field(name="**Bot Version:**", value=f"```{config.version}```")
-            embed.add_field(name="**Bot Library:**", value=f"```Disnake```")
-            embed.add_field(name="**Bot Servers:**", value=f"```{len(self.bot.guilds)}```", inline=False)
-            embed.add_field(name="**Bot Developer:**", value=f"```Person0z#0812\n./Zerbaib.sh#6400\nJaymart95```", inline=False)
-            embed.add_field(name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
-            embed.add_field(name="Bot Profile", value=f"[Click Here](https://discord.com/users/{self.bot.user.id})", inline=False)
+            embed.add_field (name="\nBot Info", value=f"\n**Bot:** ```{self.bot.user.name}#{self.bot.user.discriminator} ({self.bot.user.id})```\n**Bot Created:** ```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Bot CPU Usage:** ```{cpu}% / 100%```\n**Bot RAM Usage:** ```{ram_used:.2f} GB / {ram_total:.2f} GB```\n**Bot Storage Usage:** ```{storage_used:.2f} GB / {storage_total:.2f} GB```\n**Bot Ping:** ```{round(self.bot.latency * 1000)}ms```\n**Bot Version:** ```{config.version}```\n**Bot Library:** ```Disnake```\n**Bot Developer:** ```Person0z#0812```", inline=False)
+            embed.add_field (name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
+            embed.add_field (name="Bot Profile", value=f"[Click Here](https://discord.com/users/{self.bot.user.id})", inline=False)
             embed.set_thumbnail(url=self.bot.user.avatar.url)
             embed.set_footer(text=f'Requested by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.response.send_message(embed=embed)
@@ -116,7 +111,8 @@ class general(commands.Cog):
 
 
     # invite the bot to your server
-    @commands.slash_command(name='invite', description='Invite the bot to your server')
+    @commands.slash_command(name='invite',
+                            description='Invite the bot to your server',)
     async def invite(self, inter: disnake.ApplicationCommandInteraction):
         try:
             embed = disnake.Embed(title="Invite Me", color=config.Success())
@@ -126,37 +122,6 @@ class general(commands.Cog):
         except Exception as e:
             print(f'Error sending invite message: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending invite command: {e}"))
-        
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.content.startswith("hey"):
-            await message.add_reaction("👋")
-        if len(message.attachments) > 0:
-            if message.attachments[0].url.endswith(('.txt', '.js', '.py', '.c', '.cpp', '.java')) == True:
-                download = message.attachments[0].url
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(download, allow_redirects=True) as r:
-                        text = await r.text()
-                        text = "\n".join(text.splitlines())
-                        truncated = False
-                        if len(text) > 100000:
-                            text = text[:99999]
-                            truncated = True
-                        req = requests.post('https://paste.zluqe.com/documents', data=text)
-                        key = json.loads(req.content)['key']
-                        response = ""
-                        response = response + "https://paste.zluqe.com/" + key
-                        response = response + "\nRequested by " + message.author.mention
-                        if truncated:
-                            response = response + "\n(file was truncated because it was too long.)"
-                        embed = disnake.Embed(title="Please Use The Zluqe Paste Service", color=0x1D83D4)
-                        embed.add_field(name='Paste URL', value=f'> [File Paste Link](https://paste.zluqe.com/{key})')
-                        embed.add_field(name='File Extension', value='> '+ download.split('.')[-1])
-                        embed.add_field(name='File Size', value='> '+ str(round(len(text)/1000)) + ' KB')
-                        embed.set_footer(text=f'Requested by {message.author}', icon_url=message.author.avatar.url)
-                        await message.reply(embed=embed)
-            else:
-                return
-        
+                
 def setup(bot):
     bot.add_cog(general(bot))

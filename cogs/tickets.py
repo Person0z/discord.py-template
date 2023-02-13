@@ -22,7 +22,7 @@ class tickets(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Tickets')
+        print('Loaded Cog Tickets')
 
     # Slash command for tickets which has options of opening a ticket, closing a ticket, and deleting a ticket
 
@@ -58,9 +58,9 @@ class tickets(commands.Cog):
                 )
                 self.tickets.append(inter.author.id)
                 # Sets the permissions for the ticket channel
-                await channel.set_permissions(inter.author, send_messages=True, read_messages=True)
+                await channel.set_permissions(inter.author, send_messages=True, read_messages=True, read_message_history=True, attach_files=True, embed_links=True, add_reactions=True, external_emojis=True, use_external_emojis=True, use_slash_commands=True)
                 await channel.set_permissions(inter.guild.default_role, send_messages=False, read_messages=False)
-
+                
                 # Sends a message to the ticket channel
                 embed = disnake.Embed(title=f'Welcome to {inter.guild.name}, How may we help you?', description=f'Thank you for contacting {inter.guild.name}\'s support. Please list your issue or concerns while you wait for staff to come assist you today!')
                 embed.set_footer(text=f'Command executed by {inter.author}', icon_url=inter.author.avatar.url)
@@ -76,13 +76,40 @@ class tickets(commands.Cog):
 
             # If the user selects close, it will close the ticket
             elif action == "close":
-                channel = disnake.utils.get(
-                    inter.guild.channels, name=f"ticket-{inter.author.name}")
-                if inter.channel.name.startswith("ticket-"):
-                    await inter.channel.delete()
-                    await inter.response.send_message("Your ticket has been closed.")
-                else:
-                    await inter.response.send_message("You don't have a ticket open.")
+                async def close_ticket():
+                    channel = disnake.utils.get(inter.guild.channels, name=f"ticket-{inter.author.name}")
+                    transcript_channel = disnake.utils.get(inter.guild.channels, name="transcript")
+                    if not transcript_channel:
+                        category = disnake.utils.get(inter.guild.categories, name="Tickets")
+                        if not category:
+                            category = await inter.guild.create_category("Tickets")
+                        transcript_channel = await inter.guild.create_text_channel("transcript", category=category)
+                        overwrite = disnake.PermissionOverwrite()
+                        overwrite.read_messages = False
+                        await transcript_channel.set_permissions(inter.guild.default_role, overwrite=overwrite)
+                    if inter.channel.name.startswith("ticket-"):
+                        messages = []
+                        async for message in inter.channel.history(limit=None):
+                            if message.author.id == inter.guild.me.id:
+                                continue
+                            reply = ''
+                            if message.reactions:
+                                reply = f"(Reacted to by {[str(r.users) for r in message.reactions][0]})"
+                            messages.append(f"{message.author} ({message.author.id}): {message.content} {reply}")
+                        messages = messages[::-1]
+                        transcript_file_name = f"transcript-ticket-{inter.author.name}.txt"
+                        with open(transcript_file_name, "w") as f:
+                            f.write("\n".join(messages))
+                        await transcript_channel.send(file=disnake.File(transcript_file_name))
+                        await inter.channel.delete()
+                        os.remove(transcript_file_name)
+                    if inter.author.id in self.tickets:
+                        self.tickets.remove(inter.author.id)
+                    else:
+                        await inter.response.send_message("You don't have a ticket open.")
+
+                await inter.response.defer()
+                asyncio.create_task(close_ticket())
             
             # If the user selects add, it will add a user to the ticket Ex: /ticket action:add user:Person0z
             elif action == "add":
@@ -94,13 +121,7 @@ class tickets(commands.Cog):
                 else:
                     await inter.response.send_message("You don't have a ticket open.")
 
-            # If the user selects add, it will add a user to the ticket Ex: /ticket action:add user:Person0z
-            elif action == "add":
-                if inter.channel.name.startswith("ticket-"):
-                    await inter.channel.set_permissions(user, send_messages=True, read_messages=True)
-                    await inter.response.send_message(f"{user.mention} has been added to the ticket.")
-                else:
-                    await inter.response.send_message("You don't have a ticket open.")
+            # If the user selects remove, it will remove a user from the ticket Ex: /ticket action:remove user:Person0z
             elif action == "remove":
                 if inter.channel.name.startswith("ticket-"):
                     await inter.channel.set_permissions(user, send_messages=False, read_messages=False)

@@ -24,8 +24,8 @@ class logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        role = disnake.utils.get(member.guild.roles, name="Member")
-        channel = self.bot.get_channel(config.join_channel)
+        role = disnake.utils.get(member.guild.roles, name=config.join_role)
+        channel = self.bot.get_channel(config.welcome_channel)
         embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"Welcome to {member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
         embed.add_field (name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
         embed.set_thumbnail(url=member.avatar.url)
