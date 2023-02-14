@@ -99,7 +99,7 @@ class general(commands.Cog):
             embed.add_field (name="Bot Created:", value=f"```{self.bot.user.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```", inline=False)
             embed.add_field (name="Bot CPU Usage:", value=f"```{cpu}% / 100%```", inline=False)
             embed.add_field (name="Bot RAM Usage:", value=f"```{ram_used:.2f} GB / {ram_total:.2f} GB```", inline=False)
-            embed.add_fiald (name="Bot Storage Usage:", value=f"```{storage_used:.2f} GB / {storage_total:.2f} GB```", inline=False)
+            embed.add_field (name="Bot Storage Usage:", value=f"```{storage_used:.2f} GB / {storage_total:.2f} GB```", inline=False)
             embed.add_field (name="Bot Ping:", value=f"```{round(self.bot.latency * 1000)}ms```")
             embed.add_field (name="Bot Version:", value=f"```{config.version}```", inline=False)
             embed.add_field (name="Bot Library:", value="```Disnake```", inline=False)
