@@ -101,8 +101,8 @@ class general(commands.Cog):
             embed.add_field (name="Bot RAM Usage:", value=f"```{ram_used:.2f} GB / {ram_total:.2f} GB```", inline=True)
             embed.add_field (name="Bot Storage Usage:", value=f"```{storage_used:.2f} GB / {storage_total:.2f} GB```", inline=True)
             embed.add_field (name="Bot Ping:", value=f"```{round(self.bot.latency * 1000)}ms```", inline=True)
-            embed.add_field (name="Bot Version:", value=f"```{config.version}```", inline=False)
-            embed.add_field (name="Bot Library:", value="```Disnake```", inline=False)
+            embed.add_field (name="Bot Version:", value=f"```{config.version}```", inline=True)
+            embed.add_field (name="Bot Library:", value="```Disnake```", inline=True)
             embed.add_field (name="Bot Developer:", value="```Person0z#0812\n./Zerbaib.sh#6400```", inline=False)
 
             embed.add_field (name="Bot Avatar", value=f"[Click Here]({self.bot.user.avatar.url})", inline=False)
