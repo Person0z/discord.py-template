@@ -1,4 +1,11 @@
-import disnake
+###############################################
+#           Template made by Person0z         #
+#          https://github.com/Person0z        #
+#           Copyright© Person0z, 2022         #
+#           Do Not Remove This Header         #
+###############################################
+
+# importing the required modulesimport disnake
 from disnake.ext import commands
 import os
 import json
