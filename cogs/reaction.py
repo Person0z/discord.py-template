@@ -1,4 +1,4 @@
-###############################################
+    ###############################################
 #           Template made by Person0z         #
 #          https://github.com/Person0z        #
 #           Copyright© Person0z, 2022         #
@@ -8,17 +8,18 @@
 import disnake
 from disnake.ext import commands
 import os
+import config
 
 class reaction(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-        self.ROLE_MESSAGE_ID = 1072025208149520394  # message ID goes here
+        self.ROLE_MESSAGE_ID = config.roleMSG  # message ID goes here
         self.EMOJI_TO_ROLE = {
-            disnake.PartialEmoji(name="📢"): 1072016319941189752,  
-            disnake.PartialEmoji(name="⬆️"): 1072025712241938432,
-            disnake.PartialEmoji(name="💬"): 1072016245504880650,
-            disnake.PartialEmoji(name="🎉"): 1072025621921812560, 
+            disnake.PartialEmoji(name="📢"): config.annoncement,  
+            disnake.PartialEmoji(name="⬆️"): config.patchNote,
+            disnake.PartialEmoji(name="💬"): config.inactiveChat,
+            disnake.PartialEmoji(name="🎉"): config.givewayReact, 
         }
 
 
