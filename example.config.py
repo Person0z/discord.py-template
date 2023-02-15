@@ -23,6 +23,14 @@ prefix = '!'
 # Bot Status
 activity = ["/help", "discord.py", "With Python", "Made by Person0z", "v1.5.7"]
 
+# Reaction role
+roleMSG = 000000000000000000 # Set our message of role reaction
+
+givewayReact = 1034189331641938002
+inactiveChat = 0000000000000000000
+patchNote = 1034189203711479859
+annoncement = 1034189045326151730
+
 # Colors
 Success = disnake.Color.green
 Error = disnake.Color.red
