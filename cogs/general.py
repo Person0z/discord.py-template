@@ -62,7 +62,8 @@ class general(commands.Cog):
                     print(f'Error adding role to member: {e}')
             embed = disnake.Embed(title=f"Welcome {member.name}!", description=f"{member.guild.name}! We hope you enjoy your stay here!", color=config.Success())
             embed.add_field (name="\nUser Info", value=f"\n**User:** \n```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** \n```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** \n```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
-            embed.set_thumbnail(url=member.avatar.url)
+            if member.avatar:
+                embed.set_thumbnail(url=member.avatar.url)
             embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
             await channel.send(embed=embed)
             await channel.send(f"{member.mention}", delete_after=0.2)
@@ -76,7 +77,8 @@ class general(commands.Cog):
             channel = self.bot.get_channel(config.welcome_channel)
             embed = disnake.Embed(title=f"Goodbye {member.name}!", description=f"Goodbye {member.name}! We hope you enjoyed your stay here!", color=config.Error())
             embed.add_field (name="\nUser Info", value=f"\n**User:** ```{member.name}#{member.discriminator} ({member.id})```\n**Account Created:** ```{member.created_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n**Joined Server:** ```{member.joined_at.strftime('%a, %#d %B %Y, %I:%M %p UTC')}```\n", inline=False)
-            embed.set_thumbnail(url=member.avatar.url)
+            if member.avatar:
+                embed.set_thumbnail(url=member.avatar.url)
             embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
             await channel.send(embed=embed)
         except Exception as e:
