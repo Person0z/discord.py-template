@@ -126,11 +126,17 @@ class voice(commands.Cog):
     @commands.slash_command(name="volume", description="volume of the bot")
     async def volume(self, ctx, volume: int):
         try:
-            if ctx.voice_client is None:
+            guild = ctx.guild
+            voice_client = guild.voice_client
+            if voice_client is None:
                 return await ctx.send("Not connected to a voice channel.")
-
-            ctx.voice_client.source.volume = volume / 100
-            await ctx.send(f"Changed volume to {volume}%")
+            if volume > 100:
+                volume = 100
+                await ctx.send("Volume cannot be set higher than 100.")
+            voice_client.source.volume = volume / 100
+            message = await ctx.send(f"Changed volume to {volume}%")
+            await asyncio.sleep(10)
+            await message.edit(content=f"Changed volume to {volume}%")
         except Exception as e:
             print(f'Error sending volume command: {e}')
             await ctx.send(f"Error sending volume command: {e}")
