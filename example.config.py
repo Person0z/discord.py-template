@@ -40,7 +40,8 @@ Random = disnake.Color.random
 owner_ids = [000000000000000, 000000000000000] # You can add more owner ids by adding a comma and the id
 
 # Welcomes & Goodbyes Channel ID
-welcome_channel = 0000000000000000
+join_channel = 00000000000000000
+leave_channel = 0000000000000000
 join_role = 'Member' # The role you want to give to new members
 
 # Logging Channel ID
