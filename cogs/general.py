@@ -45,7 +45,7 @@ class general(commands.Cog):
             await inter.send(ephemeral=True, embed=embed)
         except Exception as e:
             print(f'Error Sending Check Command: {e}')
-            await inter.send(embed=errors.create_error_embed(f"Error sending check command: {e}")
+            await inter.send(embed=errors.create_error_embed(f"Error sending check command: {e}"))
 
     # user info command
     @commands.slash_command(name='userinfo', description='Get info about a user')
