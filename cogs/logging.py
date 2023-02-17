@@ -6,6 +6,7 @@
 ###############################################
 
 # imports and stuff
+from distutils.fancy_getopt import FancyGetopt
 import disnake
 from disnake.ext import commands
 import os
@@ -53,7 +54,7 @@ class logging(commands.Cog):
             embed.set_footer(text=f"{member.guild.name} | {member.guild.member_count} Members", icon_url=member.guild.icon.url)
             await channel.send(embed=embed)
         except Exception as e:
-            print(f'Error sending goodbye message: {e}')            
+            print(f'Error sending goodbye message: {e}')
 
     # logs deleted messages from all channels in the server
     @commands.Cog.listener()
