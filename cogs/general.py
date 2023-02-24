@@ -128,7 +128,7 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending invite command: {e}"))
 
     @commands.slash_command(name='poll', description='Create a poll and we can react for vote')
-    async def poll(self, inter: disnake.ApplicationCommandInteraction, context, *, question):
+    async def poll(self, inter: disnake.ApplicationCommandInteraction, *, question):
         try:
             embed = disnake.Embed(
                 title="A new poll apear !",
@@ -136,7 +136,7 @@ class general(commands.Cog):
                 color=config.Random()
             )
             embed.set_footer(
-                text=f"Poll created by: {context.author} • React to vote !"
+                text=f"Poll created by: {inter.author} • React to vote !"
             )
             embed_message = await inter.response.send_message(embed=embed)
             await embed_message.add_reaction("👍")
@@ -144,7 +144,7 @@ class general(commands.Cog):
             await embed_message.add_reaction("🤷")
         except Exception as e:
             print(f'Error sending poll command: {e}')
-            await context.send(embed=errors.create_error_embed(f"Error sending poll command: {e}"))
+            await inter.send(embed=errors.create_error_embed(f"Error sending poll command: {e}"))
                 
 def setup(bot):
     bot.add_cog(general(bot))
