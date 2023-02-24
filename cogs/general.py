@@ -138,13 +138,10 @@ class general(commands.Cog):
             embed.set_footer(
                 text=f"Poll created by: {inter.author} • React to vote !"
             )
-            embed_message = await inter.send(embed=embed)
-            if embed_message is not None:
-                await embed_message.add_reaction("👍")
-                await embed_message.add_reaction("👎")
-                await embed_message.add_reaction("🤷")
-            else:
-                await inter.send(embed=errors.create_error_embed("Error sending poll command: no message returned"))
+            await inter.send(embed=embed)
+            await inter.add_reaction("👍")
+            await inter.add_reaction("👎")
+            await inter.add_reaction("🤷")
         except Exception as e:
             print(f'Error sending poll command: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending poll command: {e}"))
