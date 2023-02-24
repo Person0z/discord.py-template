@@ -25,9 +25,6 @@
 - level system
 
 ## Coming Soon
-- Redoing Tickets
-- Fixing Radio Errors
-- Error handler for commands
 - better optimized code
 - per server tags + warns
 - logging messages + more
