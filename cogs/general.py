@@ -138,7 +138,7 @@ class general(commands.Cog):
             embed.set_footer(
                 text=f"Poll created by: {inter.author} • React to vote !"
             )
-            embed_message = await inter.reply(embed=embed)
+            embed_message = await inter.send(embed=embed)
             if embed_message is not None:
                 await embed_message.add_reaction("👍")
                 await embed_message.add_reaction("👎")
