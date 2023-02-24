@@ -128,7 +128,7 @@ class general(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending invite command: {e}"))
 
     @commands.slash_command(name='poll', description='Create a poll and we can react for vote')
-    async def poll(self, context, *, question):
+    async def poll(self, inter: disnake.ApplicationCommandInteraction, context, *, question):
         try:
             embed = disnake.Embed(
                 title="A new poll apear !",
@@ -138,7 +138,7 @@ class general(commands.Cog):
             embed.set_footer(
                 text=f"Poll created by: {context.author} • React to vote !"
             )
-            embed_message = await context.respond(embed=embed)
+            embed_message = await inter.response.send_message(embed=embed)
             await embed_message.add_reaction("👍")
             await embed_message.add_reaction("👎")
             await embed_message.add_reaction("🤷")
