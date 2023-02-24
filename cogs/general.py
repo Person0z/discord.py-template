@@ -138,10 +138,10 @@ class general(commands.Cog):
             embed.set_footer(
                 text=f"Poll created by: {context.author} • React to vote !"
             )
-            embed_message = await context.send(embed=embed)
-            await embed_message.add_reaction("👍")
-            await embed_message.add_reaction("👎")
-            await embed_message.add_reaction("🤷")
+            await context.response.send_message(embed=embed)
+            await context.response.message.add_reaction("👍")
+            await context.response.message.add_reaction("👎")
+            await context.response.message.add_reaction("🤷")
         except Exception as e:
             print(f'Error sending poll command: {e}')
             await context.send(embed=errors.create_error_embed(f"Error sending poll command: {e}"))
