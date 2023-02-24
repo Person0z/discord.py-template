@@ -139,9 +139,12 @@ class general(commands.Cog):
                 text=f"Poll created by: {inter.author} • React to vote !"
             )
             embed_message = await inter.response.send_message(embed=embed)
-            await embed_message.add_reaction("👍")
-            await embed_message.add_reaction("👎")
-            await embed_message.add_reaction("🤷")
+            if embed_message is not None:
+                await embed_message.add_reaction("👍")
+                await embed_message.add_reaction("👎")
+                await embed_message.add_reaction("🤷")
+            else:
+                await inter.send(embed=errors.create_error_embed("Error sending poll command: no message returned"))
         except Exception as e:
             print(f'Error sending poll command: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending poll command: {e}"))
