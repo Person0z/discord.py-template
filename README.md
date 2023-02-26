@@ -24,9 +24,6 @@
 - Pastebin (uploads files to a pastebin so you dont have to download files that you dont trust)
 
 ## Coming Soon
-- Redoing Tickets
-- Fixing Radio Errors
-- Error handler for commands
 - better optimized code
 - per server tags + warns
 - logging messages + more
