@@ -65,7 +65,27 @@ class Rank(commands.Cog):
             remaining_xp = xp_required - current_xp
             embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description=f"Level: {current_lvl} | XP: {current_xp}/{xp_required} You need {remaining_xp} XP to level up!", color=config.Success())
             await inter.send(embed=embed)
-                    
+
+    @commands.slash_command()
+    async def leaderboard(self, inter: disnake.ApplicationCommandInteraction):
+        guild_id = str(inter.guild.id)
+        if guild_id not in self.data:
+            embed = disnake.Embed(title="Leaderboard", description="There are no users on the leaderboard yet!", color=config.Error())
+            await inter.send(embed=embed)
+            return
+        sorted_users = sorted(self.data[guild_id].items(), key=lambda x: (x[1]["level"], x[1]["xp"]), reverse=True)
+        embed = disnake.Embed(title="Leaderboard", color=config.Success())
+        for i, (user_id, user_data) in enumerate(sorted_users):
+            try:
+                user = await self.bot.fetch_user(int(user_id))
+                embed.add_field(name=f"{i+1}. {user.name}", value=f"Level: {user_data['level']} | XP: {user_data['xp']}")
+            except disnake.NotFound:
+                pass
+            if i == 9:
+                break
+        await inter.send(embed=embed)
+
+
 
 def setup(bot):
     bot.add_cog(Rank(bot))
