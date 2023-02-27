@@ -96,24 +96,23 @@ class moderation(commands.Cog):
 
     # Purge Command
     @commands.slash_command(name='purge',
-                            description='Purge messages from a channel',)
+                            description='Purge a channel',)
     async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
         try:
-            await inter.response.defer()
             if not inter.author.guild_permissions.manage_messages:
-                embed = disnake.Embed(title=f"You do not have permission To purge messages!", color=config.Error())
+                embed = disnake.Embed(title=f"You do not have permission to purge ``{channel}!``", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-                return await inter.edit_original_message(embed=embed, ephemeral=True)   
+                return await inter.response.send_message(ephemeral=True, embed=embed)   
             if not inter.guild.me.guild_permissions.manage_messages:
-                embed = disnake.Embed(title=f"I do not have permission to purge messages!", color=config.Error())
+                embed = disnake.Embed(title=f"I do not have permission to purge ``{channel}!``", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
-                return await inter.edit_original_message(embed=embed, delete_after=15)
+                return await inter.response.send_message(delete_after=15, embed=embed)
             if not channel:
                 channel = inter.channel
             await channel.purge(limit=amount)
-            embed = disnake.Embed(title=f"Successfully Purged ``{amount}`` Messages!", color=config.Success())
+            embed = disnake.Embed(title=f"Successfully purged ``{amount}`` messages in ``{channel}!``", color=config.Success())
             embed.set_footer(text=f'Purged by {inter.author}', icon_url=inter.author.avatar.url)
-            await inter.edit_original_message(embed=embed)
+            await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending purge command: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending purge command: {e}"))
