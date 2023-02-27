@@ -9,6 +9,7 @@ import json
 import os
 import disnake
 from disnake.ext import commands
+from disnake.ext.commands.cooldowns import CooldownMapping, BucketType
 from helpers import errors
 import config
 
@@ -16,10 +17,13 @@ class Rank(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.data = {}
+        self.cooldowns = {}
 
         if os.path.exists("data/levels.json"):
             with open("data/levels.json", "r") as f:
                 self.data = json.load(f)
+
+        self._cd_mapping = CooldownMapping.from_cooldown(1, 10.0, BucketType.user)
 
     def save_data(self):
         with open("data/levels.json", "w") as f:
@@ -34,13 +38,22 @@ class Rank(commands.Cog):
         if message.author.bot:
             return
 
+        bucket = self.cooldowns.get(message.author.id)
+        if bucket is None:
+            bucket = self._cd_mapping.get_bucket(message)
+            self.cooldowns[message.author.id] = bucket
+
+        retry_after = bucket.update_rate_limit()
+        if retry_after:
+            return
+
         guild_id = str(message.guild.id)
         user_id = str(message.author.id)
 
         if guild_id not in self.data:
             self.data[guild_id] = {}
             self.save_data()
-            
+
         if user_id not in self.data[guild_id]:
             self.data[guild_id][user_id] = {"level": 0, "xp": 0}
             self.save_data()
@@ -51,11 +64,13 @@ class Rank(commands.Cog):
         xp = self.data[guild_id][user_id]["xp"]
         lvl = self.data[guild_id][user_id]["level"]
 
-        xp_required = 5 * (lvl**2) + 10 * lvl + 10
-        
+        xp_required = 5 * (lvl ** 2) + 10 * lvl + 10
+
         if xp >= xp_required:
             self.data[guild_id][user_id]["level"] = lvl + 1
-            embed = disnake.Embed(title=f"{message.author.name} Just Leveled Up!", description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!", color=config.Success())
+            embed = disnake.Embed(title=f"{message.author.name} Just Leveled Up!",
+                                  description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!",
+                                  color=config.Success())
             await message.channel.send(embed=embed, delete_after=10)
             self.save_data()
     
