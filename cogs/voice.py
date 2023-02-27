@@ -54,7 +54,7 @@ class voice(commands.Cog):
         action: str
     ):
         try:
-            stations = open("stations.json")
+            stations = open("data/stations.json")
             _stations = json.load(stations)
             if inter.author.voice is None:
                 embed = disnake.Embed(
@@ -92,7 +92,7 @@ class voice(commands.Cog):
         try:
             stations = []
             region = inter.filled_options["region"]
-            with open("stations.json") as f:
+            with open("data/stations.json") as f:
                 data = json.load(f)
                 for i in data[f"{region}_Stations"]:
                     if action in i:

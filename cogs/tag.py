@@ -6,6 +6,7 @@
 ###############################################
 
 # importing the required modulesimport disnake
+import disnake
 from disnake.ext import commands
 import os
 import json
@@ -33,7 +34,7 @@ class Tag(commands.Cog):
     ):
         try:
             if action == "open":
-                with open("tags.json", "r") as f:
+                with open("data/tags.json", "r") as f:
                     tags = json.load(f)
                 if tag in tags:
                     embed = disnake.Embed(title=f"Tag: {tag}", description=tags[tag])
@@ -42,7 +43,7 @@ class Tag(commands.Cog):
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
                     return await inter.send(embed=embed)
             if action == "create":
-                with open("tags.json", "r") as f:
+                with open("data/tags.json", "r") as f:
                     tags = json.load(f)
                 if tag in tags:
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Already Exists")
@@ -54,12 +55,12 @@ class Tag(commands.Cog):
                         return m.author == inter.author and m.channel == inter.channel
                     msg = await self.bot.wait_for("message", check=check)
                     tags[tag] = msg.content
-                    with open("tags.json", "w") as f:
+                    with open("data/tags.json", "w") as f:
                         json.dump(tags, f, indent=4)
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Created")
                     return await inter.send(embed=embed)
             if action == "edit":
-                with open("tags.json", "r") as f:
+                with open("data/tags.json", "r") as f:
                     tags = json.load(f)
                 if tag in tags:
                     embed = disnake.Embed(title=f"Tag: {tag}", description="What Do You Want The Tag To Be?")
@@ -68,7 +69,7 @@ class Tag(commands.Cog):
                         return m.author == inter.author and m.channel == inter.channel
                     msg = await self.bot.wait_for("message", check=check)
                     tags[tag] = msg.content
-                    with open("tags.json", "w") as f:
+                    with open("data/tags.json", "w") as f:
                         json.dump(tags, f, indent=4)
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Edited")
                     return await inter.send(embed=embed)
@@ -76,11 +77,11 @@ class Tag(commands.Cog):
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
                     return await inter.send(embed=embed)
             if action == "remove":
-                with open("tags.json", "r") as f:
+                with open("data/tags.json", "r") as f:
                     tags = json.load(f)
                 if tag in tags:
                     del tags[tag]
-                    with open("tags.json", "w") as f:
+                    with open("data/tags.json", "w") as f:
                         json.dump(tags, f, indent=4)
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Removed")
                     return await inter.send(embed=embed)
@@ -88,7 +89,7 @@ class Tag(commands.Cog):
                     embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
                     return await inter.send(embed=embed)
             if action == "list":
-                with open("tags.json", "r") as f:
+                with open("data/tags.json", "r") as f:
                     tags = json.load(f)
                 embed = disnake.Embed(title="Tags", description=", ".join(tags))
                 return await inter.send(embed=embed)

@@ -260,12 +260,12 @@ class moderation(commands.Cog):
                 return await inter.response.send_message(delete_after=15, embed=embed)
             if reason is None:
                 reason = "No reason provided"
-            with open('warns.json', 'r') as f:
+            with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
             if str(member.id) not in warns:
                 warns[str(member.id)] = []
             warns[str(member.id)].append(reason)
-            with open('warns.json', 'w') as f:
+            with open('data/warns.json', 'w') as f:
                 json.dump(warns, f, indent=4)
             embed = disnake.Embed(title=f"Successfully Warned ``{member}`` for ``{reason}``", color=config.Success())
             embed.set_footer(text=f'Warned by {inter.author}', icon_url=inter.author.avatar.url)
@@ -305,7 +305,7 @@ class moderation(commands.Cog):
                 embed = disnake.Embed(title=f"I do not have permission to check the warns of ``{member}!``", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(delete_after=15, embed=embed)
-            with open('warns.json', 'r') as f:
+            with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
             if str(member.id) not in warns:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
@@ -339,7 +339,7 @@ class moderation(commands.Cog):
                 embed = disnake.Embed(title=f"You cannot clear more than 5 warns at a time!", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(delete_after=15, embed=embed)
-            with open('warns.json', 'r') as f:
+            with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
             if str(member.id) not in warns:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
@@ -351,7 +351,7 @@ class moderation(commands.Cog):
                 return await inter.response.send_message(embed=embed)
             for i in range(amount):
                 warns[str(member.id)].pop()
-            with open('warns.json', 'w') as f:
+            with open('data/warns.json', 'w') as f:
                 json.dump(warns, f, indent=4)
             embed = disnake.Embed(title=f"Successfully cleared ``{amount}`` warns of ``{member}``!", color=config.Success())
             embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
@@ -377,14 +377,14 @@ class moderation(commands.Cog):
                 embed = disnake.Embed(title=f"You cannot clear the warns of ``{member}`` because they have a higher role than you!", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(delete_after=15, embed=embed)
-            with open('warns.json', 'r') as f:
+            with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
             if str(member.id) not in warns:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
                 embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(embed=embed)
             warns.pop(str(member.id))
-            with open('warns.json', 'w') as f:
+            with open('data/warns.json', 'w') as f:
                 json.dump(warns, f, indent=4)
             embed = disnake.Embed(title=f"Successfully cleared all warns of ``{member}``!", color=config.Success())
             embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
