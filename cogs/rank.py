@@ -44,7 +44,7 @@ class Rank(commands.Cog):
         
         if xp >= xp_required:
             self.data[guild_id][user_id]["level"] = lvl + 1
-            embed = disnake.Embed(title="Level Up!", description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!")
+            embed = disnake.Embed(title="Level Up!", description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!", color=config.Success())
 #            await message.channel.send(f"{message.author.mention}", delete_after=0.00001)
             await message.channel.send(embed=embed)
             self.save_data()
@@ -54,15 +54,17 @@ class Rank(commands.Cog):
         guild_id = str(inter.guild.id)
         user_id = str(inter.author.id)
         if guild_id not in self.data:
-            await inter.send("You haven't started leveling yet.")
+            embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description="You haven't started leveling yet. Send your first message(s) to get your levels up!", color=config.Error())
+            await inter.send(embed=embed)
         elif user_id not in self.data[guild_id]:
-            await inter.send("You haven't started leveling yet.")
+            embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description="You haven't started leveling yet. Send your first message(s) to get your levels up!", color=config.Error())
+            await inter.send(embed=embed)
         else:
             current_xp = self.data[guild_id][user_id]["xp"]
             current_lvl = self.data[guild_id][user_id]["level"]
             xp_required = 5 * (current_lvl**2) + 10 * current_lvl + 10
             remaining_xp = xp_required - current_xp
-            embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description=f"Level: {current_lvl} | XP: {current_xp}/{xp_required} You need {remaining_xp} XP to level up!")
+            embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description=f"Level: {current_lvl} | XP: {current_xp}/{xp_required} You need {remaining_xp} XP to level up!", color=config.Success())
             await inter.send(embed=embed)
                     
 
