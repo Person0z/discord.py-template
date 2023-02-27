@@ -44,7 +44,7 @@ class Rank(commands.Cog):
         
         if xp >= xp_required:
             self.data[guild_id][user_id]["level"] = lvl + 1
-            embed = disnake.Embed(title="Level Up!", description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!", color=config.Success())
+            embed = disnake.Embed(title=f"{message.author.name} Just Leveled Up!", description=f"Congrats {message.author.mention}! You have leveled up to level {lvl + 1}!", color=config.Success())
 #            await message.channel.send(f"{message.author.mention}", delete_after=0.00001)
             await message.channel.send(embed=embed)
             self.save_data()
