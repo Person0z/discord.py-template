@@ -1,3 +1,10 @@
+###############################################
+#           Template made by Person0z         #
+#          https://github.com/Person0z        #
+#           Copyright© Person0z, 2022         #
+#           Do Not Remove This Header         #
+###############################################
+
 import json
 import os
 import disnake
@@ -17,6 +24,10 @@ class Rank(commands.Cog):
     def save_data(self):
         with open("data/levels.json", "w") as f:
             json.dump(self.data, f, indent=4)
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('Loaded Cog rank')
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -85,7 +96,98 @@ class Rank(commands.Cog):
                 break
         await inter.send(embed=embed)
 
+    @commands.slash_command()
+    @commands.has_permissions(administrator=True)
+    async def addlevel(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member, levels: int):
+        guild_id = str(inter.guild.id)
+        user_id = str(user.id)
 
+        if guild_id not in self.data:
+            self.data[guild_id] = {}
+        if user_id not in self.data[guild_id]:
+            self.data[guild_id][user_id] = {"level": 0, "xp": 0}
+
+        self.data[guild_id][user_id]["level"] += levels
+        self.save_data()
+
+        embed = disnake.Embed(title=f"{user.name} Given Levels", description=f"{user.mention} has been given {levels} levels!", color=config.Success())
+        await inter.send(embed=embed)
+
+    @commands.slash_command()
+    @commands.has_permissions(administrator=True)
+    async def removelevels(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member, levels: int):
+        guild_id = str(inter.guild.id)
+        user_id = str(user.id)
+
+        if guild_id not in self.data:
+            embed = disnake.Embed(title="Error", description="Guild not found in database.", color=config.Error())
+            await inter.send(embed=embed)
+            return
+
+        if user_id not in self.data[guild_id]:
+            embed = disnake.Embed(title="Error", description="User not found in database.", color=config.Error())
+            await inter.send(embed=embed)
+            return
+
+        current_lvl = self.data[guild_id][user_id]["level"]
+
+        if current_lvl - levels < 0:
+            embed = disnake.Embed(title="Error", description="Cannot remove more levels than user has.", color=config.Error())
+            await inter.send(embed=embed)
+            return
+
+        self.data[guild_id][user_id]["level"] -= levels
+        self.save_data()
+
+        embed = disnake.Embed(title=f"{user.name} Lost Levels", description=f"{user.mention} has lost {levels} levels!", color=config.Success())
+        await inter.send(embed=embed)
+
+    @commands.slash_command(name="remove-xp", description="Remove XP from a member.")
+    @commands.has_permissions(administrator=True)
+    async def remove_xp(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, amount: int):
+        guild_id = str(inter.guild.id)
+        user_id = str(member.id)
+
+        if guild_id not in self.data or user_id not in self.data[guild_id]:
+            embed = disnake.Embed(
+                title=f"{member.display_name}'s Rank",
+                description=f"{member.mention} hasn't started leveling yet.",
+                color=config.Error(),
+            )
+            await inter.response.send_message(embed=embed, ephemeral=True)
+            return
+
+        current_xp = self.data[guild_id][user_id]["xp"]
+        new_xp = max(0, current_xp - amount)
+        xp_difference = current_xp - new_xp
+
+        self.data[guild_id][user_id]["xp"] = new_xp
+        self.save_data()
+
+        embed = disnake.Embed(
+            title=f"{member.display_name}'s XP Removed",
+            description=f"Removed {xp_difference} XP from {member.mention}.",
+            color=config.Success(),
+        )
+        await inter.response.send_message(embed=embed, ephemeral=True)
+
+    @commands.slash_command()
+    @commands.has_permissions(administrator=True)
+    async def addxp(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, amount: int):
+        guild_id = str(inter.guild.id)
+        user_id = str(member.id)
+        if guild_id not in self.data:
+            embed = disnake.Embed(title="Error", description="This guild does not have a leveling system set up yet.", color=config.Error())
+            await inter.response.send_message(embed=embed, ephemeral=True)
+            return
+        if user_id not in self.data[guild_id]:
+            embed = disnake.Embed(title="Error", description="This user does not have a level.", color=config.Error())
+            await inter.response.send_message(embed=embed, ephemeral=True)
+            return
+        self.data[guild_id][user_id]["xp"] += amount
+        self.save_data()
+        embed = disnake.Embed(title="Success", description=f"Successfully added {amount} XP to {member.mention}.", color=config.Success())
+        await inter.response.send_message(embed=embed, ephemeral=True)
 
 def setup(bot):
     bot.add_cog(Rank(bot))

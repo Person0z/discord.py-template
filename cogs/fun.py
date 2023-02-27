@@ -21,7 +21,7 @@ class fun(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print('Loading Fun Cog')
+        print('Loaded Cog Fun')
 
     # Dice Roll Slash Command
     @commands.slash_command(name="dice", description="Roll a dice!")
