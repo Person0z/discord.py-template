@@ -49,7 +49,7 @@ class Rank(commands.Cog):
             self.save_data()
     
     @commands.slash_command()
-    async def rank(self, inter: disnake.ApplicationCommandInteraction,):
+    async def rank(self, inter: disnake.ApplicationCommandInteraction):
         guild_id = str(inter.guild.id)
         user_id = str(inter.author.id)
         if guild_id not in self.data:
