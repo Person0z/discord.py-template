@@ -18,6 +18,7 @@ class Rank(commands.Cog):
         self.bot = bot
         self.data = {}
         self.cooldowns = {}
+        self.level_roles = config.level_roles
 
         if os.path.exists("data/levels.json"):
             with open("data/levels.json", "r") as f:
@@ -32,7 +33,7 @@ class Rank(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Loaded Cog rank')
-
+        
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
@@ -65,6 +66,16 @@ class Rank(commands.Cog):
         lvl = self.data[guild_id][user_id]["level"]
 
         xp_required = 5 * (lvl ** 2) + 10 * lvl + 10
+
+        if xp >= xp_required:
+            self.data[guild_id][user_id]["level"] = lvl + 1
+
+            # Add role to user if they have reached a certain level
+            if lvl + 1 in self.level_roles:
+                role_id = self.level_roles[lvl + 1]
+                role = message.guild.get_role(role_id)
+                if role:
+                    await message.author.add_roles(role)
 
         if xp >= xp_required:
             self.data[guild_id][user_id]["level"] = lvl + 1
