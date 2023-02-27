@@ -166,10 +166,13 @@ class moderation(commands.Cog):
                 embed = disnake.Embed(title=f"You cannot ban ``{member}`` because they have a higher role than you!", color=config.Error())
                 embed.set_footer(text=f'Attempted by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(delete_after=15, embed=embed)
-            embed = disnake.Embed(title=f"You Have Been Banned from **{member.guild.name}**!", color=config.Success())
-            embed.add_field(name="Reason:", value=f"``{reason}``", inline=False)
-            embed.set_footer(text=f'Banned by {inter.author}', icon_url=inter.author.avatar.url)
-            await member.send(embed=embed)
+            try:
+                embed = disnake.Embed(title=f"You Have Been Banned from **{member.guild.name}**!", color=config.Success())
+                embed.add_field(name="Reason:", value=f"``{reason}``", inline=False)
+                embed.set_footer(text=f'Banned by {inter.author}', icon_url=inter.author.avatar.url)
+                await member.send(embed=embed)
+            except:
+                pass
             await member.ban(reason=reason)
             embed = disnake.Embed(title=f"Successfully Banned ``{member}`` for ``{reason}``", color=config.Success())
             embed.set_footer(text=f'Banned by {inter.author}', icon_url=inter.author.avatar.url)
