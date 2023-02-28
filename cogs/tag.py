@@ -6,6 +6,7 @@
 ###############################################
 
 # importing the required modulesimport disnake
+import disnake
 from disnake.ext import commands
 import os
 import json
@@ -20,93 +21,82 @@ class Tag(commands.Cog):
     async def on_ready(self):
         print(f'Loaded Cog Tags')
             
-    # Tag view command 
-    @commands.slash_command(name="tag", description="View a tag")
-    async def tag(self, inter, tag: str):
+class Tag(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.slash_command()
+    async def tag(
+        self,
+        inter: disnake.ApplicationCommandInteraction,
+        action: str = commands.Param(choices=["open", "create", "edit", "remove", "list"]),
+        tag: str = commands.Param(description="What Tag To Open", default=None)
+    ):
         try:
-            with open("tags.json", "r") as f:
-                tags = json.load(f)
-
-            if tag not in tags:
-                return await inter.send("That tag does not exist!")
-
-            embed = disnake.Embed(title=tag, description=tags[tag], color=disnake.Color.random())
-            await inter.send(embed=embed)
+            if action == "open":
+                with open("data/tags.json", "r") as f:
+                    tags = json.load(f)
+                if tag in tags:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description=tags[tag])
+                    return await inter.send(embed=embed)
+                else:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
+                    return await inter.send(embed=embed)
+            if action == "create":
+                with open("data/tags.json", "r") as f:
+                    tags = json.load(f)
+                if tag in tags:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Already Exists")
+                    return await inter.send(embed=embed)
+                else:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="What Do You Want The Tag To Be?")
+                    await inter.send(embed=embed)
+                    def check(m):
+                        return m.author == inter.author and m.channel == inter.channel
+                    msg = await self.bot.wait_for("message", check=check)
+                    tags[tag] = msg.content
+                    with open("data/tags.json", "w") as f:
+                        json.dump(tags, f, indent=4)
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Created")
+                    return await inter.send(embed=embed)
+            if action == "edit":
+                with open("data/tags.json", "r") as f:
+                    tags = json.load(f)
+                if tag in tags:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="What Do You Want The Tag To Be?")
+                    await inter.send(embed=embed)
+                    def check(m):
+                        return m.author == inter.author and m.channel == inter.channel
+                    msg = await self.bot.wait_for("message", check=check)
+                    tags[tag] = msg.content
+                    with open("data/tags.json", "w") as f:
+                        json.dump(tags, f, indent=4)
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Edited")
+                    return await inter.send(embed=embed)
+                else:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
+                    return await inter.send(embed=embed)
+            if action == "remove":
+                with open("data/tags.json", "r") as f:
+                    tags = json.load(f)
+                if tag in tags:
+                    del tags[tag]
+                    with open("data/tags.json", "w") as f:
+                        json.dump(tags, f, indent=4)
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Removed")
+                    return await inter.send(embed=embed)
+                else:
+                    embed = disnake.Embed(title=f"Tag: {tag}", description="Tag Not Found")
+                    return await inter.send(embed=embed)
+            if action == "list":
+                with open("data/tags.json", "r") as f:
+                    tags = json.load(f)
+                embed = disnake.Embed(title="Tags", description=", ".join(tags))
+                return await inter.send(embed=embed)
         except Exception as e:
-            print(f'Error in tag: {e}')
-            await inter.send(embed=errors.create_error_embed(f"Error sending tag command: {e}"))
-
-    # Tag add command
-    @commands.slash_command(name="addtag", description="Add a tag")
-    async def addtag(self, inter, tag: str, *, content: str):
-        try:
-            with open("tags.json", "r") as f:
-                tags = json.load(f)
-
-            if tag in tags:
-                return await inter.send("That tag already exists!")
-
-            tags[tag] = content
-
-            with open("tags.json", "w") as f:
-                json.dump(tags, f, indent=4)
-
-            await inter.send(f"Added tag {tag}")
-        except Exception as e:
-            print(f'Error in addtag: {e}')
-            await inter.send(embed=errors.create_error_embed(f"Error sending addtag command: {e}"))
-
-    # Tag remove command
-    @commands.slash_command(name="removetag", description="Remove a tag")
-    async def removetag(self, inter, tag: str):
-        try:
-            with open("tags.json", "r") as f:
-                tags = json.load(f)
-
-            if tag not in tags:
-                return await inter.send("That tag does not exist!")
-
-            tags.pop(tag)
-
-            with open("tags.json", "w") as f:
-                json.dump(tags, f, indent=4)
-
-            await inter.send(f"Removed tag {tag}")
-        except Exception as e:
-            print(f'Error in removetag: {e}')
-            await inter.send(embed=errors.create_error_embed(f"Error sending removetag command: {e}"))
-
-    # Tag list command
-    @commands.slash_command(name="taglist", description="List all tags")
-    async def taglist(self, inter):
-        try:
-            with open("tags.json", "r") as f:
-                tags = json.load(f)
-
-            embed = disnake.Embed(title="Tags", description=", ".join(tags.keys()), color=disnake.Color.random())
-            await inter.send(embed=embed)
-        except Exception as e:
-            print(f'Error in taglist: {e}')
-
-    # Tag edit command
-    @commands.slash_command(name="edittag", description="Edit a tag")
-    async def edittag(self, inter, tag: str, *, content: str):
-        try:
-            with open("tags.json", "r") as f:
-                tags = json.load(f)
-
-            if tag not in tags:
-                return await inter.send("That tag does not exist!")
-
-            tags[tag] = content
-
-            with open("tags.json", "w") as f:
-                json.dump(tags, f, indent=4)
-
-            await inter.send(f"Edited tag {tag}")
-        except Exception as e:
-            print(f'Error in edittag: {e}')
-            await inter.send(embed=errors.create_error_embed(f"Error sending edittag command: {e}"))
+            print(e)
+            embed = disnake.Embed(title="Error", description="An Error Occured")
+            return await inter.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Tag(bot))
