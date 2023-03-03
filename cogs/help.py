@@ -26,7 +26,7 @@ class help(commands.Cog):
     @commands.slash_command(name='help', description='Show help command',)
     async def help(
         inter: disnake.ApplicationCommandInteraction,
-        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio', 'level', 'moderation']),
+        action: str = commands.Param(choices=["general", "fun", 'tickets', 'radio', 'rank', 'moderation']),
     ):
         try:
             if action == "general":
@@ -120,7 +120,7 @@ class help(commands.Cog):
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
                 )
                 await inter.response.send_message(embed=embedVar)
-            if action == "level":
+            if action == "rank":
                 embedVar = disnake.Embed(
                     title="Level Commands!",
                     description="Check important commands, that you can use!",
@@ -129,11 +129,11 @@ class help(commands.Cog):
                 embedVar.add_field(name="Level Commands",
                                     value=
                                     "```/rank - See your info```" +
-                                    "```/top - See the member top with bigger xp```" +
-                                    "```/xp - See your total xp```" +
-                                    "```/level - See your level```" +
-                                    "```/stage - See your stage```" +
-                                    "```/givexp - Give xp to a member | you need admin perm```",
+                                    "```/leaderboard - See the member top with bigger levels```" +
+                                    "```/addlevel - Add level to a member```" +
+                                    "```/removelevels - Remove levels to a member```" +
+                                    "```/addxp - Add xp to a member```" +
+                                    "```/remove_xp - Remove xp to a member```",
                                     inline=False)
                 embedVar.set_thumbnail(
                     url="https://us-east-1.tixte.net/uploads/your-parents.wants.solutions/help.png"
