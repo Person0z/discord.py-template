@@ -115,7 +115,7 @@ class Rank(commands.Cog):
         for i, (user_id, user_data) in enumerate(sorted_users):
             try:
                 user = await self.bot.fetch_user(int(user_id))
-                embed.add_field(name=f"{i+1}. {user.name}", value=f"Level: {user_data['level']} | XP: {user_data['xp']}", inline=False)
+                embed.add_field(name=f"{i+1}. {user.name}", value=f"```Level: {user_data['level']} | XP: {user_data['xp']}```", inline=False)
             except disnake.NotFound:
                 pass
             if i == 9:
