@@ -83,9 +83,9 @@ class logging(commands.Cog):
                     description=f"One message was edited in {before.channel.mention}",
                     color=disnake.Color.orange()
                 )
-                embed.add_field(name="Author", value=before.author.mention)
-                embed.add_field(name="Old", value=before.content, inline=False)
-                embed.add_field(name="New", value=after.content, inline=False)
+                embed.add_field(name="Author", value=before.author.mention")
+                embed.add_field(name="Old", value=f"```before.content```", inline=False)
+                embed.add_field(name="New", value=f"```after.content```", inline=False)
                 await channel.send(embed=embed)
         except Exception as e:
             print(f'Error sending logging message: {e}')
