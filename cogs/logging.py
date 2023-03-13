@@ -75,17 +75,20 @@ class logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
-        if before.guild and before.content != after.content:
-            embed = disnake.Embed(
-                title="Edited message",
-                description=f"One message was edited {before.channel.mention}",
-                color=disnake.Color.orange()
-            )
-            embed.add_field(name="Author", value=before.author.mention)
-            embed.add_field(name="Old", value=before.content, inline=False)
-            embed.add_field(name="New", value=after.content, inline=False)
-            await self.send_log(embed)
-            
+        try:
+            channel = self.bot.get_channel(config.logs)
+            if before.guild and before.content != after.content:
+                embed = disnake.Embed(
+                    title="Edited message",
+                    description=f"One message was edited {before.channel.mention}",
+                    color=disnake.Color.orange()
+                )
+                embed.add_field(name="Author", value=before.author.mention)
+                embed.add_field(name="Old", value=before.content, inline=False)
+                embed.add_field(name="New", value=after.content, inline=False)
+                await channel.send(embed=embed)
+        except Exception as e:
+            print(f'Error sending logging message: {e}')
     
 def setup(bot):
     bot.add_cog(logging(bot))
