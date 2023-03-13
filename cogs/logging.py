@@ -21,14 +21,15 @@ class logging(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Logging')
+        print('Loaded Cog Logging')
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         try:
             channel = self.bot.get_channel(config.join_channel)
-            role = disnake.utils.get(member.guild.roles, name=config.join_role)
-            if role:
+            if role := disnake.utils.get(
+                member.guild.roles, name=config.join_role
+            ):
                 try:
                     await member.add_roles(role)
                 except Exception as e:
