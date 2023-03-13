@@ -21,14 +21,15 @@ class logging(commands.Cog):
         
     @commands.Cog.listener()
     async def on_ready(self):
-        print(f'Loaded Cog Logging')
+        print('Loaded Cog Logging')
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         try:
             channel = self.bot.get_channel(config.join_channel)
-            role = disnake.utils.get(member.guild.roles, name=config.join_role)
-            if role:
+            if role := disnake.utils.get(
+                member.guild.roles, name=config.join_role
+            ):
                 try:
                     await member.add_roles(role)
                 except Exception as e:
@@ -60,7 +61,7 @@ class logging(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         try:
-            channel = self.bot.get_channel(1054579107666591804)
+            channel = self.bot.get_channel(config.logs)
             embed = disnake.Embed(
                 title="Message Deleted",
                 description=f"Message sent by **{message.author.mention}** in **{message.channel.mention}** was deleted.",
@@ -71,6 +72,19 @@ class logging(commands.Cog):
             await channel.send(embed=embed)
         except Exception as e:
             print(f'Error sending logging message: {e}')
+
+    @commands.Cog.listener()
+    async def on_message_edit(self, before, after):
+        if before.guild and before.content != after.content:
+            embed = disnake.Embed(
+                title="Edited message",
+                description=f"One message was edited {before.channel.mention}",
+                color=disnake.Color.orange()
+            )
+            embed.add_field(name="Author", value=before.author.mention)
+            embed.add_field(name="Old", value=before.content, inline=False)
+            embed.add_field(name="New", value=after.content, inline=False)
+            await self.send_log(embed)
             
     
 def setup(bot):
