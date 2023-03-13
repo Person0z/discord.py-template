@@ -60,7 +60,7 @@ class logging(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message):
         try:
-            channel = self.bot.get_channel(1054579107666591804)
+            channel = self.bot.get_channel(config.logs)
             embed = disnake.Embed(
                 title="Message Deleted",
                 description=f"Message sent by **{message.author.mention}** in **{message.channel.mention}** was deleted.",
