@@ -80,7 +80,7 @@ class logging(commands.Cog):
             if before.guild and before.content != after.content:
                 embed = disnake.Embed(
                     title="Edited message",
-                    description=f"One message was edited {before.channel.mention}",
+                    description=f"One message was edited in {before.channel.mention}",
                     color=disnake.Color.orange()
                 )
                 embed.add_field(name="Author", value=before.author.mention)
