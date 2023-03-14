@@ -89,6 +89,29 @@ class logging(commands.Cog):
                 await channel.send(embed=embed)
         except Exception as e:
             print(f'Error sending logging message: {e}')
-    
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member, user):
+        channel = self.bot.get_channel(config.logs)
+        async for entry in member.guild.audit_logs(limit=1, action=disnake.AuditLogAction.ban):
+            if entry.target == member:
+                reason = entry.reason
+            embed = disnake.Embed(title=f"User was ban",
+                              description=f"{user} was ban for ```{reason}```",
+                              color=0xFF0000)
+            embed.set_author(name=user.name, icon_url=user.avatar_url)
+            embed.set_footer(text=f"User ID: {user.id}")
+            await channel.send(embed=embed)
+        
+        async for entry in member.guild.audit_logs(limit=1, action=disnake.AuditLogAction.kick):
+            if entry.target == member:
+                reason = entry.reason
+            embed = disnake.Embed(title=f"User was kick",
+                              description=f"{user} was kick for ```{reason}```",
+                              color=0xFF0000)
+            embed.set_author(name=user.name, icon_url=user.avatar_url)
+            embed.set_footer(text=f"User ID: {user.id}")
+            await channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(logging(bot))
