@@ -88,8 +88,8 @@ class Rank(commands.Cog):
     @commands.slash_command()
     async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member = disnake.Message.author):
         guild_id = str(inter.guild.id)
-        user = user.id()
-        user_id = str(user)
+        user_mention = user.mention()
+        user_id = str(user.id())
         if guild_id not in self.data:
             embed = disnake.Embed(title=f"{inter.author.name}'s Rank", description="You haven't started leveling yet. Send your first message(s) to get your levels up!", color=config.Error())
             await inter.send(embed=embed)
