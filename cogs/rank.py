@@ -88,7 +88,7 @@ class Rank(commands.Cog):
     @commands.slash_command()
     async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member = disnake.Message.author):
         guild_id = str(inter.guild.id)
-        if user == disnake.Member:
+        if user == "disnake.Member":
             user = user.id()
         else:
             user = user.id
