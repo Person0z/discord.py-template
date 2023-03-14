@@ -24,8 +24,7 @@ class moderation(commands.Cog):
         print(f'Loaded Cog Moderation') 
             
     # Slowmode Command
-    @commands.slash_command(name='slowmode',
-                            description='Set the slowmode of a channel',)
+    @commands.slash_command(name='slowmode', description='Set the slowmode of a channel',)
     async def slowmode(self, inter: disnake.ApplicationCommandInteraction, seconds: int, channel: disnake.TextChannel = None):
         try:
 
@@ -49,8 +48,7 @@ class moderation(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending slowmode command: {e}"))
 
     # Lock Command
-    @commands.slash_command(name='lock',
-                            description='Lock a channel',)
+    @commands.slash_command(name='lock', description='Lock a channel',)
     async def lock(self, inter: disnake.ApplicationCommandInteraction, channel: disnake.TextChannel = None):
         try:
             if not inter.author.guild_permissions.manage_channels:
@@ -72,8 +70,7 @@ class moderation(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending lock command: {e}"))
 
     # Unlock Command
-    @commands.slash_command(name='unlock',
-                            description='Unlock a channel',)
+    @commands.slash_command(name='unlock', description='Unlock a channel',)
     async def unlock(self, inter: disnake.ApplicationCommandInteraction, channel: disnake.TextChannel = None):
         try:
             if not inter.author.guild_permissions.manage_channels:
@@ -95,8 +92,7 @@ class moderation(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending unlock command: {e}"))
 
     # Purge Command
-    @commands.slash_command(name='purge',
-                            description='Purge a channel',)
+    @commands.slash_command(name='purge', description='Purge a channel',)
     async def purge(self, inter: disnake.ApplicationCommandInteraction, amount: int, channel: disnake.TextChannel = None):
         try:
             if not inter.author.guild_permissions.manage_messages:
@@ -118,8 +114,7 @@ class moderation(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending purge command: {e}"))
 
     # kick command
-    @commands.slash_command(name='kick',
-                            description='Kick a member',)
+    @commands.slash_command(name='kick', description='Kick a member',)
     async def kick(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = None):
         try:
             if not inter.author.guild_permissions.kick_members:
@@ -149,8 +144,7 @@ class moderation(commands.Cog):
             await inter.send(embed=errors.create_error_embed(f"Error sending kick command: {e}"))
 
     # ban command
-    @commands.slash_command(name='ban',
-                            description='Ban a member',)
+    @commands.slash_command(name='ban', description='Ban a member',)
     async def ban(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, *, reason: str = "No reason provided"):
         try:
             if not inter.author.guild_permissions.ban_members:
