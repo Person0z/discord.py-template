@@ -86,12 +86,13 @@ class Rank(commands.Cog):
             self.save_data()
     
     @commands.slash_command()
-    async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member = disnake.Message.author):
+    async def rank(self, inter: disnake.ApplicationCommandInteraction, user: disnake.Member = None):
         try:
+            if user is None:
+                user = inter.author
             guild_id = str(inter.guild.id)
             user_id = str(user.id)
-            user_mention = disnake.Member(user_id)
-            user_mention = user_mention.mention()
+            user_mention = user.mention
             if guild_id not in self.data:
                 embed = disnake.Embed(title=f"{user_mention}'s Rank", description="You haven't started leveling yet. Send your first message(s) to get your levels up!", color=config.Error())
                 await inter.send(embed=embed)
@@ -107,7 +108,7 @@ class Rank(commands.Cog):
                 await inter.send(embed=embed)
         except Exception as e:
             print(f"Error sending rank command: {e}")
-            inter.channel.send(f"Error sending rank command: {e}")
+            await inter.channel.send(f"Error sending rank command: {e}")
 
     @commands.slash_command()
     async def leaderboard(self, inter: disnake.ApplicationCommandInteraction):
