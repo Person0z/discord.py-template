@@ -48,6 +48,7 @@ join_role = 'Member' # The role you want to give to new members
 logs = [0000000000000000] # You can add more channels by doing this: [channel_id, channel_id, channel_id]
 
 # Roles to give users when the reach a certain level
+multiplicator = 1 # 1 is the default value
 level_roles = {
     5: 1079649081552551966,  # Role ID for level 5
     10: 1079649117032161330,  # Role ID for level 10
