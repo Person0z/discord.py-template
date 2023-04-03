@@ -264,15 +264,24 @@ class moderation(commands.Cog):
                 reason = "No reason provided"
             with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
-            if str(member.id) not in warns:
-                warns[str(member.id)] = []
-            warns[str(member.id)].append(reason)
+            
+            guild_id = str(inter.guild.id)
+            if guild_id not in warns:
+                warns[guild_id] = {}
+
+            member_id = str(member.id)
+            if member_id not in warns[guild_id]:
+                warns[guild_id][member_id] = []
+            
+            warns[guild_id][member_id].append(reason)
+            
             with open('data/warns.json', 'w') as f:
                 json.dump(warns, f, indent=4)
+
             embed = disnake.Embed(title=f"Successfully Warned ``{member}`` for ``{reason}``", color=config.Success())
             embed.set_footer(text=f'Warned by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.response.send_message(embed=embed)
-            if len(warns[str(member.id)]) == 3:
+            if len(warns[guild_id][member_id]) == 3:
                 embed = disnake.Embed(title=f"You Have Been Warned 3 Times in **{member.guild.name}**!", color=config.Success())
                 embed.add_field(name="Reason:", value=f"``{reason}``", inline=False)
                 embed.set_footer(text=f'Warned by {inter.author}', icon_url=inter.author.avatar.url)
@@ -281,7 +290,8 @@ class moderation(commands.Cog):
                 embed = disnake.Embed(title=f"Successfully Kicked ``{member}`` for ``{reason}``", color=config.Success())
                 embed.set_footer(text=f'Kicked by {inter.author}', icon_url=inter.author.avatar.url)
                 await inter.response.send_message(embed=embed)
-            if len(warns[str(member.id)]) == 5:
+                
+            if len(warns[guild_id][member_id]) == 5:
                 embed = disnake.Embed(title=f"You Have Been Warned 5 Times in **{member.guild.name}**!", color=config.Success())
                 embed.add_field(name="Reason:", value=f"``{reason}``", inline=False)
                 embed.set_footer(text=f'Warned by {inter.author}', icon_url=inter.author.avatar.url)
@@ -291,7 +301,7 @@ class moderation(commands.Cog):
                 embed.set_footer(text=f'Banned by {inter.author}', icon_url=inter.author.avatar.url)
                 await inter.response.send_message(embed=embed)
         except Exception as e:
-            print(f'Error sending warn command: {e}')
+            print(f"An error occurred while warning the member: {e}")
             await inter.send(embed=errors.create_error_embed(f"Error sending warn command: {e}"))
 
     # warns command that shows the amount of warns a user has
@@ -309,11 +319,17 @@ class moderation(commands.Cog):
                 return await inter.response.send_message(delete_after=15, embed=embed)
             with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
-            if str(member.id) not in warns:
+            guild_id = str(inter.guild.id)
+            member_id = str(member.id)
+            if guild_id not in warns:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
                 embed.set_footer(text=f'Warns checked by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(embed=embed)
-            embed = disnake.Embed(title=f"``{member}`` has ``{len(warns[str(member.id)])}`` warns!", color=config.Success())
+            if member_id not in warns[guild_id]:
+                embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
+                embed.set_footer(text=f'Warns checked by {inter.author}', icon_url=inter.author.avatar.url)
+                return await inter.response.send_message(embed=embed)
+            embed = disnake.Embed(title=f"``{member}`` has ``{len(warns[guild_id][member_id])}`` warns!", color=config.Success())
             embed.set_footer(text=f'Warns checked by {inter.author}', icon_url=inter.author.avatar.url)
             await inter.response.send_message(embed=embed)
         except Exception as e:
@@ -343,16 +359,18 @@ class moderation(commands.Cog):
                 return await inter.response.send_message(delete_after=15, embed=embed)
             with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
-            if str(member.id) not in warns:
+            guild_id = str(inter.guild.id)
+            member_id = str(member.id)
+            if guild_id not in warns or member_id not in warns[guild_id]:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
                 embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(embed=embed)
-            if len(warns[str(member.id)]) < amount:
+            if len(warns[guild_id][member_id]) < amount:
                 embed = disnake.Embed(title=f"``{member}`` does not have ``{amount}`` warns!", color=config.Success())
                 embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(embed=embed)
             for i in range(amount):
-                warns[str(member.id)].pop()
+                warns[guild_id][member_id].pop()
             with open('data/warns.json', 'w') as f:
                 json.dump(warns, f, indent=4)
             embed = disnake.Embed(title=f"Successfully cleared ``{amount}`` warns of ``{member}``!", color=config.Success())
@@ -381,16 +399,19 @@ class moderation(commands.Cog):
                 return await inter.response.send_message(delete_after=15, embed=embed)
             with open('data/warns.json', 'r') as f:
                 warns = json.load(f)
-            if str(member.id) not in warns:
+            guild_id = str(inter.guild.id)
+            member_id = str(member.id)
+            if guild_id not in warns or member_id not in warns[guild_id]:
                 embed = disnake.Embed(title=f"``{member}`` has no warns!", color=config.Success())
                 embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
                 return await inter.response.send_message(embed=embed)
-            warns.pop(str(member.id))
-            with open('data/warns.json', 'w') as f:
-                json.dump(warns, f, indent=4)
-            embed = disnake.Embed(title=f"Successfully cleared all warns of ``{member}``!", color=config.Success())
-            embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
-            await inter.response.send_message(embed=embed)
+            else:
+                warns[guild_id].pop(member_id)
+                with open('data/warns.json', 'w') as f:
+                    json.dump(warns, f, indent=4)
+                embed = disnake.Embed(title=f"Successfully cleared all warns of ``{member}``!", color=config.Success())
+                embed.set_footer(text=f'Checked by {inter.author}', icon_url=inter.author.avatar.url)
+                await inter.response.send_message(embed=embed)
         except Exception as e:
             print(f'Error sending clearallwarns command: {e}')
             await inter.send(embed=errors.create_error_embed(f"Error sending clearallwarns command: {e}"))

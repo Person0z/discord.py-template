@@ -27,6 +27,28 @@ bot = commands.Bot(
     owner_ids=config.owner_ids
 )
 
+
+# Create Missing Files
+db_f = "logging.db"
+file_names = ["levels.json", "tags.json", "warns.json"]
+dir_path = "data"
+
+for file_name in file_names:
+    file_path = os.path.join(dir_path, file_name)
+
+    if not os.path.exists(file_path):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w") as f:
+            f.write("{}")
+
+for db_f in db_f:
+    file_path = os.path.join(dir_path, db_f)
+
+    if not os.path.exists(file_path):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "w") as f:
+            f.write("")
+
 @bot.command()
 async def update(ctx):
     try:
@@ -67,7 +89,7 @@ async def update(ctx):
 # On Ready
 @bot.event
 async def on_ready():
-    if config.version != "1.5.7":
+    if config.version != "2.0.0":
         print('===============================================')
         print('WARNING! You are not using the latest version!')
         print('===============================================')
